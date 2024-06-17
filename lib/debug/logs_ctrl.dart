@@ -2,39 +2,41 @@ import 'package:get/get.dart';
 import '../tool/extensions/date_ext.dart';
 import '../tool/extensions/string_ext.dart';
 
-// /// log日志 ctrl控制器
-// class DevLogsEventSer extends GetxService {
-//   /// Ctrl instance
-//   static DevLogsEventSer get to =>
-//       GetInstance().putOrFind(() => DevLogsEventSer());
+export 'debug_config.dart';
 
-//   /// 是否开启
-//   final open = false.obs;
+/// log日志 ctrl控制器
+class DevLogsEventSer extends GetxService {
+  /// Ctrl instance
+  static DevLogsEventSer get to =>
+      GetInstance().putOrFind(() => DevLogsEventSer());
 
-//   final listLog = RxList<AppLogsEvent>([]);
+  /// 是否开启
+  final open = false.obs;
 
-//   @override
-//   void onInit() {
-//     clearLog();
-//     setOpen(true);
-//     super.onInit();
-//   }
+  final listLog = RxList<AppLogsEvent>([]);
 
-//   void setOpen(bool status) {
-//     open.value = status;
-//   }
+  @override
+  void onInit() {
+    clearLog();
+    setOpen(true);
+    super.onInit();
+  }
 
-//   void add(AppLogsEvent event) {
-//     if (!open.value) {
-//       return;
-//     }
-//     listLog.insert(0, event);
-//   }
+  void setOpen(bool status) {
+    open.value = status;
+  }
 
-//   void clearLog() {
-//     listLog.clear();
-//   }
-// }
+  void add(AppLogsEvent event) {
+    if (!open.value) {
+      return;
+    }
+    listLog.insert(0, event);
+  }
+
+  void clearLog() {
+    listLog.clear();
+  }
+}
 
 class AppLogsEvent {
   /// 类型
