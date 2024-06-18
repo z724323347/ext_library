@@ -9,7 +9,7 @@ const String _fontFamilyPingFang = 'PingFang';
 const String _fontFamilyDINCond = 'DIN';
 
 /// app 字体扩展
-extension TextStyleExt on TextStyle {
+extension LibTextStyleExt on TextStyle {
   /// textstyle  使用苹果平方字体
   TextStyle get copyFontF => copyWith(fontFamily: _fontFamilyPingFang);
 
@@ -17,7 +17,7 @@ extension TextStyleExt on TextStyle {
   TextStyle get copyFontD => copyWith(fontFamily: _fontFamilyDINCond);
 }
 
-extension AppText on Text {
+extension LibText on Text {
   Widget addStyle({
     TextStyle? style,
     Color? color,
@@ -35,7 +35,7 @@ extension AppText on Text {
   }
 }
 
-extension StyledText<T extends Text> on T {
+extension LibStyledText<T extends Text> on T {
   T copyWith({
     String? data,
     TextStyle? style,
@@ -102,7 +102,7 @@ extension StyledText<T extends Text> on T {
       this.copyWith(style: (style ?? const TextStyle()).copyWith(color: color));
 }
 
-extension EdgeInsetsDoubleExt on num {
+extension LibEdgeInsetsDoubleExt on num {
   /// 增加边距
   EdgeInsets get all => EdgeInsets.all(toDouble());
 
@@ -134,19 +134,19 @@ extension EdgeInsetsDoubleExt on num {
   SizedBox get sizeHeight => SizedBox(height: toDouble());
 }
 
-extension EdgeInsetsExt on EdgeInsets {
+extension LibEdgeInsetsExt on EdgeInsets {
   /// 增加水平/垂直边距 覆盖之前的属性
   EdgeInsets symmetric({double horizontal = 0.0, double vertical = 0.0}) {
     return EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical);
   }
 }
 
-extension RadiusExt on num {
+extension LibRadiusExt on num {
   /// 圆角
   Radius get radius => Radius.circular(toDouble());
 }
 
-extension WidgetOnNumExt on num {
+extension LibWidgetOnNumExt on num {
   /// 水平差距
   Widget get wGap => SizedBox(width: toDouble());
 
@@ -154,7 +154,7 @@ extension WidgetOnNumExt on num {
   Widget get hGap => SizedBox(height: toDouble());
 }
 
-extension BorderRadiusExt on num {
+extension LibBorderRadiusExt on num {
   /// 增加圆角
   BorderRadius get borderAll => BorderRadius.all(radius);
 
@@ -183,7 +183,7 @@ extension BorderRadiusExt on num {
   BorderRadius get borderBottomRight => BorderRadius.only(bottomRight: radius);
 }
 
-extension WidgetPaddingExt on Widget {
+extension LibWidgetExt on Widget {
   ///Padding all
   Widget pAll(double padding) =>
       Padding(padding: EdgeInsets.all(padding), child: this);
@@ -264,6 +264,23 @@ extension WidgetPaddingExt on Widget {
         }
       },
       behavior: HitTestBehavior.opaque,
+      child: this,
+    );
+  }
+
+  /// 添加点击事件
+  ///
+  /// vibr 是否带反馈
+  Widget onInkWell({void Function()? onTap, bool vibr = false}) {
+    return InkWell(
+      onTap: () {
+        if (onTap != null) {
+          onTap();
+        }
+        if (vibr) {
+          vibration();
+        }
+      },
       child: this,
     );
   }

@@ -6,7 +6,7 @@ import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import './num_ext.dart';
 
-extension StringExtNull on String? {
+extension LibStringExtNull on String? {
   /// 字符是否为空
   bool get isnull {
     if (this == null || this!.isEmpty || this?.toLowerCase() == 'null') {
@@ -28,7 +28,7 @@ extension StringExtNull on String? {
 }
 
 /// String 扩展函数
-extension StringExt on String {
+extension LibStringExt on String {
   static final RegExp pascalPattern = RegExp(r'[^0-9a-zA-Z]');
   static final RegExp snakePattern = RegExp(r'[^0-9a-z]');
 

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 typedef GestureOnTapChangeCallback = void Function(bool tapState);
 
-extension StyledWidget on Widget {
+extension LibStyledWidget on Widget {
   /// Applies a parent to a child
   /// ```dart
   /// final parentWidget = ({required Widget child}) => Styled.widget(child: child)

@@ -1,8 +1,6 @@
 import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
-import 'package:washine/app/utils/extensions.dart';
-import 'package:washine/ui/expandable_text.dart';
 import '../logs_ctrl.dart';
 
 class LogDebugPage extends StatefulWidget {
@@ -49,12 +47,12 @@ class _LogDebugPageState extends State<LogDebugPage> {
         setState(() {});
       },
       child: Container(
-        height: 40.w,
-        width: 40.w,
+        height: 40,
+        width: 40,
         alignment: Alignment.center,
         decoration: BoxDecoration(
           color: Colors.red,
-          borderRadius: BorderRadius.all(Radius.circular(20.w)),
+          borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         child: Icon(
           fold ? Icons.view_quilt_rounded : Icons.vertical_split_rounded,
@@ -117,7 +115,7 @@ class _LogDebugPageState extends State<LogDebugPage> {
       itemBuilder: (_, int index) {
         final item = ctrl.listLog[index];
         return Container(
-          padding: EdgeInsets.symmetric(horizontal: 5.w, vertical: 5),
+          padding: EdgeInsets.symmetric(horizontal: 5, vertical: 5),
           decoration: BoxDecoration(
             border: Border(
               bottom: BorderSide(color: Colors.grey.shade300, width: .5),
@@ -127,10 +125,10 @@ class _LogDebugPageState extends State<LogDebugPage> {
             crossAxisAlignment: CrossAxisAlignment.start,
             children: [
               Container(
-                width: 30.w,
+                width: 30,
                 alignment: Alignment.topLeft,
-                margin: EdgeInsets.only(top: 4.w),
-                color: Colors.purple,
+                margin: EdgeInsets.only(top: 4),
+                color: Colors.white,
                 child: Text(
                   index.limitMax(999),
                   textAlign: TextAlign.start,

@@ -5,7 +5,7 @@ import 'package:flutter/material.dart';
 
 /// Iterable/List 等 扩展函数
 ///
-extension IterableExt<T> on Iterable<T> {
+extension LibIterableExt<T> on Iterable<T> {
   List<T> divide(
     T divider, {
     bool addBefore = false,
@@ -27,7 +27,7 @@ extension IterableExt<T> on Iterable<T> {
 }
 
 // 给 数组类型添加扩展方法
-extension ListExt<T> on List<T> {
+extension LibListExt<T> on List<T> {
   Function get forEachIndex {
     return asMap().keys.toList().forEach;
   }
@@ -64,7 +64,7 @@ extension ListExt<T> on List<T> {
   }
 }
 
-extension ListViewExt<E> on List<Widget> {
+extension LibListViewExt<E> on List<Widget> {
   // /// listview  追加尾部
   Iterable<Widget> addFoot({required Widget child}) {
     return this..add(child);

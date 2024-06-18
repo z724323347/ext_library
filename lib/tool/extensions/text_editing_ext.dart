@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-extension TextEditingControllerExt on TextEditingController {
+extension LibTextEditingControllerExt on TextEditingController {
   void input(String data) {
     if (this == null) {
       return;

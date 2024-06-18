@@ -2,7 +2,7 @@ import 'dart:ui';
 import 'package:intl/intl.dart';
 
 /// APP  DateTime 转换
-class AppDateFormat {
+class LibDateFormat {
   static final DateFormat full = DateFormat('yyyy-MM-dd HH:mm:ss.SSS');
   static final DateFormat regular = DateFormat('yyyy-MM-dd HH:mm:ss');
   static final DateFormat regularDot = DateFormat('yyyy.MM.dd HH:mm:ss');
@@ -24,7 +24,7 @@ class AppDateFormat {
 }
 
 /// 时间 datetime 扩展函数
-extension AppDate on DateTime {
+extension LibDate on DateTime {
   /// 是否已经过期(对比系统时间)
   ///
   /// dateTime > sysTime, 已过期 return  true
@@ -48,7 +48,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.hh.format(this);
+    return LibDateFormat.hh.format(this);
   }
 
   /// 'HH:mm:ss'
@@ -56,7 +56,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.hrMinSec.format(this);
+    return LibDateFormat.hrMinSec.format(this);
   }
 
   /// 'mm:ss.SSS'
@@ -64,7 +64,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.msDotSS.format(this);
+    return LibDateFormat.msDotSS.format(this);
   }
 
   /// 'HH:mm:ss.SSS'
@@ -72,7 +72,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.hmsDotSS.format(this);
+    return LibDateFormat.hmsDotSS.format(this);
   }
 
   /// 'MM-dd'
@@ -80,7 +80,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.monDay.format(this);
+    return LibDateFormat.monDay.format(this);
   }
 
   /// 'MM-dd HH:mm'
@@ -88,7 +88,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.monDayHrMin.format(this);
+    return LibDateFormat.monDayHrMin.format(this);
   }
 
   /// 'MM-dd HH:mm:ss'
@@ -96,7 +96,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.monDayHrMinSec.format(this);
+    return LibDateFormat.monDayHrMinSec.format(this);
   }
 
   /// 'yyyy-MM-dd'
@@ -105,7 +105,7 @@ extension AppDate on DateTime {
       return '';
     }
 
-    return AppDateFormat.yrMonDay.format(this);
+    return LibDateFormat.yrMonDay.format(this);
   }
 
   /// 'yyyy-MM-dd HH:mm'
@@ -113,7 +113,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.yrMonDayHrMin.format(this);
+    return LibDateFormat.yrMonDayHrMin.format(this);
   }
 
   /// 'yyyy-MM-dd HH:mm:ss'
@@ -121,7 +121,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.regular.format(this);
+    return LibDateFormat.regular.format(this);
   }
 
   /// 'yyyy-MM-dd HH:mm:ss.SSS'
@@ -129,7 +129,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.full.format(this);
+    return LibDateFormat.full.format(this);
   }
 
   /// 'E, MM/dd/yyyy'  eg: Thu,12/14/2023
@@ -137,7 +137,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.eMDY.format(this);
+    return LibDateFormat.eMDY.format(this);
   }
 
   /// 'MMM dd, yyyy'  eg: Thu 21,2023
@@ -145,7 +145,7 @@ extension AppDate on DateTime {
     if (this == null || microsecondsSinceEpoch == 0) {
       return '';
     }
-    return AppDateFormat.anglicism.format(this);
+    return LibDateFormat.anglicism.format(this);
   }
 
   bool get isAfterNow {
@@ -157,7 +157,7 @@ extension AppDate on DateTime {
 }
 
 // ignore: avoid_classes_with_only_static_members
-class AppDateUtil {
+class LibDateUtil {
   static String formatTimestamp(
     int milliseconds, {
     DateFormat? format,
@@ -165,7 +165,7 @@ class AppDateUtil {
   }) {
     final DateTime dateTime =
         DateTime.fromMillisecondsSinceEpoch(milliseconds, isUtc: isUtc);
-    format ??= AppDateFormat.regular;
+    format ??= LibDateFormat.regular;
 
     return formatDateTime(dateTime, format: format);
   }
@@ -186,7 +186,7 @@ class AppDateUtil {
     DateTime dateTime, {
     DateFormat? format,
   }) {
-    format ??= AppDateFormat.regular;
+    format ??= LibDateFormat.regular;
     return format.format(dateTime);
   }
 

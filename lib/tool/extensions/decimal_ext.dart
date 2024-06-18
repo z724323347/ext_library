@@ -10,7 +10,7 @@ final k100D = Decimal.fromInt(100);
 /// 10 的8次方
 final pow8 = math.pow(10, 8);
 
-extension NullDecimalExt on Decimal? {
+extension LibNullDecimalExt on Decimal? {
   Decimal get safety {
     if (this == null) {
       return Decimal.zero;
@@ -19,7 +19,7 @@ extension NullDecimalExt on Decimal? {
   }
 }
 
-extension DecimalExt on Decimal {
+extension LibDecimalExt on Decimal {
   Decimal get safety {
     if (this == null) {
       return Decimal.zero;

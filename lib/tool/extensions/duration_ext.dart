@@ -1,5 +1,5 @@
 /// 时间 datetime 扩展函数
-extension AppDuration on Duration {
+extension LibDurationExt on Duration {
   String get hms {
     final int all = inSeconds;
     if (all < 0) {

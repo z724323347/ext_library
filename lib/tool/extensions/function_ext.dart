@@ -7,7 +7,7 @@ import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
 /// VoidCallback 扩展函数
-extension VoidCallbackExt on VoidCallback {
+extension LibVoidCallbackExt on VoidCallback {
   /// 函数防抖
   ///
   /// [func]: 要执行的方法

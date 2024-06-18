@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
-import 'package:washine/app/views/custom_app_bar.dart';
 
 import '../logs_ctrl.dart';
 import 'log_debug_page.dart';
@@ -28,7 +27,7 @@ class _DebugPageState extends State<DebugPage> {
     if (widget.debugView != null && widget.debugView!.isNotEmpty) {
       tabBarInfos = widget.debugView!;
     }
-    setState(() { });
+    setState(() {});
     SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
   }
 
@@ -44,8 +43,9 @@ class _DebugPageState extends State<DebugPage> {
       length: tabBarInfos.length,
       child: Scaffold(
         backgroundColor: Colors.white,
-        appBar: CustomAppBar(
-          title: 'Debug',
+        appBar: AppBar(
+          backgroundColor: Colors.grey.shade300,
+          title: Text('Debug'),
           actions: [
             InkWell(
               onTap: () => DevLogsEventSer.to.clearLog(),
@@ -70,6 +70,9 @@ class _DebugPageState extends State<DebugPage> {
               color: Colors.grey[200],
               child: TabBar(
                 isScrollable: true,
+                unselectedLabelColor: Colors.black26,
+                labelColor: Colors.red,
+                indicatorColor: Colors.red,
                 tabs: tabBarInfos.keys.map((e) => Tab(text: e)).toList(),
               ),
             ),

@@ -27,7 +27,7 @@ const Map<Metering, String> MeteringSymbolMap = <Metering, String>{
   Metering.B: _GSymbol,
 };
 
-extension NumExtNull on num? {
+extension LibNumExtNull on num? {
   /// num 转 int  (空安全)
   int get safety {
     if (this == null) {
@@ -67,7 +67,7 @@ extension NumExtNull on num? {
 }
 
 /// 数字  扩展函数
-extension NumExt on num {
+extension LibNumExt on num {
   /// num 转 string
   String get ts => this == null ? '' : '$this';
 

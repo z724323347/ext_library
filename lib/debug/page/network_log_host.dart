@@ -1,5 +1,7 @@
+import 'package:ext_library/tool/extensions/function_ext.dart';
+import 'package:ext_library/tool/extensions/string_ext.dart';
+import 'package:ext_library/tool/extensions/text_editing_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:washine/app_export.dart';
 
 /// 网络设置相关
 class NetworkLogHostPage extends StatefulWidget {
@@ -78,7 +80,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         const SizedBox(height: 40),
         Text(
           '当前Config:\n${widget.baseUri.toString().fixLines}',
-          style: style(color: Colors.green),
+          style: TextStyle(color: Colors.green),
           maxLines: 99,
         )
       ],
@@ -94,11 +96,11 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
             child: TextField(
               controller: _webController,
               keyboardType: TextInputType.url,
-              style: style(),
+              style: TextStyle(),
               decoration: InputDecoration(
                 hintText: '输入web地址',
-                hintStyle:
-                    style(color: Colors.grey.withOpacity(0.5), fontSize: 12),
+                hintStyle: TextStyle(
+                    color: Colors.grey.withOpacity(0.5), fontSize: 12),
                 suffixIcon: InkWell(
                   onTap: () {
                     _webController.input('');
@@ -123,7 +125,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
               foregroundColor: MaterialStateProperty.all(Colors.white),
               backgroundColor: MaterialStateProperty.all(Colors.orange),
             ),
-            child: Text('进入Web', style: style()),
+            child: Text('进入Web', style: TextStyle()),
           ),
         ],
       ),
@@ -270,7 +272,7 @@ class EnvAlertDialog extends StatelessWidget {
           Container(
             margin: const EdgeInsets.all(5),
             padding: const EdgeInsets.only(top: 10),
-            child: Text(title ?? '', style: style(color: Colors.red)),
+            child: Text(title ?? '', style: TextStyle(color: Colors.red)),
           ),
           Expanded(
             child: withCancel
