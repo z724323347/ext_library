@@ -148,7 +148,8 @@ class _LogDebugPageState extends State<LogDebugPage> {
                           text: '日志:  ${item.msg}'.fixLines,
                           textStyle:
                               TextStyle(color: Colors.lightBlue, fontSize: 12),
-                          buttonTextStyle: TextStyle(fontSize: 12),
+                          buttonTextStyle:
+                              TextStyle(fontSize: 12, color: Colors.orange),
                           initLength: 300,
                           expanded: (v) {
                             setState(() {});

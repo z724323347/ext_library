@@ -358,6 +358,24 @@ extension LibStringExt on String {
     return nUrl;
   }
 
+  /// URL 添加参数
+  String urlAddParams({Map<String, dynamic>? params}) {
+    if (isnull) {
+      return '';
+    }
+    if (params == null) {
+      return this;
+    }
+    final uri = Uri.parse(this);
+    final query = uri.queryParameters;
+    final Map<String, dynamic> result = {};
+    result
+      ..addAll(query)
+      ..addAll(params);
+    String url = uri.replace(queryParameters: result).toString();
+    return url;
+  }
+
   /// 获取文件名 和 文件后缀
   ///
   /// withExt = true  (/path/xxx.jpg) reture xxx.jpg

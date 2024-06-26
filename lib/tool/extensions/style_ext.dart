@@ -11,10 +11,12 @@ const String _fontFamilyDINCond = 'DIN';
 /// app 字体扩展
 extension LibTextStyleExt on TextStyle {
   /// textstyle  使用苹果平方字体
-  TextStyle get copyFontF => copyWith(fontFamily: _fontFamilyPingFang);
+  // TextStyle get copyFontF =>
+  //     copyWith(fontFamily: _fontFamilyPingFang, package: 'ext_library');
 
-  /// textstyle  使用DIN字体
-  TextStyle get copyFontD => copyWith(fontFamily: _fontFamilyDINCond);
+  // /// textstyle  使用DIN字体
+  // TextStyle get copyFontD =>
+  //     copyWith(fontFamily: _fontFamilyDINCond, package: 'ext_library');
 }
 
 extension LibText on Text {

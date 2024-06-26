@@ -8,10 +8,12 @@ class ToastText extends StatelessWidget {
     Key? key,
     this.icon,
     this.text,
+    this.textColor,
   }) : super(key: key);
 
   final IconData? icon;
   final String? text;
+  final Color? textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -29,7 +31,7 @@ class ToastText extends StatelessWidget {
             Flexible(
               child: Text(
                 text!,
-                style: const TextStyle(color: Colors.white),
+                style: TextStyle(color: textColor ?? Colors.white),
               ),
             ),
         ].divide(const SizedBox(height: 4)),

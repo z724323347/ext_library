@@ -1,4 +1,5 @@
 import 'package:bot_toast/bot_toast.dart';
+import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
@@ -23,6 +24,7 @@ class AppToast {
     bool crossPage,
     bool clickClose,
     Color backgroundColor,
+    Color? textColor,
     Duration duration,
     VoidCallback? onClose,
   }) get show => showText;
@@ -35,6 +37,7 @@ class AppToast {
     bool clickClose = false,
     bool ignoreContentClick = false,
     Color backgroundColor = Colors.transparent,
+    Color? textColor,
     Duration duration = _duration,
     VoidCallback? onClose,
   }) {
@@ -42,7 +45,7 @@ class AppToast {
       return () {};
     }
     return showWidget(
-      ToastText(icon: icon, text: text),
+      ToastText(icon: icon, text: text, textColor: textColor),
       alignment: alignment,
       crossPage: crossPage,
       clickClose: clickClose,
@@ -57,11 +60,13 @@ class AppToast {
     String? text, {
     IconData? icon,
     AlignmentGeometry? alignment,
+    Color? textColor,
   }) {
     return showText(
       text,
       icon: icon ?? Icons.check_circle_outline,
       alignment: alignment,
+      textColor: textColor,
     );
   }
 
@@ -69,11 +74,13 @@ class AppToast {
     String? text, {
     IconData? icon,
     AlignmentGeometry? alignment,
+    Color? textColor,
   }) {
     return showText(
       text,
       icon: icon ?? Icons.highlight_off,
       alignment: alignment,
+      textColor: textColor ?? Colors.red.shade200,
     );
   }
 
@@ -104,7 +111,9 @@ class AppToast {
         return SafeArea(
           child: Align(
             alignment: alignment ?? Alignment.center,
-            child: child,
+            child: alignment == Alignment.bottomCenter
+                ? child.pOnly(bottom: 60)
+                : child,
           ),
         );
       },

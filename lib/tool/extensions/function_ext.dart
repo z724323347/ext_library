@@ -1,10 +1,63 @@
 // ignore_for_file: strict_raw_type, prefer_function_declarations_over_variables
 
 import 'dart:async';
+import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
+
+extension LibFutureExt on Future {}
+
+extension LibFutureFunctionExt on Future Function() {
+  Future _debounces<T>([
+    Duration delay = const Duration(milliseconds: 300),
+  ]) async {
+    final completer = Completer<T>();
+
+    void _cancel() {
+      if (!completer.isCompleted) {
+        completer.completeError(Exception());
+      }
+    }
+
+    void _execute() async {
+      _cancel(); // Cancel any pending operation
+      try {
+        final value = await this();
+        if (!completer.isCompleted) {
+          completer.complete(value);
+        }
+      } catch (e) {
+        if (!completer.isCompleted) {
+          completer.completeError(e);
+        }
+      }
+    }
+
+    Timer? timer;
+    timer = Timer(delay, () async {
+      timer?.cancel();
+      _execute();
+    });
+
+    return completer.future;
+  }
+
+  Future<T> isMobile<T>() async {
+    final completer = Completer<T>();
+    if (Platform.isAndroid || Platform.isIOS) {
+      final value = await this();
+      if (!completer.isCompleted) {
+        completer.complete(value);
+      }
+      return completer.future;
+    } else {
+      print('logs Platform: ${Platform.operatingSystem} ');
+      return await Future.value(null);
+    }
+  }
+}
 
 /// VoidCallback 扩展函数
 extension LibVoidCallbackExt on VoidCallback {
@@ -75,6 +128,16 @@ extension LibVoidCallbackExt on VoidCallback {
     };
     return target;
   }
+
+  /// 是否是移动端
+  VoidCallback isMobile() {
+    if (Platform.isAndroid || Platform.isIOS) {
+      return this;
+    } else {
+      print('logs object');
+      return () {};
+    }
+  }
 }
 
 extension FunctionExt<T> on Function(T) {
@@ -106,6 +169,14 @@ extension FunctionExt<T> on Function(T) {
       });
     };
     return target;
+  }
+
+  Function isMobile() {
+    if (Platform.isAndroid || Platform.isIOS) {
+      return this;
+    } else {
+      return () {};
+    }
   }
 }
 

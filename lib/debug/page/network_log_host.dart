@@ -1,13 +1,28 @@
+import 'dart:io';
+
 import 'package:ext_library/tool/extensions/function_ext.dart';
 import 'package:ext_library/tool/extensions/string_ext.dart';
 import 'package:ext_library/tool/extensions/text_editing_ext.dart';
+import 'package:ext_library/ui/toast/toast.dart';
 import 'package:flutter/material.dart';
 
 /// 网络设置相关
 class NetworkLogHostPage extends StatefulWidget {
   Uri? baseUri;
-  Function(Uri? baseUri, {bool? isSuccess})? onChange;
-  NetworkLogHostPage({Key? key, this.baseUri, this.onChange}) : super(key: key);
+  String? appConfig;
+  Function(Uri? uri)? onChange;
+  Function(String url)? toWebView;
+  VoidCallback? doRelease;
+  VoidCallback? doDevelop;
+  NetworkLogHostPage({
+    Key? key,
+    this.baseUri,
+    this.appConfig,
+    this.onChange,
+    this.toWebView,
+    this.doRelease,
+    this.doDevelop,
+  }) : super(key: key);
 
   @override
   _NetworkLogHostPageState createState() => _NetworkLogHostPageState();
@@ -48,7 +63,9 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
     }
   }
 
-  void reStart() {}
+  void reStart() {
+    exit(0);
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -64,9 +81,10 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
             final isHttpUrl = newUri != null &&
                 newUri.scheme.startsWith(RegExp('^[https|http]'));
             if (newUri != null && isHttpUrl && !newUri.host.isnull) {
-              await setUrl(newUri.origin).then((value) => Future.delayed(
-                  const Duration(milliseconds: 1000), () => reStart()));
-            } else {}
+              await setUrl(newUri.origin);
+            } else {
+              AppToast.showText('Url格式错误');
+            }
           },
         ),
         _buildFastSwitch(),
@@ -79,7 +97,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         _buildUriItem(des: '测试2', uri: 'http://beta2'),
         const SizedBox(height: 40),
         Text(
-          '当前Config:\n${widget.baseUri.toString().fixLines}',
+          '当前Config:\n${widget.appConfig ?? widget.baseUri.toString().fixLines}',
           style: TextStyle(color: Colors.green),
           maxLines: 99,
         )
@@ -116,9 +134,11 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
               final isHttpUrl = !_webController.text.isnull &&
                   _webController.text.startsWith(RegExp('^[https|http]'));
               if (isHttpUrl) {
-                // AppRoutes.to(AppletWebviewPage(url: 'https://www.baidu.com'));
+                if (widget.toWebView != null) {
+                  widget.toWebView!(_webController.text);
+                }
               } else {
-                // Toast.showText(' Web Url格式错误');
+                AppToast.showText(' Web Url格式错误');
               }
             }.keyBoard(),
             style: ButtonStyle(
@@ -184,7 +204,11 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
       children: [
         Expanded(
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              if (widget.doRelease != null) {
+                widget.doRelease!();
+              }
+            },
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all(Colors.white),
               backgroundColor: MaterialStateProperty.all(Colors.green),
@@ -195,7 +219,11 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         const SizedBox(width: 20),
         Expanded(
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              if (widget.doDevelop != null) {
+                widget.doDevelop!();
+              }
+            },
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all(Colors.white),
               backgroundColor: MaterialStateProperty.all(Colors.orangeAccent),
