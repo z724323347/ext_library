@@ -274,6 +274,7 @@ extension LibStyledWidget on Widget {
         height: height,
         child: this,
       );
+  Widget fill({Key? key}) => Positioned.fill(key: key, child: this);
 
   Widget safeArea({
     Key? key,

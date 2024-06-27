@@ -3,6 +3,7 @@ import 'dart:io';
 import 'package:ext_library/tool/extensions/function_ext.dart';
 import 'package:ext_library/tool/extensions/string_ext.dart';
 import 'package:ext_library/tool/extensions/text_editing_ext.dart';
+import 'package:ext_library/tool/tool_lib.dart';
 import 'package:ext_library/ui/toast/toast.dart';
 import 'package:flutter/material.dart';
 
@@ -73,7 +74,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
       padding: const EdgeInsets.symmetric(horizontal: 15, vertical: 5),
       children: <Widget>[
         _buildInputHost(
-          currUrl: '当前使用域名：${currUri?.origin}',
+          currUrl: '当前域名：${currUri?.origin}',
           controller: _domainController,
           hintText: '请输入新域名: scheme://host:port',
           onTap: () async {
@@ -91,10 +92,9 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         const SizedBox(height: 10),
         _buildInputUrl(),
         const SizedBox(height: 40),
-        _buildUriItem(des: '正式', uri: 'https://'),
+        _buildUriItem(des: '正式', uri: 'https://api.washine.app'),
         _buildUriItem(des: '预发布', uri: 'http://pre'),
-        _buildUriItem(des: '测试1', uri: 'http://beta'),
-        _buildUriItem(des: '测试2', uri: 'http://beta2'),
+        _buildUriItem(des: '测试', uri: 'https://dev.wapen.app'),
         const SizedBox(height: 40),
         Text(
           '当前Config:\n${widget.appConfig ?? widget.baseUri.toString().fixLines}',
@@ -264,7 +264,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
           ),
           const Spacer(),
           InkWell(
-            // onTap: () => AppUtil.copy(uri),
+            onTap: () => LibTools.copy(uri),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               decoration: const BoxDecoration(

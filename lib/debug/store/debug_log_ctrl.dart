@@ -5,6 +5,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 
 import '../log_manager.dart';
+import '../page/fps_log_float.dart';
 import '../page/network_log_float.dart';
 
 /// DebugLogSer service控制器
@@ -28,6 +29,15 @@ class DebugLogSer extends GetxService implements LogManager {
 
   void toFps(BuildContext context) {
     openFps.value = !openFps.value;
+    if (openFps.value) {
+      _fpsOverlayEntry = OverlayEntry(builder: (BuildContext context) {
+        return const FpsLogFloat();
+      });
+      Overlay.of(context).insert(_fpsOverlayEntry!);
+    } else {
+      _fpsOverlayEntry?.remove();
+      _fpsOverlayEntry = null;
+    }
   }
 
   void toggle(BuildContext context) {

@@ -8,17 +8,6 @@ import 'package:mobx/mobx.dart';
 import '../log_manager.dart';
 import '../store/debug_log_ctrl.dart';
 
-/// APP 文本复制
-void copy(String? text, {String? tipText}) {
-  if (text.isnull) {
-    return;
-  }
-  final ClipboardData data = ClipboardData(text: text.safety);
-  Clipboard.setData(data);
-  AppToast.showSuccess(tipText ?? '复制成功');
-  HapticFeedback.mediumImpact();
-}
-
 class NetworkLogMainPage extends StatefulWidget {
   const NetworkLogMainPage({Key? key}) : super(key: key);
 
@@ -282,7 +271,7 @@ class _ListItemState extends State<ListItem> {
                   visible: copyEnable,
                   child: InkWell(
                     onTap: () {
-                      copy(content.replaceAll('\u{200B}', ''));
+                      LibTools.copy(content.replaceAll('\u{200B}', ''));
                     },
                     child: Container(
                       color: Colors.transparent,
