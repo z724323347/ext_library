@@ -41,6 +41,9 @@ extension LibStyledText<T extends Text> on T {
   T copyWith({
     String? data,
     TextStyle? style,
+    Color? color,
+    double? fontSize,
+    FontWeight? fontWeight,
     StrutStyle? strutStyle,
     TextAlign? textAlign,
     TextDirection? textDirection,
@@ -54,7 +57,12 @@ extension LibStyledText<T extends Text> on T {
   }) =>
       Text(
         data ?? this.data ?? '',
-        style: style ?? this.style,
+        style: style ??
+            this.style?.copyWith(
+                  color: color ?? this.style?.color,
+                  fontSize: fontSize ?? this.style?.fontSize,
+                  fontWeight: fontWeight ?? this.style?.fontWeight,
+                ),
         strutStyle: strutStyle ?? this.strutStyle,
         textAlign: textAlign ?? this.textAlign,
         locale: locale ?? this.locale,
@@ -102,6 +110,9 @@ extension LibStyledText<T extends Text> on T {
 
   T textColor(Color? color) =>
       this.copyWith(style: (style ?? const TextStyle()).copyWith(color: color));
+
+  T font(String? fontFamily) => this.copyWith(
+      style: (style ?? const TextStyle()).copyWith(fontFamily: fontFamily));
 }
 
 extension LibEdgeInsetsDoubleExt on num {
@@ -138,8 +149,12 @@ extension LibEdgeInsetsDoubleExt on num {
 
 extension LibEdgeInsetsExt on EdgeInsets {
   /// 增加水平/垂直边距 覆盖之前的属性
-  EdgeInsets symmetric({double horizontal = 0.0, double vertical = 0.0}) {
-    return EdgeInsets.symmetric(horizontal: horizontal, vertical: vertical);
+  ///
+  ///  h => horizontal
+  ///
+  ///  v => vertical
+  EdgeInsets symmetric({double h = 0.0, double v = 0.0}) {
+    return EdgeInsets.symmetric(horizontal: h, vertical: v);
   }
 }
 

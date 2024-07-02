@@ -21,7 +21,7 @@ class DebugLogSer extends GetxService implements LogManager {
   OverlayEntry? _fpsOverlayEntry;
   StreamSubscription? _subscription;
 
-  final openLog = false.obs;
+  final openLog = true.obs;
 
   final openFps = false.obs;
 

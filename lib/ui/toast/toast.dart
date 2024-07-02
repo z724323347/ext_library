@@ -74,6 +74,7 @@ class AppToast {
     String? text, {
     IconData? icon,
     AlignmentGeometry? alignment,
+    Duration? duration,
     Color? textColor,
   }) {
     return showText(
@@ -81,6 +82,7 @@ class AppToast {
       icon: icon ?? Icons.highlight_off,
       alignment: alignment,
       textColor: textColor ?? Colors.red.shade200,
+      duration: duration ?? _duration,
     );
   }
 
@@ -88,11 +90,13 @@ class AppToast {
     String? text, {
     IconData? icon,
     AlignmentGeometry? alignment,
+    Duration? duration,
   }) {
     return showText(
       text,
       icon: icon ?? Icons.info_outline,
       alignment: alignment,
+      duration: duration ?? _duration,
     );
   }
 
@@ -112,7 +116,7 @@ class AppToast {
           child: Align(
             alignment: alignment ?? Alignment.center,
             child: alignment == Alignment.bottomCenter
-                ? child.pOnly(bottom: 60)
+                ? child.pOnly(bottom: 80)
                 : child,
           ),
         );
