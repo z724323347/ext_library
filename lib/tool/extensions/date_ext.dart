@@ -43,6 +43,24 @@ extension LibDate on DateTime {
     return false;
   }
 
+  /// 当前时间
+  DateTime get nowTime => DateTime.now();
+
+  /// 自定义格式化  eg format: yyyy-MM-dd HH:mm:ss
+  String custom(String? format) {
+    if (this == null || microsecondsSinceEpoch == 0) {
+      return '';
+    }
+    if (format == null) {
+      return regular;
+    }
+    try {
+      return DateFormat('$format').format(this);
+    } catch (e) {
+      return '';
+    }
+  }
+
   /// 'HH'
   String get hh {
     if (this == null || microsecondsSinceEpoch == 0) {
