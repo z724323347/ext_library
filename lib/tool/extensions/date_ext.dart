@@ -23,6 +23,17 @@ class LibDateFormat {
   static final DateFormat anglicism = DateFormat('MMM dd, yyyy');
 }
 
+extension LibNullDate on DateTime? {
+  /// 'yyyy-MM-dd'
+  String get ymd {
+    if (this == null || this?.microsecondsSinceEpoch == 0) {
+      return '';
+    }
+
+    return LibDateFormat.yrMonDay.format(this!);
+  }
+}
+
 /// 时间 datetime 扩展函数
 extension LibDate on DateTime {
   /// 是否已经过期(对比系统时间)

@@ -307,8 +307,8 @@ extension LibWidgetExt on Widget {
   //   return Expanded(flex: flex, child: this);
   // }
 
-  /// 是否可见
-  Widget visible({bool visible = true}) {
+  /// 是否可见(默认可见)  visible=true
+  Widget visible([bool visible = true]) {
     return Visibility(
       visible: visible,
       child: this,

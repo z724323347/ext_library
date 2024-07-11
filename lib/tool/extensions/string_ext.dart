@@ -25,6 +25,26 @@ extension LibStringExtNull on String? {
 
   /// 去除空格
   String get trim => toString().trim();
+
+  /// String => DateTime
+  DateTime? get dateTime {
+    if (isnull) {
+      return null;
+    }
+    final reg = RegExp(r'^\d+$');
+    if (reg.hasMatch(toString())) {
+      try {
+        return '$this'.toInt.dateTime;
+      } catch (e) {
+        return null;
+      }
+    }
+    try {
+      return DateTime.parse(this!);
+    } catch (e) {
+      return null;
+    }
+  }
 }
 
 /// String 扩展函数
@@ -188,6 +208,7 @@ extension LibStringExt on String {
   //   return trimmed;
   // }
 
+  /// String => DateTime
   DateTime get dateTime {
     if (isnull) {
       return DateTime.now();
@@ -222,14 +243,14 @@ extension LibStringExt on String {
     }
   }
 
-  // /// 去掉小数部分
-  // String get removeDecimal {
-  //   String _str = this;
-  //   if (contains('.')) {
-  //     _str = split('.')[0];
-  //   }
-  //   return _str;
-  // }
+  /// 去掉小数部分
+  String get removeDecimal {
+    String _str = this;
+    if (contains('.')) {
+      _str = split('.')[0];
+    }
+    return _str;
+  }
 
   /// 格式化 自定义整数千分位
   String thousandsCustom({String format = '#,###'}) {
