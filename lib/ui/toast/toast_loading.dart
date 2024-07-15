@@ -1,6 +1,7 @@
 import 'package:ext_library/tool/extensions/iterable_ext.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter_spinkit/flutter_spinkit.dart';
 
 import 'toast_container.dart';
 
@@ -39,24 +40,30 @@ class ToastLoading extends StatelessWidget {
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          const SizedBox(
-            width: 20,
-            height: 20,
-          ),
-          const SizedBox(
+          const SizedBox(width: 20, height: 20),
+          SizedBox(
             width: 32,
             height: 32,
-            child: CircularProgressIndicator(
-              // backgroundColor: Colors.grey,
-              valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
-              strokeWidth: 3.0,
-            ),
+            // child: CircularProgressIndicator(
+            //   valueColor: AlwaysStoppedAnimation<Color>(Colors.white),
+            //   strokeWidth: 3.0,
+            // ),
+            child: buildStaggeredDots(),
           ),
-          const SizedBox(
-            height: 2,
-          ),
+          const SizedBox(height: 2),
           if (textWidget != null) Flexible(child: textWidget),
         ].divide(const SizedBox(height: 8)),
+      ),
+    );
+  }
+
+  Widget buildStaggeredDots() {
+    return Container(
+      height: 32,
+      alignment: Alignment.center,
+      child: Column(
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: [SpinKitCircle(color: Colors.white, size: 32)],
       ),
     );
   }

@@ -194,6 +194,9 @@ class LogManager {
     if (method.toLowerCase() == 'post') {
       params = 'POST:\n参数:$postParams\n文件:$postFields';
     }
+    if (method.toLowerCase() == 'put') {
+      params = 'PUT:\n参数:$postParams\n文件:$postFields';
+    }
 
     // header信息
     final Map<String, dynamic> header = request.headers;

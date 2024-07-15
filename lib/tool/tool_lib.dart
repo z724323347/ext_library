@@ -14,6 +14,7 @@ export './extensions/string_ext.dart';
 export './extensions/string_to_builder.dart';
 export './extensions/text_editing_ext.dart';
 export './extensions/widget_ext.dart';
+export './extensions/object_ext.dart';
 
 class LibTools {
   /// APP 文本复制

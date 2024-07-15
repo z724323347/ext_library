@@ -170,22 +170,3 @@ extension LibListViewExt<E> on List<Widget> {
         children: this,
       );
 }
-
-extension MapExt on Map<String, dynamic> {
-  Map<String, dynamic> add({String? k, dynamic v}) {
-    if (k != null || k!.isNotEmpty) {
-      this[k] = v;
-    }
-    return this;
-  }
-
-  /// 移除多少项
-  Map<String, dynamic> rmLength({int count = 10}) {
-    if (length > count) {
-      for (var i = 0; i < count; i++) {
-        remove(keys.last);
-      }
-    }
-    return this;
-  }
-}
