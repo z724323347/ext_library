@@ -328,4 +328,12 @@ extension LibWidgetExt on Widget {
       child: this,
     );
   }
+
+  ///
+  Widget clipR({Radius radius = const Radius.circular(10)}) {
+    return ClipRRect(
+      borderRadius: BorderRadius.all(radius),
+      child: this,
+    );
+  }
 }

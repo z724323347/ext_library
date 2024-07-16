@@ -228,4 +228,19 @@ extension LibNumExt on num {
       );
     }
   }
+
+  /// 89 => 01:29 的时间格式
+  String get formatFor00 {
+    int minutes = this ~/ 60;
+    int remaining = toInt() % 60;
+    if (minutes < 1) {
+      if (remaining < 10) {
+        return '00:0$remaining';
+      }
+      return '00:$remaining';
+    }
+    String formattedTime =
+        '${minutes.toString().padLeft(2, '0')}:${remaining.toString().padLeft(2, '0')}';
+    return formattedTime;
+  }
 }
