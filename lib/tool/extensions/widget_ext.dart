@@ -23,6 +23,11 @@ extension LibStyledWidget on Widget {
   /// Applies a child to a center
   Widget center({Key? key}) => Center(child: this);
 
+  Widget align({Key? key, AlignmentGeometry? alignment}) => Container(
+        alignment: alignment,
+        child: this,
+      );
+
   Widget padding({
     Key? key,
     double? all,
