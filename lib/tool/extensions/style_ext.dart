@@ -277,7 +277,7 @@ extension LibWidgetExt on Widget {
           onTap();
         }
         if (vibr) {
-          vibration();
+          libVibration();
         }
       },
       behavior: HitTestBehavior.opaque,
@@ -295,7 +295,7 @@ extension LibWidgetExt on Widget {
           onTap();
         }
         if (vibr) {
-          vibration();
+          libVibration();
         }
       },
       child: this,

@@ -181,7 +181,7 @@ extension FunctionExt<T> on Function(T) {
 }
 
 /// 振动  levle = 0 为重震动 1 为中震动 2 为轻震动
-void vibration({int levle = 0}) {
+void libVibration({int levle = 0}) {
   if (levle == 0) {
     HapticFeedback.heavyImpact();
     return;
