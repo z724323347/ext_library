@@ -3,6 +3,8 @@
 import 'dart:async';
 import 'dart:io';
 
+import 'package:ext_library/lib_ext.dart';
+import 'package:ext_library/log_util.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
@@ -106,7 +108,7 @@ extension LibVoidCallbackExt on VoidCallback {
   /// [func]: 要执行的方法
   VoidCallback vibration() {
     final VoidCallback target = () {
-      vibration();
+      libVibration();
       this.call();
     };
     return target;
@@ -129,12 +131,22 @@ extension LibVoidCallbackExt on VoidCallback {
     return target;
   }
 
+  /// 延迟执行
+  VoidCallback delayed([Duration delay = const Duration(milliseconds: 300)]) {
+    final VoidCallback target = () {
+      Future.delayed(delay, () {
+        this.call();
+      });
+    };
+    return target;
+  }
+
   /// 是否是移动端
   VoidCallback isMobile() {
     if (Platform.isAndroid || Platform.isIOS) {
       return this;
     } else {
-      print('logs object');
+      devLogs('logs object');
       return () {};
     }
   }
