@@ -126,38 +126,60 @@ extension LibNullObject on Object? {
   }
 }
 
-extension LibMap<K, V> on Map<K, V> {
+extension LibMap<K, V> on Map<K, V>? {
   Map<K, V> get removeNull {
-    return this..removeWhere((key, value) => value == null);
+    if (this == null) {
+      return {};
+    }
+    return this!..removeWhere((key, value) => value == null || value == '');
   }
 
   Map<K, V> removeKey(key) {
-    return this..remove(key);
+    if (this == null) {
+      return {};
+    }
+    return this!..remove(key);
   }
 
   Map<K, V> addKeyV(Map<K, V>? data) {
-    if (data == null) {
-      return this;
+    if (this == null) {
+      if (data == null) {
+        return {};
+      }
+      return {}..addAll(data);
     }
-    return this..addAll(data);
+    return this!..addAll(data!);
   }
 }
 
-// extension LIbMapExt on Map<String, dynamic> {
-//   Map<String, dynamic> add({String? k, dynamic v}) {
-//     if (k != null || k!.isNotEmpty) {
-//       this[k] = v;
+// extension LIbMapExt on Map? {
+//   Map get removeNull {
+//     if (this == null) {
+//       return {};
 //     }
-//     return this;
+//     return this!..removeWhere((key, value) => value == null);
+//   }
+
+//   Map add({String? k, dynamic v}) {
+//     if (this == null) {
+//       return {};
+//     }
+//     if (k != null || k!.isNotEmpty) {
+//       this![k] = v;
+//     }
+//     return this!;
 //   }
 
 //   /// 移除多少项
-//   Map<String, dynamic> rmLength({int count = 10}) {
-//     if (length > count) {
+//   Map rmLength({int count = 10}) {
+//     if (this == null) {
+//       return {};
+//     }
+//     if (this!.length > count) {
 //       for (var i = 0; i < count; i++) {
-//         remove(keys.last);
+//         this!.remove(this!.keys.last);
 //       }
 //     }
-//     return this;
+//     return this!;
 //   }
 // }

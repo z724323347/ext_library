@@ -148,12 +148,14 @@ class AppToast {
     bool crossPage = false,
     bool clickClose = false,
     Color backgroundColor = Colors.transparent,
+    Color? color,
   }) {
     return BotToast.showCustomLoading(
       toastBuilder: (CancelFunc cancelFunc) {
         return ToastLoading(
           text,
           textListenable: textListenable,
+          color: color,
         );
       },
       clickClose: clickClose,

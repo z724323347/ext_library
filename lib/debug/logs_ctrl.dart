@@ -15,6 +15,12 @@ class DevLogsEventSer extends GetxService {
 
   final listLog = RxList<AppLogsEvent>([]);
 
+  final filterLog = RxList<AppLogsEvent>([]);
+
+  final foldUp = false.obs;
+
+  final hasFilter = false.obs;
+
   @override
   void onInit() {
     clearLog();
@@ -31,10 +37,29 @@ class DevLogsEventSer extends GetxService {
       return;
     }
     listLog.insert(0, event);
+    logFilter();
   }
 
   void clearLog() {
     listLog.clear();
+  }
+
+  void logFilter({String? text}) {
+    if (text == null || text.isEmpty) {
+      filterLog.value = listLog;
+      return;
+    }
+    filterLog.value = listLog.where((item) {
+      return item.file!.contains(text) || item.msg!.contains(text);
+    }).toList();
+  }
+
+  void setStyle() {
+    foldUp.value = !foldUp.value;
+  }
+
+  void setFilter() {
+    hasFilter.value = !hasFilter.value;
   }
 }
 

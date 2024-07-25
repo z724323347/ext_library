@@ -10,9 +10,11 @@ class ToastLoading extends StatelessWidget {
     this._text, {
     Key? key,
     this.textListenable,
+    this.color,
   }) : super(key: key);
 
   final String? _text;
+  final Color? color;
   final ValueListenable<String>? textListenable;
 
   @override
@@ -37,6 +39,7 @@ class ToastLoading extends StatelessWidget {
 
     return ToastContainer(
       type: ContainerType.loading,
+      color: color,
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[

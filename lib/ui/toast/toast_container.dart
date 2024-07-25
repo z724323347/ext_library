@@ -15,10 +15,12 @@ class ToastContainer extends StatelessWidget {
     Key? key,
     required this.child,
     this.type = ContainerType.text,
+    this.color,
   }) : super(key: key);
 
   final Widget child;
   final ContainerType? type;
+  final Color? color;
 
   @override
   Widget build(BuildContext context) {
@@ -26,7 +28,7 @@ class ToastContainer extends StatelessWidget {
       padding: const EdgeInsets.fromLTRB(20, 15, 20, 20),
       decoration: BoxDecoration(
         // color: const Color(0xFF000000).withOpacity(0.8),
-        color: Colors.grey.shade700,
+        color: color ?? Colors.grey.shade700,
         borderRadius: const BorderRadius.all(Radius.circular(8)),
       ),
       child: DefaultTextStyle.merge(

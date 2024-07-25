@@ -132,7 +132,7 @@ extension LibVoidCallbackExt on VoidCallback {
   }
 
   /// 延迟执行
-  VoidCallback delayed([Duration delay = const Duration(milliseconds: 300)]) {
+  VoidCallback delayed([Duration delay = const Duration(milliseconds: 200)]) {
     final VoidCallback target = () {
       Future.delayed(delay, () {
         this.call();
