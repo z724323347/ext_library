@@ -42,6 +42,13 @@ extension LibDurationExt on Duration {
     }
     return _str;
   }
+
+  String get hmsMill {
+    String minutes = (inMinutes % 60).toString().padLeft(2, '0');
+    String seconds = (inSeconds % 60).toString().padLeft(2, '0');
+    String milliseconds = (inMilliseconds % 1000).toString().padLeft(3, '0');
+    return '$minutes:$seconds.$milliseconds';
+  }
 }
 
 ///

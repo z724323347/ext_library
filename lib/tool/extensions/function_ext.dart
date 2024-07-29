@@ -9,41 +9,60 @@ import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 
-extension LibFutureExt on Future {}
+typedef ThrottleCallback = void Function();
+
+class Throttle {
+  final Duration duration;
+  // 使用一个 StreamController 来控制事件流
+  final StreamController<void> _controller = StreamController<void>.broadcast();
+  // 保存上一次事件的时间戳
+  int _lastEventTimestamp = 0;
+
+  Throttle(this.duration);
+
+  // 启动一个节流的事件
+  Stream<void> start(ThrottleCallback callback) {
+    // 检查是否在节流时间范围内
+    if (_lastEventTimestamp == 0 ||
+        DateTime.now().millisecondsSinceEpoch - _lastEventTimestamp >=
+            duration.inMilliseconds) {
+      // 如果不在节流时间内，则执行回调函数
+      callback();
+      // 更新时间戳
+      _lastEventTimestamp = DateTime.now().millisecondsSinceEpoch;
+    } else {
+      // 如果在节流时间内，则忽略此次事件
+      // 可以通过添加日志或其他方式来记录事件被忽略的情况
+      devLogs('Throttle  被拦截 ($_lastEventTimestamp)');
+    }
+    // 返回事件流，可能用于外部监听
+    return _controller.stream;
+  }
+
+  // 销毁资源
+  void dispose() {
+    _controller.close();
+  }
+}
 
 extension LibFutureFunctionExt on Future Function() {
-  Future _debounces<T>([
-    Duration delay = const Duration(milliseconds: 300),
-  ]) async {
-    final completer = Completer<T>();
-
-    void _cancel() {
-      if (!completer.isCompleted) {
-        completer.completeError(Exception());
-      }
+  /// 函数节流
+  ///
+  /// (func): 要执行的方法
+  Future Function() throttlef(Future Function() func) {
+    if (func == null) {
+      return func;
     }
-
-    void _execute() async {
-      _cancel(); // Cancel any pending operation
-      try {
-        final value = await this();
-        if (!completer.isCompleted) {
-          completer.complete(value);
-        }
-      } catch (e) {
-        if (!completer.isCompleted) {
-          completer.completeError(e);
-        }
+    bool enable = true;
+    Future Function() target = () async {
+      if (enable == true) {
+        enable = false;
+        func().then((_) {
+          enable = true;
+        });
       }
-    }
-
-    Timer? timer;
-    timer = Timer(delay, () async {
-      timer?.cancel();
-      _execute();
-    });
-
-    return completer.future;
+    };
+    return target;
   }
 
   Future<T> isMobile<T>() async {
@@ -67,9 +86,7 @@ extension LibVoidCallbackExt on VoidCallback {
   ///
   /// [func]: 要执行的方法
   /// [delay]: 要迟延的时长
-  VoidCallback debounce([
-    Duration delay = const Duration(milliseconds: 300),
-  ]) {
+  VoidCallback debounce([Duration delay = const Duration(milliseconds: 300)]) {
     Timer? timer;
     final VoidCallback target = () {
       if (timer?.isActive ?? false) {
@@ -84,23 +101,10 @@ extension LibVoidCallbackExt on VoidCallback {
 
   /// 函数节流
   ///
-  /// [func]: 要执行的方法
-  VoidCallback throttle(
-    Future Function() func,
-  ) {
-    if (func == null) {
-      return func;
-    }
-    bool enable = true;
-    final VoidCallback target = () {
-      if (enable == true) {
-        enable = false;
-        func().then((_) {
-          enable = true;
-        });
-      }
-    };
-    return target;
+  /// [delay]:设置节流时间默认 2 秒
+  VoidCallback throttle([Duration delay = const Duration(milliseconds: 2000)]) {
+    Throttle throttle = Throttle(delay);
+    return () => throttle.start(() => this.call());
   }
 
   /// func 添加振动反馈

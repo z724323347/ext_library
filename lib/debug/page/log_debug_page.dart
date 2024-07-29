@@ -222,7 +222,7 @@ class _LogDebugPageState extends State<LogDebugPage> {
               ),
               10.wGap,
               SizedBox(
-                width: 44,
+                width: 58,
                 height: 33,
                 child: TextButton(
                   onPressed: () => ctrl.logFilter(text: _textController.text),
@@ -231,74 +231,81 @@ class _LogDebugPageState extends State<LogDebugPage> {
                     backgroundColor:
                         MaterialStateProperty.all(Colors.orangeAccent),
                   ),
-                  child: const Text('过滤', style: TextStyle(fontSize: 12)),
+                  child: const Text('Search', style: TextStyle(fontSize: 12)),
                 ),
               ),
             ],
           ),
         ).clipRRect(all: 10).pOnly(left: 20, right: 80),
         Expanded(
-          child: ListView.builder(
-            physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.zero,
-            itemCount: ctrl.filterLog.length,
-            itemBuilder: (_, int index) {
-              final item = ctrl.filterLog[index];
-              return Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                decoration: BoxDecoration(
-                  border: Border(
-                    bottom: BorderSide(color: Colors.grey.shade300, width: .5),
-                  ),
-                ),
-                child: Row(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Container(
-                      width: 30,
-                      alignment: Alignment.topLeft,
-                      margin: const EdgeInsets.only(top: 4),
-                      color: Colors.white,
-                      child: Text(
-                        index.limitMax(999),
-                        textAlign: TextAlign.start,
-                      ),
-                    ),
-                    Expanded(
-                      child: SelectableText.rich(
-                        TextSpan(
-                          text:
-                              '时间:  ${item.time} =>${item.breakpoint.safety} \n',
-                          children: [
-                            TextSpan(
-                              text: '文件:  ${item.file} \n',
-                              style: const TextStyle(
-                                  color: Colors.black87, fontSize: 12),
-                            ),
-                            WidgetSpan(
-                              child: ExpandableText(
-                                text: '日志:  ${item.msg}'.fixLines,
-                                textStyle: const TextStyle(
-                                    color: Colors.lightBlue, fontSize: 12),
-                                buttonTextStyle: const TextStyle(
-                                    fontSize: 12, color: Colors.orange),
-                                initLength: 300,
-                                expanded: (v) {
-                                  setState(() {});
-                                },
-                              ),
-                            ),
-                          ],
+          child: ctrl.filterLog.isEmpty
+              ? Text('Filter Empty ~~~~')
+              : ListView.builder(
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  itemCount: ctrl.filterLog.length,
+                  itemBuilder: (_, int index) {
+                    final item = ctrl.filterLog[index];
+                    return Container(
+                      padding: const EdgeInsets.symmetric(
+                          horizontal: 5, vertical: 5),
+                      decoration: BoxDecoration(
+                        border: Border(
+                          bottom: BorderSide(
+                              color: Colors.grey.shade300, width: .5),
                         ),
-                        style: const TextStyle(
-                            color: Colors.red, fontSize: 12, height: 21 / 14),
                       ),
-                    )
-                  ],
+                      child: Row(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Container(
+                            width: 30,
+                            alignment: Alignment.topLeft,
+                            margin: const EdgeInsets.only(top: 4),
+                            color: Colors.white,
+                            child: Text(
+                              index.limitMax(999),
+                              textAlign: TextAlign.start,
+                            ),
+                          ),
+                          Expanded(
+                            child: SelectableText.rich(
+                              TextSpan(
+                                text:
+                                    '时间:  ${item.time} =>${item.breakpoint.safety} \n',
+                                children: [
+                                  TextSpan(
+                                    text: '文件:  ${item.file} \n',
+                                    style: const TextStyle(
+                                        color: Colors.black87, fontSize: 12),
+                                  ),
+                                  WidgetSpan(
+                                    child: ExpandableText(
+                                      text: '日志:  ${item.msg}'.fixLines,
+                                      textStyle: const TextStyle(
+                                          color: Colors.lightBlue,
+                                          fontSize: 12),
+                                      buttonTextStyle: const TextStyle(
+                                          fontSize: 12, color: Colors.orange),
+                                      initLength: 300,
+                                      expanded: (v) {
+                                        setState(() {});
+                                      },
+                                    ),
+                                  ),
+                                ],
+                              ),
+                              style: const TextStyle(
+                                  color: Colors.red,
+                                  fontSize: 12,
+                                  height: 21 / 14),
+                            ),
+                          )
+                        ],
+                      ),
+                    );
+                  },
                 ),
-              );
-            },
-          ),
         )
       ],
     );

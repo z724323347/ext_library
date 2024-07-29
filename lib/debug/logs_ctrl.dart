@@ -50,7 +50,8 @@ class DevLogsEventSer extends GetxService {
       return;
     }
     filterLog.value = listLog.where((item) {
-      return item.file!.contains(text) || item.msg!.contains(text);
+      return item.file!.toLower.contains(text.toLower) ||
+          item.msg!.toLower.contains(text.toLower);
     }).toList();
   }
 

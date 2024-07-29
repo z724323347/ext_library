@@ -126,6 +126,13 @@ class _DebugDisplayDialog extends StatelessWidget {
               ),
               Obx(
                 () => _DebugEntranceSwitch(
+                  text: 'Timer ~',
+                  onChanged: (_) => store.toTimer(context),
+                  select: store.openTimer.value,
+                ),
+              ),
+              Obx(
+                () => _DebugEntranceSwitch(
                   text: 'Logs print(日志输出)',
                   onChanged: (_) => DevLogsEventSer.to.setOpen(_),
                   select: DevLogsEventSer.to.open.value,

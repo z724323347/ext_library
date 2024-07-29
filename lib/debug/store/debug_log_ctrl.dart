@@ -7,23 +7,34 @@ import 'package:get/get.dart' hide Response;
 import '../log_manager.dart';
 import '../page/fps_log_float.dart';
 import '../page/network_log_float.dart';
+import '../page/timer_log_float.dart';
+import 'timer_log_crl.dart';
 
 /// DebugLogSer service控制器
 class DebugLogSer extends GetxService implements LogManager {
   /// GetxService instance
   static DebugLogSer get to => GetInstance().putOrFind(() => DebugLogSer());
 
+  @override
+  void onInit() {
+    Get.put(TimerDevLogCtrl());
+    super.onInit();
+  }
+
   final LogManager logManager = LogManager();
 
   OverlayEntry? _overlayEntry;
   OverlayEntry? _networkOverlayEntry;
-
   OverlayEntry? _fpsOverlayEntry;
+  OverlayEntry? _timerOverlayEntry;
+
   StreamSubscription? _subscription;
 
   final openLog = true.obs;
 
   final openFps = false.obs;
+
+  final openTimer = false.obs;
 
   final RxList<LogData> listLog = RxList<LogData>([]);
 
@@ -50,6 +61,19 @@ class DebugLogSer extends GetxService implements LogManager {
     } else {
       _networkOverlayEntry?.remove();
       _networkOverlayEntry = null;
+    }
+  }
+
+  void toTimer(BuildContext context) {
+    openTimer.value = !openTimer.value;
+    if (openTimer.value) {
+      _timerOverlayEntry = OverlayEntry(builder: (BuildContext context) {
+        return const TimerLogFloat();
+      });
+      Overlay.of(context).insert(_timerOverlayEntry!);
+    } else {
+      _timerOverlayEntry?.remove();
+      _timerOverlayEntry = null;
     }
   }
 
