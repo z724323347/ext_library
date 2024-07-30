@@ -49,7 +49,7 @@ extension LibFutureFunctionExt on Future Function() {
   /// 函数节流
   ///
   /// (func): 要执行的方法
-  Future Function() throttlef(Future Function() func) {
+  Future Function() throttleF(Future Function() func) {
     if (func == null) {
       return func;
     }

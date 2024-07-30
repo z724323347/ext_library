@@ -1,20 +1,20 @@
 /// 时间 datetime 扩展函数
 extension LibDurationExt on Duration {
-  String get hms {
-    final int all = inSeconds;
-    if (all < 0) {
-      return '';
-    }
-    final int d = all ~/ (60 * 60 * 24);
-    final int h = (all ~/ (60 * 60)) % 24;
-    final int m = (all ~/ 60) % 60;
-    final int s = all % 60;
+  // String get hms {
+  //   final int all = inSeconds;
+  //   if (all < 0) {
+  //     return '';
+  //   }
+  //   final int d = all ~/ (60 * 60 * 24);
+  //   final int h = (all ~/ (60 * 60)) % 24;
+  //   final int m = (all ~/ 60) % 60;
+  //   final int s = all % 60;
 
-    return '${(h < 10 && h > 0) ? '0$h' : '$h'}:${m < 10 ? '0$m' : '$m'}:${s < 10 ? '0$s' : '$s'}';
-  }
+  //   return '${(h < 10 && h > 0) ? '0$h' : '$h'}:${m < 10 ? '0$m' : '$m'}:${s < 10 ? '0$s' : '$s'}';
+  // }
 
   /// 转换为（中文）  xx分xx秒
-  String get ms {
+  String get msToZh {
     final int all = inSeconds;
     if (all < 0 || all == 0) {
       return '0 秒';
@@ -43,11 +43,19 @@ extension LibDurationExt on Duration {
     return _str;
   }
 
-  String get hmsMill {
+  /// 分:秒.毫秒 00:00.000
+  String get msMill {
     String minutes = (inMinutes % 60).toString().padLeft(2, '0');
     String seconds = (inSeconds % 60).toString().padLeft(2, '0');
     String milliseconds = (inMilliseconds % 1000).toString().padLeft(3, '0');
     return '$minutes:$seconds.$milliseconds';
+  }
+
+  /// 分:秒 00:00
+  String get ms {
+    String minutes = (inMinutes % 60).toString().padLeft(2, '0');
+    String seconds = (inSeconds % 60).toString().padLeft(2, '0');
+    return '$minutes:$seconds';
   }
 }
 

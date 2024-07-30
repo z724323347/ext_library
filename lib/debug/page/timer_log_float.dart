@@ -207,7 +207,7 @@ class _TimerItemViewState extends State<TimerItemView> {
       children: [
         Expanded(
           child: Text(
-            currTime.hmsMill,
+            currTime.msMill,
             style: const TextStyle(
               color: Colors.green,
               fontSize: 12,
