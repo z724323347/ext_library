@@ -146,11 +146,7 @@ class _TimerLogFloatState extends State<TimerLogFloat> {
             onTap: () => ctrl.clear(),
             child: const Padding(
               padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.delete,
-                size: 20,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.delete, size: 20, color: Colors.white),
             ),
           ),
           InkWell(
@@ -159,11 +155,7 @@ class _TimerLogFloatState extends State<TimerLogFloat> {
             },
             child: const Padding(
               padding: EdgeInsets.all(8.0),
-              child: Icon(
-                Icons.close,
-                size: 14,
-                color: Colors.white,
-              ),
+              child: Icon(Icons.close, size: 14, color: Colors.white),
             ),
           ),
         ],
@@ -208,26 +200,17 @@ class _TimerItemViewState extends State<TimerItemView> {
         Expanded(
           child: Text(
             currTime.msMill,
-            style: const TextStyle(
-              color: Colors.green,
-              fontSize: 12,
-            ),
+            style: const TextStyle(color: Colors.green, fontSize: 12),
           ),
         ),
         Text(
           widget.entity.time.msDotSS,
-          style: const TextStyle(
-            color: Colors.red,
-            fontSize: 12,
-          ),
+          style: const TextStyle(color: Colors.red, fontSize: 12),
           maxLines: 1,
         ).pOnly(right: 10).visible(!widget.entity.node.isnull),
         Text(
           widget.entity.id.safety,
-          style: const TextStyle(
-            color: Colors.white,
-            fontSize: 12,
-          ),
+          style: const TextStyle(color: Colors.white, fontSize: 12),
           maxLines: 1,
         ),
         Container(
@@ -235,10 +218,7 @@ class _TimerItemViewState extends State<TimerItemView> {
           alignment: Alignment.centerRight,
           child: Text(
             ' ${widget.duration?.msec} ',
-            style: const TextStyle(
-              color: Colors.red,
-              fontSize: 10,
-            ),
+            style: const TextStyle(color: Colors.red, fontSize: 10),
             maxLines: 1,
           ),
         ),

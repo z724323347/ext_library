@@ -87,7 +87,9 @@ class _LogDebugPageState extends State<LogDebugPage> {
           borderRadius: BorderRadius.all(Radius.circular(20)),
         ),
         child: Icon(
-          ctrl.hasFilter.value ? Icons.filter_list_off : Icons.filter_list,
+          ctrl.hasFilter.value
+              ? Icons.search_off_rounded
+              : Icons.search_rounded,
           color: Colors.white,
           size: 20,
         ),
@@ -217,6 +219,7 @@ class _LogDebugPageState extends State<LogDebugPage> {
                     style: TextStyle(fontSize: 12),
                     padding: 5.all,
                     onSubmitted: (_) => ctrl.logFilter(text: _),
+                    onChanged: (_) => ctrl.logFilter(text: _),
                   ),
                 ),
               ),
@@ -288,9 +291,9 @@ class _LogDebugPageState extends State<LogDebugPage> {
                                       buttonTextStyle: const TextStyle(
                                           fontSize: 12, color: Colors.orange),
                                       initLength: 300,
-                                      expanded: (v) {
-                                        setState(() {});
-                                      },
+                                      lightText: _textController.text,
+                                      // patterns: [_textController.text],
+                                      expanded: (v) => setState(() {}),
                                     ),
                                   ),
                                 ],
