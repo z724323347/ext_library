@@ -16,6 +16,8 @@ export './extensions/text_editing_ext.dart';
 export './extensions/widget_ext.dart';
 export './extensions/object_ext.dart';
 
+export './mixins/api_mixins.dart';
+
 class LibTools {
   /// APP 文本复制
   static void copy(String? text, {String? tipText}) {

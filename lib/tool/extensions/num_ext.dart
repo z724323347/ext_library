@@ -64,6 +64,19 @@ extension LibNumExtNull on num? {
       return '$max+';
     }
   }
+
+  // num 转 int
+  int get toInt {
+    if (this == null) {
+      return 0;
+    }
+    try {
+      return this!.toInt();
+    } catch (e) {
+      debugPrint(e.toString());
+      return 0;
+    }
+  }
 }
 
 /// 数字  扩展函数
