@@ -68,13 +68,12 @@ extension LibStringExt on String {
     return this;
   }
 
-  // /// 换行符与空字符
-  // String get trimBreak {
-  //   if (isnull) {
-  //     return '';
-  //   }
-  //   return this.trim().replaceAll(RegExp(r'\s'), '');
-  // }
+  /// 移除标点符号
+  String get rmPunctuation {
+    String punctuation = r'[!#\$%&\()*+,-./:;<=>?@\[\\\]^_`{|}~]';
+    RegExp regExp = RegExp(punctuation);
+    return replaceAll(regExp, ' ');
+  }
 
   /// 去除空格
   String get trim => toString().trim();

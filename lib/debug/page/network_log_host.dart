@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:ext_library/log_util.dart';
 import 'package:ext_library/tool/extensions/function_ext.dart';
 import 'package:ext_library/tool/extensions/string_ext.dart';
 import 'package:ext_library/tool/extensions/text_editing_ext.dart';
@@ -11,7 +12,7 @@ import 'package:flutter/material.dart';
 class NetworkLogHostPage extends StatefulWidget {
   Uri? baseUri;
   String? appConfig;
-  Function(Uri? uri)? onChange;
+  Function(Uri uri)? onChange;
   Function(String url)? toWebView;
   VoidCallback? doRelease;
   VoidCallback? doDevelop;
@@ -131,6 +132,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
           ),
           TextButton(
             onPressed: () {
+              print('msg====  ${_webController.text}');
               final isHttpUrl = !_webController.text.isnull &&
                   _webController.text.startsWith(RegExp('^[https|http]'));
               if (isHttpUrl) {
