@@ -189,23 +189,23 @@ extension LibStringExt on String {
   }
 
   // /// 抹除开头的0
-  // String get stripLeadingZeros {
-  //   final RegExp pattern = RegExp(r'^0+');
-  //   return replaceAll(pattern, '');
-  // }
+  String get stripLeadingZeros {
+    final RegExp pattern = RegExp(r'^0+');
+    return replaceAll(pattern, '');
+  }
 
   /// 抹除末尾的0
-  // String get stripTrailingZeros {
-  //   if (!contains('.')) {
-  //     return this;
-  //   }
-  //   final String trimmed = replaceAll(RegExp(r'0*$'), '');
-  //   if (trimmed.endsWith('.')) {
-  //     return trimmed.substring(0, trimmed.length - 1);
-  //   }
+  String get stripTrailingZeros {
+    if (!contains('.')) {
+      return this;
+    }
+    final String trimmed = replaceAll(RegExp(r'0*$'), '');
+    if (trimmed.endsWith('.')) {
+      return trimmed.substring(0, trimmed.length - 1);
+    }
 
-  //   return trimmed;
-  // }
+    return trimmed;
+  }
 
   /// String => DateTime
   DateTime get dateTime {
@@ -240,6 +240,58 @@ extension LibStringExt on String {
     } else {
       return Decimal.parse(this);
     }
+  }
+
+  /// 限制小数位总长度[limit] = 2 ,  [trimZero] = false 不去掉多余的 0
+  String limitLength([int limit = 2, bool trimZero = false]) {
+    if (isnull) {
+      return '';
+    }
+    if (trimZero) {
+      return _trimZero(_limitTrimDecimal(this, limit));
+    } else {
+      return _limitTrimDecimal(this, limit);
+    }
+  }
+
+  ///限制小数点后位数
+  String _limitTrimDecimal(String str, int limit) {
+    if (limit == 0) {
+      ///限制位数为0 不做判断
+    } else {
+      final dotIndex = str.lastIndexOf('.');
+      final len = str.length;
+      if (dotIndex != -1) {
+        if (len - dotIndex - 1 > limit) {
+          str = str.substring(0, 1 + dotIndex + limit);
+        } else {
+          //小数位小于限制的小数位不做处理
+        }
+      } else {
+        //无小数点不做判断
+      }
+    }
+    return str;
+  }
+
+  /// 清除数值中多余的小数点以及0
+  String _trimZero(String? str) {
+    if (str == null) {
+      return '';
+    }
+    if (str.endsWith('.')) {
+      return str.substring(0, str.length - 1);
+    } else if (str.endsWith('0')) {
+      final dotIndex = str.lastIndexOf('.');
+      if (dotIndex != -1) {
+        var nonZeroIndex = str.lastIndexOf(RegExp(r'[^0]{1,1}'));
+        if (nonZeroIndex == -1 || nonZeroIndex == dotIndex) {
+          nonZeroIndex = dotIndex - 1;
+        }
+        return str.substring(0, nonZeroIndex + 1);
+      }
+    }
+    return str;
   }
 
   /// 去掉小数部分
