@@ -75,6 +75,30 @@ extension LibStringExt on String {
     return replaceAll(regExp, ' ');
   }
 
+  /// 长文本中的数字格式 如 100,999.00 替换为 100999.00
+  String get longTextNumFormat {
+    RegExp regex = RegExp(r'(\d+,\d+\.\d+)');
+    // RegExp regex = RegExp(r'(\d)[,.](\d)');
+    StringBuffer result = StringBuffer();
+    int lastIndex = 0;
+    Iterable<Match> matches = regex.allMatches(this);
+    for (Match match in matches) {
+      String potentialNumber = match.group(1)!;
+      List<String> parts = potentialNumber.split(',');
+      if (parts.length == 2) {
+        bool isNumber1Valid = double.tryParse(parts[0].trim()) != null;
+        bool isNumber2Valid = double.tryParse(parts[1].trim()) != null;
+        if (isNumber1Valid && isNumber2Valid) {
+          result.write(substring(lastIndex, match.start));
+          result.write(potentialNumber.replaceAll(',', ''));
+          lastIndex = match.end;
+        }
+      }
+    }
+    result.write(substring(lastIndex));
+    return result.toString();
+  }
+
   /// 去除空格
   String get trim => toString().trim();
 

@@ -80,7 +80,8 @@ class _FpsLogFloatState extends State<FpsLogFloat> {
           height: 30,
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Colors.blue.withOpacity(0.6),
+            // color: Colors.blue.withOpacity(0.6),
+            color: Theme.of(context).dividerColor,
             borderRadius: BorderRadius.circular(30),
           ),
           child: _buildFps(),
