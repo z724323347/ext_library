@@ -196,7 +196,7 @@ extension LibNumExt on num {
   ///取小数点后几位
   ///num 数据
   ///location 几位
-  String numLimit({int limit = 2}) {
+  String numLimit([int limit = 2]) {
     if (isnull) {
       return '';
     }
