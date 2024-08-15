@@ -149,6 +149,8 @@ class AppToast {
     bool clickClose = false,
     Color backgroundColor = Colors.transparent,
     Color? color,
+    Widget? icon,
+    bool? textAnim,
   }) {
     return BotToast.showCustomLoading(
       toastBuilder: (CancelFunc cancelFunc) {
@@ -156,6 +158,8 @@ class AppToast {
           text,
           textListenable: textListenable,
           color: color,
+          icon: icon,
+          textAnim: textAnim,
         );
       },
       clickClose: clickClose,
