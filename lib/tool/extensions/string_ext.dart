@@ -494,4 +494,20 @@ extension LibStringExt on String {
     }
     return _result;
   }
+
+  /// 文件后缀
+  ///
+  /// (/path/xxx.jpg) reture jpg
+  String get fileSuffix {
+    String _result = '';
+    if (isnull) {
+      return _result;
+    }
+    String fileName = split('/').last;
+    int dotIndex = fileName.lastIndexOf('.');
+    if (dotIndex != -1 && dotIndex < fileName.length - 1) {
+      return fileName.substring(dotIndex + 1);
+    }
+    return _result;
+  }
 }

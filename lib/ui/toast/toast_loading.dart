@@ -41,7 +41,7 @@ class ToastLoading extends StatelessWidget {
         style: const TextStyle(color: Colors.white),
       );
       if (textAnim ?? true) {
-        textWidget = JumpingText(
+        textWidget = TextAnim.jump(
           _text.safety,
           style: const TextStyle(color: Colors.white),
         );

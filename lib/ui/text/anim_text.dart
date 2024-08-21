@@ -77,25 +77,47 @@ class _FadingTextState extends State<FadingText> with TickerProviderStateMixin {
 }
 
 /// Adds jumping effect on each character in the [text] provided to it.
-class JumpingText extends StatelessWidget {
-  final String text;
-  final Offset begin = Offset(0.0, 0.0);
+class TextAnim extends StatelessWidget {
+  final String? text;
+  // final Offset begin;
   final Offset end;
   final TextStyle? style;
+  final List<Widget>? children;
+  TextAnim({
+    this.text,
+    // this.begin = const Offset(0.0, 0.0),
+    this.end = const Offset(0.0, -0.5),
+    this.style,
+    this.children,
+    super.key,
+  });
 
   /// Creates a jumping text widget.
-  JumpingText(
+  TextAnim.jump(
     this.text, {
     super.key,
     this.end = const Offset(0.0, -0.5),
     this.style,
+    this.children,
+  });
+
+  /// Creates a jumping custom widget.
+  TextAnim.custom(
+    this.children, {
+    super.key,
+    this.end = const Offset(0.0, -0.5),
+    this.style,
+    this.text,
   });
 
   @override
   Widget build(BuildContext context) {
+    if (children != null && children!.isNotEmpty) {
+      return _CollectionSlideTransition(end: end, children: children!);
+    }
     return _CollectionSlideTransition(
       end: end,
-      children: text.runes
+      children: text!.runes
           .map((rune) => Text(String.fromCharCode(rune), style: style))
           .toList(),
     );
