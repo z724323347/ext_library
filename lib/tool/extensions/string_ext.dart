@@ -68,6 +68,10 @@ extension LibStringExt on String {
     return this;
   }
 
+  bool get isHttp {
+    return startsWith('http://') || startsWith('https://');
+  }
+
   /// 移除标点符号
   String get rmPunctuation {
     String punctuation = r'[!#\$%&\()*+,-./:;<=>?@\[\\\]^_`{|}~]';

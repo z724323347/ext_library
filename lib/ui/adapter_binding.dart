@@ -86,6 +86,8 @@ class AutoWidgetsFlutterBinding extends WidgetsFlutterBinding {
 
   @override
   ViewConfiguration createViewConfiguration() {
+    print(
+        'AutoWidgetsFlutterBinding ---width:${window.physicalSize.width / (window.physicalSize.width / appSize.width)}  height:${window.physicalSize.height / (window.physicalSize.width / appSize.width)}');
     return ViewConfiguration(
       size: Size(
         appSize.width,
