@@ -1,3 +1,4 @@
+import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 
@@ -18,8 +19,8 @@ class _DebugPageState extends State<DebugPage> {
   Map<String, StatefulWidget> tabBarInfos = {
     '通用设置': NetworkLogHostPage(),
     '域名设置': NetworkLogHostPage(),
-    '输出日志': LogDebugPage(),
-    'Http日志': NetworkLogMainPage(),
+    '输出日志': const LogDebugPage(),
+    'Http日志': const NetworkLogMainPage(),
   };
   @override
   void initState() {
@@ -28,13 +29,6 @@ class _DebugPageState extends State<DebugPage> {
       tabBarInfos = widget.debugView!;
     }
     setState(() {});
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.dark);
-  }
-
-  @override
-  void dispose() {
-    SystemChrome.setSystemUIOverlayStyle(SystemUiOverlayStyle.light);
-    super.dispose();
   }
 
   @override
@@ -45,14 +39,26 @@ class _DebugPageState extends State<DebugPage> {
         backgroundColor: Colors.white,
         appBar: AppBar(
           backgroundColor: Colors.grey.shade300,
-          title: Text('Debug'),
+          title: const Text(
+            'Debug',
+            style: TextStyle(color: Colors.red, fontSize: 15),
+          ),
           actions: [
             InkWell(
               onTap: () => DevLogsEventSer.to.clearLog(),
               child: Container(
-                padding: const EdgeInsets.symmetric(horizontal: 5, vertical: 5),
-                color: Colors.red,
+                margin: 10.all,
+                padding: 5.horizontal,
+                decoration: BoxDecoration(
+                  color: Colors.red,
+                  borderRadius: 10.borderAll,
+                ),
                 alignment: Alignment.center,
+                // child: const Icon(
+                //   Icons.delete_forever_sharp,
+                //   color: Colors.black,
+                //   size: 24,
+                // ),
                 child: const Text(
                   '清除日志',
                   style: TextStyle(fontSize: 13),

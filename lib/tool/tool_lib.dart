@@ -19,6 +19,8 @@ export './extensions/color_ext.dart';
 
 export './mixins/api_mixins.dart';
 
+export './ume/lib_ume.dart';
+
 class LibTools {
   /// APP 文本复制
   static void copy(String? text, {String? tipText}) {

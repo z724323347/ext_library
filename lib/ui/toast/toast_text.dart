@@ -25,7 +25,7 @@ class ToastText extends StatelessWidget {
             Icon(
               icon,
               size: 30,
-              color: Colors.white,
+              color: textColor ?? Colors.white,
             ),
           if (text != null)
             Flexible(
