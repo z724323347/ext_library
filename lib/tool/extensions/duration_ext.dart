@@ -1,5 +1,25 @@
+import 'package:ext_library/log_util.dart';
+
 /// 时间 datetime 扩展函数
 extension LibDurationExt on Duration {
+  /// 是否已经过期
+  ///
+  /// 已过期：true
+  ///
+  /// 未过期：false
+  ///
+  /// Duration > 0 未过期， Duration < 0 已过期
+  bool get overdue {
+    if (this == null) {
+      return true;
+    }
+    if (this > Duration.zero) {
+      return false;
+    } else {
+      return true;
+    }
+  }
+
   // String get hms {
   //   final int all = inSeconds;
   //   if (all < 0) {
@@ -19,8 +39,13 @@ extension LibDurationExt on Duration {
     if (all < 0 || all == 0) {
       return '0 秒';
     }
+    // final int d = all ~/ (24 * 60 * 60);
+    // final int h = inHours ~/ 24;
     final int m = all ~/ 60;
     final int s = all % 60;
+    // if (d > 0) {
+    //   return '$d 天 ${h < 10 ? '0$m 小时' : '$m 小时'} ${m < 10 ? '0$m 分' : '$m 分'} ${s < 10 ? '0$s 秒' : '$s 秒'}';
+    // }
 
     return '${m < 10 ? '0$m 分' : '$m 分'} ${s < 10 ? '0$s 秒' : '$s 秒'}';
   }
@@ -56,6 +81,15 @@ extension LibDurationExt on Duration {
     String minutes = (inMinutes % 60).toString().padLeft(2, '0');
     String seconds = (inSeconds % 60).toString().padLeft(2, '0');
     return '$minutes:$seconds';
+  }
+
+  /// 时:分:秒 00:00:00
+  String get hms {
+    // devLogs('inHours $inHours');
+    String hours = (inHours).toString().padLeft(2, '0');
+    String minutes = (inMinutes % 60).toString().padLeft(2, '0');
+    String seconds = (inSeconds % 60).toString().padLeft(2, '0');
+    return '$hours:$minutes:$seconds';
   }
 }
 

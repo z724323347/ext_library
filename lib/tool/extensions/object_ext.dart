@@ -152,34 +152,21 @@ extension LibMap<K, V> on Map<K, V>? {
   }
 }
 
-// extension LIbMapExt on Map? {
-//   Map get removeNull {
-//     if (this == null) {
-//       return {};
-//     }
-//     return this!..removeWhere((key, value) => value == null);
-//   }
+extension LibMapExt on Map<String, dynamic> {
+  Map<String, dynamic> add({String? k, dynamic v}) {
+    if (k != null || k!.isNotEmpty) {
+      this[k] = v;
+    }
+    return this;
+  }
 
-//   Map add({String? k, dynamic v}) {
-//     if (this == null) {
-//       return {};
-//     }
-//     if (k != null || k!.isNotEmpty) {
-//       this![k] = v;
-//     }
-//     return this!;
-//   }
-
-//   /// 移除多少项
-//   Map rmLength({int count = 10}) {
-//     if (this == null) {
-//       return {};
-//     }
-//     if (this!.length > count) {
-//       for (var i = 0; i < count; i++) {
-//         this!.remove(this!.keys.last);
-//       }
-//     }
-//     return this!;
-//   }
-// }
+  /// 移除多少项
+  Map<String, dynamic> rmLength({int count = 10}) {
+    if (length > count) {
+      for (var i = 0; i < count; i++) {
+        remove(keys.last);
+      }
+    }
+    return this;
+  }
+}

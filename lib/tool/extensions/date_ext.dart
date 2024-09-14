@@ -1,4 +1,5 @@
 import 'dart:ui';
+import 'duration_ext.dart';
 import 'package:intl/intl.dart';
 
 /// APP  DateTime 转换
@@ -47,11 +48,10 @@ extension LibDate on DateTime {
   /// Duration > 0 未过期， Duration < 0 已过期
   ///
   bool get overdue {
-    if (this == null) {
+    if (this == null || microsecondsSinceEpoch == 0) {
       return true;
     }
-    // return difference(AppSysCtrl.to.sysTime).overdue;
-    return false;
+    return difference(nowTime).overdue;
   }
 
   /// 当前时间
@@ -180,12 +180,10 @@ extension LibDate on DateTime {
   bool get isAfterNow {
     final DateTime dateTime =
         DateTime.fromMillisecondsSinceEpoch(millisecondsSinceEpoch);
-    final DateTime now = DateTime.now();
-    return dateTime.isAfter(now);
+    return dateTime.isAfter(nowTime);
   }
 }
 
-// ignore: avoid_classes_with_only_static_members
 class LibDateUtil {
   static String formatTimestamp(
     int milliseconds, {
