@@ -15,6 +15,14 @@ extension LibStringExtNull on String? {
     return false;
   }
 
+  /// 字符是否为空
+  bool get none {
+    if (this == null || this!.isEmpty || this?.toLowerCase() == 'null') {
+      return true;
+    }
+    return false;
+  }
+
   /// 字符空安全
   String get safety {
     if (isnull) {
@@ -54,6 +62,14 @@ extension LibStringExt on String {
 
   /// 字符是否为空
   bool get isnull {
+    if (this == null || length == 0 || isEmpty || toLowerCase() == 'null') {
+      return true;
+    }
+    return false;
+  }
+
+  /// 字符是否为空
+  bool get none {
     if (this == null || length == 0 || isEmpty || toLowerCase() == 'null') {
       return true;
     }
