@@ -50,7 +50,12 @@ extension LibListExt<T> on List<T> {
   }
 
   List<T> removeNull() {
-    removeWhere((element) => element == null || '$element'.isEmpty);
+    removeWhere((e) => e == null || '$e'.isEmpty);
+    return this;
+  }
+
+  List<T> get _removeNull {
+    removeWhere((e) => e == null || '$e'.isEmpty);
     return this;
   }
 

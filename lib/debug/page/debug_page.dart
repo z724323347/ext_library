@@ -60,7 +60,7 @@ class _DebugPageState extends State<DebugPage> {
                 //   size: 24,
                 // ),
                 child: const Text(
-                  '清除日志',
+                  '清除Logs',
                   style: TextStyle(fontSize: 13),
                 ),
               ),
