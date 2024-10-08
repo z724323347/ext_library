@@ -16,6 +16,8 @@ export './extensions/text_editing_ext.dart';
 export './extensions/widget_ext.dart';
 export './extensions/object_ext.dart';
 export './extensions/color_ext.dart';
+export './extensions/event_ext.dart';
+export './image/image_thief.dart';
 
 export './mixins/api_mixins.dart';
 

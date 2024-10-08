@@ -18,6 +18,7 @@ dependencies:
   decimal: ^2.2.0
   tuple: ^2.0.2
   collection: ^1.17.0
+  event_bus: any
 
   #log
   logger: ^2.1.0
