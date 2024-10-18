@@ -1,6 +1,7 @@
 import 'package:get/get.dart';
 import '../tool/extensions/date_ext.dart';
 import '../tool/extensions/string_ext.dart';
+import 'store/debug_log_ctrl.dart';
 
 export 'debug_config.dart';
 
@@ -12,6 +13,8 @@ class DevLogsEventSer extends GetxService {
 
   /// 是否开启
   final open = false.obs;
+
+  DebugLogSer get httpLogs => DebugLogSer.to;
 
   final listLog = RxList<AppLogsEvent>([]);
 
@@ -42,6 +45,7 @@ class DevLogsEventSer extends GetxService {
 
   void clearLog() {
     listLog.clear();
+    // httpLogs.clearLog();
   }
 
   void logFilter({String? text}) {

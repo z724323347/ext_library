@@ -1,12 +1,10 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 
 import '../log_manager.dart';
-import '../store/debug_log_ctrl.dart';
 
 class NetworkLogMainPage extends StatefulWidget {
   const NetworkLogMainPage({Key? key}) : super(key: key);
@@ -37,6 +35,15 @@ class _NetworkLogMainPageState extends State<NetworkLogMainPage> {
 
   @override
   Widget build(BuildContext context) {
+    return Stack(
+      children: [
+        buildBody().fill(),
+        buildAction().positioned(top: 4, right: 24)
+      ],
+    );
+  }
+
+  Widget buildBody() {
     return Obx(() {
       if (store.listLog.isNotEmpty) {
         return ListView.separated(
@@ -60,6 +67,23 @@ class _NetworkLogMainPageState extends State<NetworkLogMainPage> {
         ),
       );
     });
+  }
+
+  Widget buildAction() {
+    return Container(
+      height: 20,
+      width: 20,
+      alignment: Alignment.center,
+      decoration: const BoxDecoration(
+        color: Colors.orange,
+        borderRadius: BorderRadius.all(Radius.circular(20)),
+      ),
+      child: const Icon(
+        Icons.cleaning_services_outlined,
+        color: Colors.white,
+        size: 12,
+      ),
+    ).onClick(onTap: () => store.clearLog());
   }
 }
 

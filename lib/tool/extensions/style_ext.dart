@@ -315,6 +315,16 @@ extension LibWidgetExt on Widget {
     );
   }
 
+  /// SliverVisibility是否可见(默认可见)  visible=true
+  Widget sliverVisible([bool visible = true]) {
+    return SliverVisibility(
+      visible: visible,
+      sliver: this,
+    );
+  }
+
+  Widget get sliver => SliverToBoxAdapter(child: this);
+
   /// 组件放大 or 缩小
   Widget scale({
     double? scale,
@@ -333,6 +343,18 @@ extension LibWidgetExt on Widget {
   Widget clipR({Radius radius = const Radius.circular(10)}) {
     return ClipRRect(
       borderRadius: BorderRadius.all(radius),
+      child: this,
+    );
+  }
+
+  /// 忽略组件（事件穿透）
+  Widget ignore({
+    bool ignoring = true,
+    bool? ignoringSemantics,
+  }) {
+    return IgnorePointer(
+      ignoring: ignoring,
+      ignoringSemantics: ignoringSemantics,
       child: this,
     );
   }
