@@ -289,6 +289,7 @@ class _ListItemState extends State<ListItem> {
                   style: Theme.of(context).textTheme.headlineSmall?.copyWith(
                         fontSize: 10,
                         fontWeight: FontWeight.w600,
+                        color: Colors.black,
                       ),
                 ),
                 Visibility(
@@ -300,11 +301,8 @@ class _ListItemState extends State<ListItem> {
                     child: Container(
                       color: Colors.transparent,
                       padding: const EdgeInsets.all(5.0),
-                      child: Icon(
-                        Icons.copy,
-                        size: 8,
-                        color: Theme.of(context).textTheme.headlineSmall?.color,
-                      ),
+                      child:
+                          const Icon(Icons.copy, size: 8, color: Colors.black),
                     ),
                   ),
                 ),
@@ -317,7 +315,7 @@ class _ListItemState extends State<ListItem> {
               style: Theme.of(context)
                   .textTheme
                   .headlineSmall
-                  ?.copyWith(fontSize: 10),
+                  ?.copyWith(fontSize: 10, color: Colors.black),
             ),
           ),
         ],
