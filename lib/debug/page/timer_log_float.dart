@@ -197,7 +197,8 @@ class _TimerItemViewState extends State<TimerItemView> {
   Widget build(BuildContext context) {
     return Row(
       children: [
-        Expanded(
+        SizedBox(
+          width: 65,
           child: Text(
             currTime.msMill,
             style: const TextStyle(color: Colors.green, fontSize: 12),
@@ -205,9 +206,10 @@ class _TimerItemViewState extends State<TimerItemView> {
         ),
         Text(
           widget.entity.time.msDotSS,
-          style: const TextStyle(color: Colors.red, fontSize: 12),
+          style: const TextStyle(color: Colors.white70, fontSize: 12),
+          textAlign: TextAlign.left,
           maxLines: 1,
-        ).pOnly(right: 10).visible(!widget.entity.node.isnull),
+        ).pOnly(right: 10).visible(!widget.entity.node.isnull).expanded(),
         Text(
           widget.entity.id.safety,
           style: const TextStyle(color: Colors.white, fontSize: 12),

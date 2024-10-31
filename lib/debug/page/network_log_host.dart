@@ -266,7 +266,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
           ),
           const Spacer(),
           InkWell(
-            onTap: () => LibTools.copy(uri),
+            onTap: () => libTools.copy(uri),
             child: Container(
               padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
               decoration: const BoxDecoration(

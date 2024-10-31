@@ -21,9 +21,13 @@ export './image/image_thief.dart';
 
 export './mixins/api_mixins.dart';
 
+LibTools libTools = LibTools._internal();
+
 class LibTools {
+  LibTools._internal();
+
   /// APP 文本复制
-  static void copy(String? text, {String? tipText}) {
+  void copy(String? text, {String? tipText}) {
     if (text.isnull) {
       return;
     }

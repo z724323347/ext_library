@@ -5,9 +5,10 @@ import 'dart:io';
 import 'dart:ui' as ui show Codec;
 import 'dart:ui';
 
+import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
-// import 'package:path_provider/path_provider.dart';
+import 'package:path_provider/path_provider.dart';
 
 /// image provider for CacheNet image
 class CacheNetImage extends ImageProvider<CacheNetImage> implements CacheKey {
@@ -120,16 +121,13 @@ Future<_ImageCache> _imageCache() async {
   if (__imageCache != null) {
     return __imageCache!;
   }
-
-  // final temp = await getTemporaryDirectory();
-  // var dir = Directory('${temp.path}/washine_images/');
-  // if (!(await dir.exists())) {
-  //   dir = await dir.create();
-  // }
-  // return __imageCache = _ImageCache(dir);
-  // __imageCache = _ImageCache(dir);
-  // completer.complete(__imageCache);
-  // return
+  final temp = await getTemporaryDirectory();
+  var dir = Directory('${temp.path}/app_images/');
+  if (!(await dir.exists())) {
+    dir = await dir.create();
+  }
+  __imageCache = _ImageCache(dir);
+  completer.complete(__imageCache);
   return completer.future;
 }
 
@@ -143,11 +141,17 @@ class _ImageCache implements Cache<Uint8List> {
   Future<Uint8List?> get(CacheKey key) async {
     final file = provider.getFile(key);
     if (await file.exists()) {
-      return file.readAsBytes();
-      // final Uint8List result = await FlutterImageCompress.compressWithList(
-      //     await file.readAsBytes(),
-      //     quality: 50);
-      // return Uint8List.fromList(result);
+      DateTime lastModified = await file.lastModified();
+      bool expired = lastModified.add(7.days).isAfterNow;
+      print('lastModified  $lastModified');
+      devLogs('lastModified  $lastModified');
+      //过期 返回null
+      if (expired) {
+        await file.delete();
+        return null;
+      } else {
+        return file.readAsBytes();
+      }
     }
     return null;
   }

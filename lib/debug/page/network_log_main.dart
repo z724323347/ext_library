@@ -296,7 +296,7 @@ class _ListItemState extends State<ListItem> {
                   visible: copyEnable,
                   child: InkWell(
                     onTap: () {
-                      LibTools.copy(content.replaceAll('\u{200B}', ''));
+                      libTools.copy(content.replaceAll('\u{200B}', ''));
                     },
                     child: Container(
                       color: Colors.transparent,

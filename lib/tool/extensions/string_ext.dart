@@ -90,7 +90,7 @@ extension LibStringExt on String {
 
   /// 移除标点符号
   String get rmPunctuation {
-    String punctuation = r'[!#\$%&\()*+,-./:;<=>?@\[\\\]^_`{|}~]';
+    String punctuation = r'[#\$%&\()*+-/<=>@\[\\\]^_`{|}~]';
     RegExp regExp = RegExp(punctuation);
     return replaceAll(regExp, ' ');
   }

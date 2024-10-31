@@ -30,6 +30,9 @@ dependencies:
   # dio
   dio: ^5.4.0
 
+  #system
+  path_provider: any
+
   # UI
   auto_size_text: ^3.0.0
   bot_toast: ^4.1.3
