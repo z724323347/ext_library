@@ -84,8 +84,18 @@ extension LibStringExt on String {
     return this;
   }
 
+  /// 是否是http
   bool get isHttp {
     return startsWith('http://') || startsWith('https://');
+  }
+
+  /// 是否是文件地址
+  bool get isFilePath {
+    final reg = RegExp(
+      r'^(/storage|/sdcard|/mnt/sdcard|/data/user/0)/.*$',
+      caseSensitive: false,
+    );
+    return reg.hasMatch(this);
   }
 
   /// 移除标点符号

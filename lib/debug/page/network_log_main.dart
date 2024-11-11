@@ -310,12 +310,19 @@ class _ListItemState extends State<ListItem> {
             ),
           ),
           Expanded(
+            // child: title == '请求参数:'
+            //     ? ExpandableText(
+            //         text: content,
+            //         initLength: 300,
+            //         textStyle: TextStyle(fontSize: 10, color: Colors.black),
+            //       )
+            //     : Text(
+            //         content,
+            //         style: TextStyle(fontSize: 10, color: Colors.black),
+            //       ),
             child: Text(
               content,
-              style: Theme.of(context)
-                  .textTheme
-                  .headlineSmall
-                  ?.copyWith(fontSize: 10, color: Colors.black),
+              style: TextStyle(fontSize: 10, color: Colors.black),
             ),
           ),
         ],
