@@ -35,10 +35,13 @@ class NetworkCheckCtrl extends GetxController {
   void initNetWork({required Dio dio, String? url}) {
     this.dio = dio;
     this.url = url.safety;
-    webBenchmark.addKeyV({dio.options.baseUrl: null});
+    // 将 Map 转换为 List
+    List<MapEntry<String, Duration?>> entries = webBenchmark.entries.toList();
+    entries.insert(0, MapEntry(dio.options.baseUrl, null));
+    webBenchmark.value = Map.fromEntries(entries);
 
     Future.delayed(Duration.zero, () {
-      return _testWeb().whenComplete(_testWeb);
+      return testWeb().whenComplete(testWeb);
     });
   }
 
@@ -54,7 +57,7 @@ class NetworkCheckCtrl extends GetxController {
     });
   }
 
-  Future<void> _testWeb() {
+  Future<void> testWeb() {
     // 清除之前的测试结果
     webBenchmark.updateAll((key, value) => null);
 

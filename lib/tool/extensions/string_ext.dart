@@ -92,7 +92,7 @@ extension LibStringExt on String {
   /// 是否是文件地址
   bool get isFilePath {
     final reg = RegExp(
-      r'^(/storage|/sdcard|/mnt/sdcard|/data/user/0)/.*$',
+      r'^(/storage|/sdcard|/mnt/sdcard|/data/user/0|/private/var/mobile|/var/mobile|/Library|/Documents|/data)/.*$',
       caseSensitive: false,
     );
     return reg.hasMatch(this);

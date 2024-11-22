@@ -20,7 +20,7 @@ class ToastNotification extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final ThemeData themeData = Theme.of(context);
-    const BorderRadius borderRadius = BorderRadius.all(Radius.circular(6));
+    const BorderRadius borderRadius = BorderRadius.all(Radius.circular(10));
 
     return Container(
       decoration: const BoxDecoration(
@@ -37,7 +37,7 @@ class ToastNotification extends StatelessWidget {
       margin: const EdgeInsets.all(8),
       child: Material(
         type: MaterialType.card,
-        color: themeData.scaffoldBackgroundColor,
+        color: Colors.white,
         borderRadius: borderRadius,
         clipBehavior: Clip.hardEdge,
         child: InkWell(
@@ -81,7 +81,7 @@ class ToastNotification extends StatelessWidget {
               style: themeData.textTheme.titleSmall?.copyWith(
                 fontSize: 12,
                 fontWeight: FontWeight.normal,
-                height: 12 / 16.5,
+                height: 22 / 16.5,
               ),
               child: subtitle!,
             ),

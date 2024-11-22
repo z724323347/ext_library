@@ -10,11 +10,21 @@ class WebLoadMonitor extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return GetX<NetworkCheckCtrl>(builder: (controller) {
-      return SelectableText.rich(
-        TextSpan(
-          children: controller.webBenchmark.entries.map((entry) {
-            return _buildSpan(context, entry.key, entry.value);
-          }).divide(const TextSpan(text: '\n')),
+      return SizedBox(
+        width: MediaQuery.of(context).size.width,
+        child: Stack(
+          children: [
+            SelectableText.rich(
+              TextSpan(
+                children: controller.webBenchmark.entries.map((entry) {
+                  return _buildSpan(context, entry.key, entry.value);
+                }).divide(const TextSpan(text: '\n')),
+              ),
+            ),
+            const Icon(Icons.refresh, color: Colors.grey)
+                .onInkWell(onTap: () => controller.testHttp())
+                .positioned(right: 10),
+          ],
         ),
       );
     });

@@ -41,6 +41,12 @@ extension LibNullDate on DateTime? {
 
 /// 时间 datetime 扩展函数
 extension LibDate on DateTime {
+  /// ms millisecondsSinceEpoch (毫秒时间戳)
+  int get msSinceEpoch => millisecondsSinceEpoch;
+
+  /// mic microsecondsSinceEpoch (微秒时间戳)
+  int get micSinceEpoch => microsecondsSinceEpoch;
+
   /// 是否已经过期(对比系统时间)
   ///
   /// dateTime > sysTime, 已过期 return  true
