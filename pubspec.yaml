@@ -55,6 +55,10 @@ dev_dependencies:
 
 # The following section is specific to Flutter packages.
 flutter:
+  fonts:
+      - family: Remix
+        fonts:
+          - asset: fonts/Remix.ttf
 
   # To add assets to your package, add an assets section, like this:
   # assets:

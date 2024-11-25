@@ -5,5 +5,6 @@ export 'keep/keep_alive_wrapper.dart';
 export 'text/anim_text.dart';
 export 'text/hyphenated_text.dart';
 export 'widget/widget_blur.dart';
+export './icon/remix_icon.dart';
 
 export 'adapter_binding.dart';

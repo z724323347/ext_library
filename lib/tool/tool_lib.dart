@@ -18,6 +18,7 @@ export './extensions/object_ext.dart';
 export './extensions/color_ext.dart';
 export './extensions/event_ext.dart';
 export './image/image_thief.dart';
+export './internet/internet_checker_plus.dart';
 
 export './mixins/api_mixins.dart';
 
