@@ -19,7 +19,6 @@ class ToastNotification extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final ThemeData themeData = Theme.of(context);
     const BorderRadius borderRadius = BorderRadius.all(Radius.circular(10));
 
     return Container(

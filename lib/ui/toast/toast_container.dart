@@ -1,5 +1,6 @@
 import 'dart:math' as math;
 
+import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/material.dart';
 
 enum ContainerType {
@@ -24,8 +25,9 @@ class ToastContainer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      padding: const EdgeInsets.fromLTRB(20, 15, 20, 20),
+    bool isTablet = MediaQuery.of(context).size.width > 600;
+    Widget view = Container(
+      padding: isTablet ? 20.horizontal.copyWith(top: 15, bottom: 20) : 15.all,
       decoration: BoxDecoration(
         // color: const Color(0xFF000000).withOpacity(0.8),
         color: color ?? Colors.grey.shade700,
@@ -36,6 +38,12 @@ class ToastContainer extends StatelessWidget {
         child: LayoutBuilder(builder: _buildText),
       ),
     );
+
+    // 处理 600 以上的屏幕
+    if (isTablet) {
+      return Transform.scale(scale: 0.6, child: view);
+    }
+    return view;
   }
 
   Widget _buildText(BuildContext context, BoxConstraints constraints) {
@@ -43,7 +51,22 @@ class ToastContainer extends StatelessWidget {
         math.min(constraints.maxWidth, constraints.maxHeight);
     final double? fixedWidth =
         shortestSide < double.infinity ? shortestSide / 75 * 40 : null;
-
+    double minWidth = MediaQuery.of(context).size.width / 4;
+    bool isTablet = MediaQuery.of(context).size.width > 600;
+    if (isTablet) {
+      return type == ContainerType.text
+          ? child
+          : ConstrainedBox(
+              constraints: BoxConstraints(
+                minWidth: fixedWidth ?? constraints.minWidth,
+                maxWidth: fixedWidth ?? constraints.maxWidth,
+                maxHeight: constraints.hasBoundedHeight
+                    ? constraints.maxHeight / 2
+                    : constraints.maxHeight,
+              ),
+              child: child,
+            );
+    }
     return type == ContainerType.text
         ? ConstrainedBox(
             constraints: BoxConstraints(
@@ -57,9 +80,14 @@ class ToastContainer extends StatelessWidget {
           )
         : ConstrainedBox(
             constraints: BoxConstraints(
-              minWidth: MediaQuery.of(context).size.width / 3.5,
-              maxWidth: MediaQuery.of(context).size.width / 3.5,
-              minHeight: MediaQuery.of(context).size.width / 3.5,
+              // minWidth: MediaQuery.of(context).size.width / 3.5,
+              // maxWidth: MediaQuery.of(context).size.width / 3.5,
+              // minHeight: MediaQuery.of(context).size.width / 3.5,
+              minWidth: minWidth,
+              maxWidth: minWidth,
+              maxHeight: constraints.hasBoundedHeight
+                  ? constraints.maxHeight / 2
+                  : constraints.maxHeight,
             ),
             child: child,
           );

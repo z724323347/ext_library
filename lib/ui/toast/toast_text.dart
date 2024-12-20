@@ -31,7 +31,10 @@ class ToastText extends StatelessWidget {
             Flexible(
               child: Text(
                 text!,
-                style: TextStyle(color: textColor ?? Colors.white),
+                style: TextStyle(
+                  color: textColor ?? Colors.white,
+                  fontSize: 14,
+                ),
               ),
             ),
         ].divide(const SizedBox(height: 4)),

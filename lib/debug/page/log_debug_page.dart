@@ -189,6 +189,14 @@ class _LogDebugPageState extends State<LogDebugPage> {
                             setState(() {});
                           },
                         ),
+                        // child: ExpandText(
+                        //   text: '日志:  ${item.msg}'.fixLines,
+                        //   maxLines: 3,
+                        //   contentTextStyle: const TextStyle(
+                        //       color: Colors.lightBlue, fontSize: 12),
+                        //   expandedTextStyle: const TextStyle(
+                        //       fontSize: 12, color: Colors.orange),
+                        // ),
                       ),
                     ],
                   ),

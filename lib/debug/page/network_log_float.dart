@@ -31,7 +31,7 @@ class _NetWorkLogFloatState extends State<NetWorkLogFloat> {
           height: 220,
           margin: const EdgeInsets.all(5),
           decoration: BoxDecoration(
-            color: Theme.of(context).canvasColor.withOpacity(0.8),
+            color: Colors.white,
             borderRadius: BorderRadius.circular(8),
             boxShadow: const [
               BoxShadow(

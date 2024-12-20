@@ -223,10 +223,7 @@ class _ListItemState extends State<ListItem> {
 
   Widget _buildBody() {
     if (!isExpand) {
-      return const Divider(
-        height: 0.5,
-        thickness: 0.5,
-      );
+      return const Divider(height: 0.5, thickness: 0.5);
     }
     return Container(
       padding: const EdgeInsets.all(5),

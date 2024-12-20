@@ -1,4 +1,4 @@
-library internet_checker;
+library internet_checker_plus;
 
 // Dart Packages
 import 'dart:async';

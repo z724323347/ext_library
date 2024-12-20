@@ -69,6 +69,15 @@ extension LibListExt<T> on List<T> {
   }
 }
 
+extension LibList<T> on List<T>? {
+  /// list  为空
+  ///
+  /// 包含 list=null;  以及  list =[];
+  bool get empty {
+    return this == null || this!.isEmpty;
+  }
+}
+
 extension LibListViewExt<E> on List<Widget> {
   // /// listview  追加尾部
   Iterable<Widget> addFoot({required Widget child}) {

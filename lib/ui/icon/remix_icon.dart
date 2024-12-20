@@ -7,6 +7,9 @@
 //       - asset: fonts/Remix.ttf
 // ignore_for_file: constant_identifier_names
 
+///
+///https://github.com/alialnaghmoush/remixicon/blob/main/README.md
+///
 import 'package:flutter/widgets.dart';
 
 class Remix {
