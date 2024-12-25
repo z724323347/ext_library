@@ -27,6 +27,8 @@ class NetworkCheckCtrl extends GetxController {
   late Dio dio;
   String url = '';
 
+  final loading = false.obs;
+
   @override
   void onInit() {
     super.onInit();
@@ -39,10 +41,15 @@ class NetworkCheckCtrl extends GetxController {
     List<MapEntry<String, Duration?>> entries = webBenchmark.entries.toList();
     entries.insert(0, MapEntry(dio.options.baseUrl, null));
     webBenchmark.value = Map.fromEntries(entries);
+    doTest();
+  }
 
-    Future.delayed(Duration.zero, () {
-      return testWeb().whenComplete(testWeb);
-    });
+  Future<void> doTest() async {
+    loading.value = true;
+    await 100.ms.delay();
+    testWeb().whenComplete(testWeb);
+    testHttp();
+    loading.value = false;
   }
 
   Future<void> testHttp() {
@@ -100,7 +107,7 @@ class NetworkCheckCtrl extends GetxController {
       options: Options(
         sendTimeout: 5000.ms,
         receiveTimeout: 5000.ms,
-        responseType: ResponseType.stream,
+        responseType: ResponseType.plain,
         headers: headers,
         validateStatus: validateStatus,
       ),

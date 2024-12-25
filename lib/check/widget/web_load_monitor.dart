@@ -21,9 +21,11 @@ class WebLoadMonitor extends StatelessWidget {
                 }).divide(const TextSpan(text: '\n')),
               ),
             ),
-            const Icon(Icons.refresh, color: Colors.grey)
-                .onInkWell(onTap: () => controller.testHttp())
-                .positioned(right: 10),
+            controller.loading.value
+                ? Container()
+                : const Icon(Icons.refresh, color: Colors.grey)
+                    .onInkWell(onTap: () => controller.doTest())
+                    .positioned(right: 10),
           ],
         ),
       );

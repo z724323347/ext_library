@@ -41,7 +41,7 @@ class ToastContainer extends StatelessWidget {
 
     // 处理 600 以上的屏幕
     if (isTablet) {
-      return Transform.scale(scale: 0.6, child: view);
+      // return Transform.scale(scale: 0.99, child: view);
     }
     return view;
   }
@@ -53,43 +53,38 @@ class ToastContainer extends StatelessWidget {
         shortestSide < double.infinity ? shortestSide / 75 * 40 : null;
     double minWidth = MediaQuery.of(context).size.width / 4;
     bool isTablet = MediaQuery.of(context).size.width > 600;
-    if (isTablet) {
-      return type == ContainerType.text
-          ? child
-          : ConstrainedBox(
-              constraints: BoxConstraints(
-                minWidth: fixedWidth ?? constraints.minWidth,
-                maxWidth: fixedWidth ?? constraints.maxWidth,
-                maxHeight: constraints.hasBoundedHeight
-                    ? constraints.maxHeight / 2
-                    : constraints.maxHeight,
-              ),
-              child: child,
-            );
+
+    Widget viewType = Container();
+    if (type == ContainerType.text) {
+      viewType = ConstrainedBox(
+        constraints: BoxConstraints(
+          minWidth: fixedWidth ?? constraints.minWidth,
+          maxWidth: fixedWidth ?? constraints.maxWidth,
+          maxHeight: constraints.hasBoundedHeight
+              ? constraints.maxHeight / 2
+              : constraints.maxHeight,
+        ),
+        child: child,
+      );
     }
-    return type == ContainerType.text
-        ? ConstrainedBox(
-            constraints: BoxConstraints(
-              minWidth: fixedWidth ?? constraints.minWidth,
-              maxWidth: fixedWidth ?? constraints.maxWidth,
-              maxHeight: constraints.hasBoundedHeight
-                  ? constraints.maxHeight / 2
-                  : constraints.maxHeight,
-            ),
-            child: child,
-          )
-        : ConstrainedBox(
-            constraints: BoxConstraints(
-              // minWidth: MediaQuery.of(context).size.width / 3.5,
-              // maxWidth: MediaQuery.of(context).size.width / 3.5,
-              // minHeight: MediaQuery.of(context).size.width / 3.5,
-              minWidth: minWidth,
-              maxWidth: minWidth,
-              maxHeight: constraints.hasBoundedHeight
-                  ? constraints.maxHeight / 2
-                  : constraints.maxHeight,
-            ),
-            child: child,
-          );
+    if (isTablet && type == ContainerType.text) {
+      viewType = child;
+    }
+    if (type == ContainerType.loading) {
+      viewType = ConstrainedBox(
+        constraints: BoxConstraints(
+          // minWidth: MediaQuery.of(context).size.width / 3.5,
+          // maxWidth: MediaQuery.of(context).size.width / 3.5,
+          // minHeight: MediaQuery.of(context).size.width / 3.5,
+          minWidth: minWidth,
+          maxWidth: minWidth,
+          maxHeight: constraints.hasBoundedHeight
+              ? constraints.maxHeight / 2
+              : constraints.maxHeight,
+        ),
+        child: child,
+      );
+    }
+    return viewType;
   }
 }
