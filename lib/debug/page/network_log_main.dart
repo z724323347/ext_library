@@ -243,7 +243,9 @@ class _ListItemState extends State<ListItem> {
             copyEnable: true,
           ),
           _buildInfoItem(
-              title: 'Header:', content: '${data.header}', copyEnable: true),
+              title: 'Header:',
+              content: data.header.jsonFormat,
+              copyEnable: true),
           _buildInfoItem(title: '类型:', content: data.respType),
           if (!data.respCode.isnull)
             _buildInfoItem(title: 'Http状态码:', content: data.respCode!),
@@ -252,7 +254,7 @@ class _ListItemState extends State<ListItem> {
           if (data.respText != null)
             _buildInfoItem(
               title: '结果:',
-              content: data.respText!.fixLines,
+              content: data.respText.safety,
               copyEnable: true,
             ),
           _buildErrorInfo(),

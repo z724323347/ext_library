@@ -2,6 +2,7 @@ import 'dart:async';
 import 'dart:convert';
 
 import 'package:dio/dio.dart';
+import 'package:ext_library/lib_ext.dart';
 import 'package:rxdart/rxdart.dart';
 
 import 'debug_config.dart';
@@ -104,7 +105,8 @@ class LogManager {
     final String? respMsg = error.response?.statusMessage.toString();
     String? respText = error.response?.data.toString();
     if (error.response?.data is Map) {
-      respText = jsonEncode(error.response?.data ?? {});
+      // respText = jsonEncode(error.response?.data ?? {});
+      respText = (error.response?.data as Map).jsonFormat;
     }
     // 请求地址
     final String url = request.uri.toString();
@@ -167,7 +169,8 @@ class LogManager {
 
     String respText = response.data.toString();
     if (response.data is Map) {
-      respText = jsonEncode(response.data);
+      // respText = jsonEncode(response.data);
+      respText = (response.data as Map).jsonFormat;
     }
     // 请求地址
     final String url = request.uri.toString();

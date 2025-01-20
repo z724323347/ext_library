@@ -134,7 +134,7 @@ extension LibStringExt on String {
 
   /// string 转 double
   double get toDouble {
-    if (this == null || length == 0 || isEmpty || toLowerCase() == 'null') {
+    if (isnull) {
       return 0.0;
     }
     try {
@@ -142,6 +142,32 @@ extension LibStringExt on String {
     } catch (e) {
       debugPrint(e.toString());
       return 0.0;
+    }
+  }
+
+  /// string 转 duration
+  Duration get toDuration {
+    if (isnull) {
+      return Duration.zero;
+    }
+    try {
+      return Duration(milliseconds: int.parse(this));
+    } catch (e) {
+      // 如果直接转换失败，则尝试解析 HH:mm:ss 格式
+      final parts = split(':');
+      if (parts.length == 3) {
+        final hours = int.parse(parts[0]);
+        final minutes = int.parse(parts[1]);
+        final seconds = int.parse(parts[2]);
+        return Duration(
+          hours: hours,
+          minutes: minutes,
+          seconds: seconds,
+        );
+      } else {
+        debugPrint('Unsupported time format: $this');
+        return Duration.zero;
+      }
     }
   }
 

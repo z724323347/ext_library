@@ -101,6 +101,15 @@ extension LibObject on Object {
 }
 
 extension LibNullObject on Object? {
+  /// string 转 jsonDecode 格式缩进
+  String get jsonFormat {
+    if (this == null) {
+      return '$this';
+    }
+    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
+    return encoder.convert(this);
+  }
+
   /// string 转 jsonEncode
   String? get jsEncode {
     if (this == null) {
@@ -110,20 +119,20 @@ extension LibNullObject on Object? {
   }
 
   /// object 转 map , 主要使用在路由传参
-  Map<String, dynamic> get toMap {
-    Map<String, dynamic> data = {};
-    if (this == null) {
-      return {};
-    }
-    if (this is Map) {
-      // object 为空map
-      if (toString() == '{}') {
-        return {};
-      }
-      data = this as Map<String, dynamic>;
-    }
-    return data;
-  }
+  // Map<String, dynamic> get toMap {
+  //   Map<String, dynamic> data = {};
+  //   if (this == null) {
+  //     return {};
+  //   }
+  //   if (this is Map) {
+  //     // object 为空map
+  //     if (toString() == '{}') {
+  //       return {};
+  //     }
+  //     data = this as Map<String, dynamic>;
+  //   }
+  //   return data;
+  // }
 }
 
 extension LibMap<K, V> on Map<K, V>? {
