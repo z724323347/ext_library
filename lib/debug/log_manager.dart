@@ -114,23 +114,28 @@ class LogManager {
     // 请求方式
     final String method = request.method;
     String postParams = request.data.toString();
-    String postFields = request.data.toString();
+    String postFields = jsonEncode(request.data).jsonFormat;
     if (request.data is FormData) {
       postParams = (request.data as FormData)
           .fields
           .map((MapEntry<String, String> e) => '${e.key}:${e.value}')
-          .join(',');
+          .jsonFormat;
       postFields = (request.data as FormData)
           .files
           .map((MapEntry<String, MultipartFile> e) =>
               '${e.key}:${e.value.filename}-${e.value.contentType}-${e.value.length}')
-          .join(',');
+          .jsonFormat;
     }
     // 请求参数
-    String params = '${method.toLowerCase()}:${request.queryParameters}';
+    String params =
+        '${method.toLowerCase()}:${request.queryParameters.jsonFormat}';
     if (method.toLowerCase() == 'post') {
-      // params = 'POST:\n参数:$postParams\n文件:$postFields';
       params = 'POST:\n参数:$postParams';
+    }
+    if (request.uri
+        .toString()
+        .contains('nls-gateway-cn-shanghai.aliyuncs.com')) {
+      params = 'POST:\n参数: aliyun  不监控';
     }
 
     // header信息
@@ -180,7 +185,7 @@ class LogManager {
     final String method = request.method;
     // 请求参数
     String postParams = request.data.toString();
-    String postFields = request.data.toString();
+    String postFields = jsonEncode(request.data);
     if (request.data is FormData) {
       postParams = (request.data as FormData)
           .fields
@@ -193,12 +198,15 @@ class LogManager {
       }).join(',');
     }
     // 请求参数
-    String params = 'GET:${jsonEncode(request.queryParameters)}';
+    String params = 'GET:${request.queryParameters.jsonFormat}';
     if (method.toLowerCase() == 'post') {
-      params = 'POST:\n参数:$postParams\n文件:$postFields';
+      params = 'POST:\n参数:\n${postParams}\n文件:\n$postFields';
     }
     if (method.toLowerCase() == 'put') {
-      params = 'PUT:\n参数:$postParams\n文件:$postFields';
+      params = 'PUT:\n参数:\n$postParams\n文件:\n$postFields';
+    }
+    if (request.uri.toString().contains('nls-gateway')) {
+      params = 'POST:\n参数: aliyun不监控(${request.uri.host})';
     }
 
     // header信息

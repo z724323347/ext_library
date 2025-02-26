@@ -309,20 +309,38 @@ class _ListItemState extends State<ListItem> {
             ),
           ),
           Expanded(
-            // child: title == '请求参数:'
-            //     ? ExpandableText(
-            //         text: content,
-            //         initLength: 300,
-            //         textStyle: TextStyle(fontSize: 10, color: Colors.black),
-            //       )
-            //     : Text(
-            //         content,
-            //         style: TextStyle(fontSize: 10, color: Colors.black),
-            //       ),
             child: Text(
               content,
               style: TextStyle(fontSize: 10, color: Colors.black),
             ),
+            // child: ExpandableText(
+            //   text: content.safety,
+            //   textStyle: const TextStyle(color: Colors.black, fontSize: 10),
+            //   buttonTextStyle:
+            //       const TextStyle(fontSize: 10, color: Colors.orange),
+            //   initLength: 300,
+            //   textAlign: TextAlign.start,
+            //   expanded: (v) => setState(() {}),
+            // ),
+            // child: SelectableText.rich(
+            //   TextSpan(
+            //     text: '',
+            //     children: [
+            //       WidgetSpan(
+            //         child: ExpandableText(
+            //           text: content.safety,
+            //           textStyle:
+            //               const TextStyle(color: Colors.black, fontSize: 10),
+            //           buttonTextStyle:
+            //               const TextStyle(fontSize: 10, color: Colors.orange),
+            //           // initLength: 300,
+            //           expanded: (v) => setState(() {}),
+            //         ),
+            //       ),
+            //     ],
+            //   ),
+            //   style: const TextStyle(color: Colors.black, fontSize: 10),
+            // ),
           ),
         ],
       ),
