@@ -1,4 +1,5 @@
 import 'package:ext_library/lib_ext.dart';
+import 'package:ext_library/ui/text/text_loading.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_spinkit/flutter_spinkit.dart';
@@ -41,9 +42,17 @@ class ToastLoading extends StatelessWidget {
         style: const TextStyle(color: Colors.white),
       );
       if (textAnim ?? true) {
-        textWidget = TextAnim.jump(
-          _text.safety,
-          style: const TextStyle(color: Colors.white),
+        // textWidget = TextAnim.jump(
+        //   _text.safety,
+        //   style: const TextStyle(color: Colors.white),
+        // );
+        textWidget = TextLoading(
+          text: _text.safety,
+          style: const TextStyle(
+            fontSize: 14,
+            fontWeight: FontWeight.w400,
+            color: Colors.white,
+          ),
         );
       }
     }
