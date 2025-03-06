@@ -38,17 +38,9 @@ class FloatingActionMenu extends StatelessWidget {
       child: Row(
         mainAxisSize: MainAxisSize.min,
         children: <Widget>[
-          Icon(
-            item.icon,
-            color: item.iconColor,
-          ),
-          const SizedBox(
-            width: 10.0,
-          ),
-          Text(
-            item.title,
-            style: item.titleStyle,
-          ),
+          Icon(item.icon, color: item.iconColor),
+          const SizedBox(width: 10.0),
+          Text(item.title, style: item.titleStyle),
         ],
       ),
     );
