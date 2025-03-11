@@ -76,6 +76,11 @@ extension LibList<T> on List<T>? {
   bool get empty {
     return this == null || this!.isEmpty;
   }
+
+  /// list 不为空
+  List<T> get safey {
+    return empty ? [] : this!;
+  }
 }
 
 extension LibListViewExt<E> on List<Widget> {
