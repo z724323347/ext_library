@@ -21,6 +21,7 @@ class NetworkCheckCtrl extends GetxController {
   final wsBenchmark = const NetworkBenchmark().obs;
   final webBenchmark = RxMap<String, Duration?>({
     'https://www.baidu.com': null,
+    'https://nls-gateway-cn-shanghai.aliyuncs.com': null,
     'https://www.google.com': null,
   });
 
