@@ -71,6 +71,7 @@ void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
 void _defaultLog(String value, {bool isError = true}) {
   if (isError || kDebugMode) {
     dev.log(value, name: 'LOGS');
+    devlLogU.i('LOGS: $value');
   }
 }
 
@@ -93,13 +94,13 @@ class LogU {
     filter: DevelopmentFilter(),
     printer: () {
       final PrettyPrinter realPrinter = PrettyPrinter(
-        methodCount: 2,
+        methodCount: 0,
         errorMethodCount: 10,
         // width of the output
         lineLength: stdout.hasTerminal ? stdout.terminalColumns : 120,
-        colors: !Platform.isIOS,
-        printEmojis: true,
-        printTime: true,
+        colors: false,
+        printEmojis: false,
+        printTime: false,
       );
 
       if (!realPrinter.colors) {
