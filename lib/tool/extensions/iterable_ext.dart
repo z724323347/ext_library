@@ -84,6 +84,26 @@ extension LibList<T> on List<T>? {
 }
 
 extension LibListViewExt<E> on List<Widget> {
+  /// widget 分割线
+  List<Widget> div(
+    Widget divider, {
+    bool addBefore = false,
+    bool addAfter = false,
+  }) {
+    final list = <Widget>[];
+    forEachIndexed((index, child) {
+      if (addBefore || index > 0) {
+        list.add(divider);
+      }
+      list.add(child);
+    });
+    if (addAfter) {
+      list.add(divider);
+    }
+
+    return list;
+  }
+
   // /// listview  追加尾部
   Iterable<Widget> addFoot({required Widget child}) {
     return this..add(child);
