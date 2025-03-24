@@ -140,7 +140,9 @@ extension LibMap<K, V> on Map<K, V>? {
     if (this == null) {
       return {};
     }
-    return this!..removeWhere((key, value) => value == null || value == '');
+    return this!
+      ..removeWhere(
+          (key, value) => value == null || value == '' || value == 'null');
   }
 
   Map<K, V> removeKey(key) {
