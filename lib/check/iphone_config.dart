@@ -59,5 +59,10 @@ class IPhoneConfig {
     'iPhone16,2': 'iPhone 15 Pro Max',
     'iPhone16,3': 'iPhone 15',
     'iPhone16,4': 'iPhone 15 Plus',
+    'iPhone17,1': 'iPhone 16',
+    'iPhone17,2': 'iPhone 16 Plus',
+    'iPhone17,3': 'iPhone 16 Pro',
+    'iPhone17,4': 'iPhone 16 Pro Max',
+    'iPhone17,5': 'iPhone 16E',
   };
 }
