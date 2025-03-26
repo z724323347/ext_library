@@ -81,6 +81,23 @@ extension LibList<T> on List<T>? {
   List<T> get safey {
     return empty ? [] : this!;
   }
+
+  /// 安全获取 List指定数据 data
+  T? dataOf(bool Function(T) test) {
+    if (empty) {
+      return null;
+    }
+    final index = safey.indexWhere(test);
+    if (index == -1) {
+      return null;
+    }
+    return safey[index];
+  }
+
+  /// 安全获取 List指定数据 index索引
+  int of(bool Function(T) test) {
+    return safey.indexWhere(test);
+  }
 }
 
 extension LibListViewExt<E> on List<Widget> {
