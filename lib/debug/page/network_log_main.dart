@@ -190,6 +190,21 @@ class _ListItemState extends State<ListItem> {
                     .headlineSmall
                     ?.copyWith(fontSize: 10, color: statusColor),
               ),
+              Container(
+                decoration: BoxDecoration(
+                  color: Colors.grey,
+                  borderRadius: 4.borderAll,
+                ),
+                margin: 10.left,
+                padding: 2.vertical,
+                child: Text(
+                  ' 灰度: {beta:${data.header['beta']}} ',
+                  style: Theme.of(context)
+                      .textTheme
+                      .headlineSmall
+                      ?.copyWith(fontSize: 10, color: Colors.white),
+                ),
+              ).visible(data.header.containsKey('beta')),
               const Spacer(),
               Text(
                 'start: ${data.time?.hmsDotSS}',

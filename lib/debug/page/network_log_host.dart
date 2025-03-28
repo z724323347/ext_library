@@ -1,12 +1,10 @@
 import 'dart:io';
 
-import 'package:ext_library/log_util.dart';
-import 'package:ext_library/tool/extensions/function_ext.dart';
-import 'package:ext_library/tool/extensions/string_ext.dart';
-import 'package:ext_library/tool/extensions/text_editing_ext.dart';
 import 'package:ext_library/tool/tool_lib.dart';
 import 'package:ext_library/ui/toast/toast.dart';
 import 'package:flutter/material.dart';
+
+import '../entity/host_page_entity.dart';
 
 /// 网络设置相关
 class NetworkLogHostPage extends StatefulWidget {
@@ -14,16 +12,18 @@ class NetworkLogHostPage extends StatefulWidget {
   String? appConfig;
   Function(Uri uri)? onChange;
   Function(String url)? toWebView;
-  VoidCallback? doRelease;
-  VoidCallback? doDevelop;
+  // VoidCallback? doRelease;
+  // VoidCallback? doDevelop;
+  // VoidCallback? doGray;
+  List<HostPageEntity> envList;
+
   NetworkLogHostPage({
     Key? key,
     this.baseUri,
     this.appConfig,
     this.onChange,
     this.toWebView,
-    this.doRelease,
-    this.doDevelop,
+    this.envList = const [],
   }) : super(key: key);
 
   @override
@@ -94,7 +94,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         _buildInputUrl(),
         const SizedBox(height: 40),
         _buildUriItem(des: '正式', uri: 'https://api.washine.tech'),
-        _buildUriItem(des: '预发布', uri: 'http://pre'),
+        _buildUriItem(des: '灰度', uri: 'https://api-gray.washine.tech'),
         _buildUriItem(des: '测试', uri: 'https://dev.wapen.app'),
         const SizedBox(height: 40),
         Text(
@@ -165,7 +165,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         Container(
           alignment: Alignment.centerLeft,
           child: Text(
-            currUrl ?? '',
+            currUrl.safety.fixLines,
             style: const TextStyle(color: Colors.lightBlue, fontSize: 20),
           ),
         ),
@@ -202,14 +202,48 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
   }
 
   Widget _buildFastSwitch() {
+    return Column(
+      mainAxisSize: MainAxisSize.min,
+      children: [
+        Row(
+          children: [
+            Row(
+              children: widget.envList
+                  .map((e) {
+                    return TextButton(
+                      onPressed: () {
+                        e.func?.call();
+                      },
+                      style: ButtonStyle(
+                        foregroundColor:
+                            MaterialStateProperty.all(Colors.white),
+                        backgroundColor:
+                            MaterialStateProperty.all(Colors.green),
+                      ),
+                      child: Text('${e.name}'),
+                    );
+                  })
+                  .toList()
+                  .div(30.wGap),
+            ).scrollable(scrollDirection: Axis.horizontal).expanded(),
+            TextButton(
+              onPressed: () => reStart(),
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all(Colors.white),
+                backgroundColor: MaterialStateProperty.all(Colors.red),
+              ),
+              child: const Text('重启APP'),
+            )
+          ].div(30.wGap),
+        ),
+      ],
+    );
     return Row(
       children: [
         Expanded(
           child: TextButton(
             onPressed: () {
-              if (widget.doRelease != null) {
-                widget.doRelease!();
-              }
+              // widget.doRelease?.call();
             },
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all(Colors.white),
@@ -218,13 +252,10 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
             child: const Text('Release'),
           ),
         ),
-        const SizedBox(width: 20),
         Expanded(
           child: TextButton(
             onPressed: () {
-              if (widget.doDevelop != null) {
-                widget.doDevelop!();
-              }
+              // widget.doDevelop?.call();
             },
             style: ButtonStyle(
               foregroundColor: MaterialStateProperty.all(Colors.white),
@@ -233,7 +264,6 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
             child: const Text('Debug'),
           ),
         ),
-        const SizedBox(width: 20),
         Expanded(
           child: TextButton(
             onPressed: () => reStart(),
@@ -244,7 +274,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
             child: const Text('重启APP'),
           ),
         ),
-      ],
+      ].div(20.wGap),
     );
   }
 
