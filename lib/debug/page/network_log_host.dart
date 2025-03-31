@@ -1,4 +1,5 @@
 import 'dart:io';
+import 'dart:math';
 
 import 'package:ext_library/tool/tool_lib.dart';
 import 'package:ext_library/ui/toast/toast.dart';
@@ -217,15 +218,18 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
                       style: ButtonStyle(
                         foregroundColor:
                             MaterialStateProperty.all(Colors.white),
-                        backgroundColor:
-                            MaterialStateProperty.all(Colors.green),
+                        backgroundColor: MaterialStateProperty.all(
+                            e.backgroundColor ?? Colors.green),
                       ),
                       child: Text('${e.name}'),
                     );
                   })
                   .toList()
-                  .div(30.wGap),
-            ).scrollable(scrollDirection: Axis.horizontal).expanded(),
+                  .div(10.wGap),
+            )
+                .scrollable(scrollDirection: Axis.horizontal)
+                .clipRRect(all: 5)
+                .expanded(),
             TextButton(
               onPressed: () => reStart(),
               style: ButtonStyle(
@@ -234,7 +238,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
               ),
               child: const Text('重启APP'),
             )
-          ].div(30.wGap),
+          ].div(10.wGap),
         ),
       ],
     );
