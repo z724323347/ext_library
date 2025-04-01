@@ -1,7 +1,7 @@
-import 'dart:convert';
 import 'dart:io';
 
 import 'package:decimal/decimal.dart';
+import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/widgets.dart';
 import 'package:intl/intl.dart';
 import './num_ext.dart';
@@ -29,6 +29,24 @@ extension LibStringExtNull on String? {
       return '';
     }
     return '$this';
+  }
+
+  /// 是否是http
+  bool get isHttp {
+    if (isnull) {
+      return false;
+    }
+    return this!.startsWith('http://') || this!.startsWith('https://');
+  }
+
+  /// 显示 (String 为空，显示占位符，不为空，显示内容 )
+  ///
+  /// [placeholder] 占位符 默认 --
+  String display([String placeholder = '--']) {
+    if (isnull) {
+      return placeholder;
+    }
+    return safety;
   }
 
   /// 去除空格
@@ -151,7 +169,7 @@ extension LibStringExt on String {
       return Duration.zero;
     }
     try {
-      return Duration(milliseconds: int.parse(this));
+      return Duration(seconds: int.parse(this));
     } catch (e) {
       // 如果直接转换失败，则尝试解析 HH:mm:ss 格式
       final parts = split(':');
@@ -565,5 +583,31 @@ extension LibStringExt on String {
       return fileName.substring(dotIndex + 1);
     }
     return _result;
+  }
+
+  /// 根据 file name在dir目录下查找对应文件名的文件
+  ///
+  /// return File? file
+  File? fileAndPath({required String dir, String? name}) {
+    if (name.none) {
+      return null;
+    }
+    Directory folder = Directory(dir);
+    bool hasExists = folder.existsSync();
+    if (hasExists) {
+      for (final entity in folder.listSync()) {
+        if (entity is File &&
+            entity.path.fileName(true) == name?.fileName(true)) {
+          // final createTime = entity.lastModifiedSync();
+          // // 是否过期 (3天内)
+          // final status = createTime.add(3.days).expired;
+          // if (status) {
+          //   return null;
+          // }
+          return entity;
+        }
+      }
+    }
+    return null;
   }
 }
