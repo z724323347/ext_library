@@ -136,6 +136,11 @@ extension LibNullObject on Object? {
 }
 
 extension LibMap<K, V> on Map<K, V>? {
+  /// 是否为空
+  bool get empty {
+    return this == null || this!.isEmpty;
+  }
+
   Map<K, V> get removeNull {
     if (this == null) {
       return {};
