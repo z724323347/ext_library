@@ -203,15 +203,13 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
   }
 
   Widget _buildFastSwitch() {
-    return Column(
-      mainAxisSize: MainAxisSize.min,
+    return Row(
       children: [
-        Row(
-          children: [
-            Row(
-              children: widget.envList
-                  .map((e) {
-                    return TextButton(
+        Container(
+          // color: Colors.green.shade200,
+          child: Row(
+            children: widget.envList
+                .map((e) => TextButton(
                       onPressed: () {
                         e.func?.call();
                       },
@@ -222,63 +220,21 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
                             e.backgroundColor ?? Colors.green),
                       ),
                       child: Text('${e.name}'),
-                    );
-                  })
-                  .toList()
-                  .div(10.wGap),
-            )
-                .scrollable(scrollDirection: Axis.horizontal)
-                .clipRRect(all: 5)
-                .expanded(),
-            TextButton(
-              onPressed: () => reStart(),
-              style: ButtonStyle(
-                foregroundColor: MaterialStateProperty.all(Colors.white),
-                backgroundColor: MaterialStateProperty.all(Colors.red),
-              ),
-              child: const Text('重启APP'),
-            )
-          ].div(10.wGap),
-        ),
-      ],
-    );
-    return Row(
-      children: [
-        Expanded(
-          child: TextButton(
-            onPressed: () {
-              // widget.doRelease?.call();
-            },
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(Colors.white),
-              backgroundColor: MaterialStateProperty.all(Colors.green),
-            ),
-            child: const Text('Release'),
+                    ))
+                .toList()
+                .div(10.wGap)
+              ..addFoot(child: 20.wGap),
+          ).scrollable(scrollDirection: Axis.horizontal, padding: 0.all),
+        ).clipRRect(all: 5).expanded(),
+        TextButton(
+          onPressed: () => reStart(),
+          style: ButtonStyle(
+            foregroundColor: MaterialStateProperty.all(Colors.white),
+            backgroundColor: MaterialStateProperty.all(Colors.red),
           ),
-        ),
-        Expanded(
-          child: TextButton(
-            onPressed: () {
-              // widget.doDevelop?.call();
-            },
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(Colors.white),
-              backgroundColor: MaterialStateProperty.all(Colors.orangeAccent),
-            ),
-            child: const Text('Debug'),
-          ),
-        ),
-        Expanded(
-          child: TextButton(
-            onPressed: () => reStart(),
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(Colors.white),
-              backgroundColor: MaterialStateProperty.all(Colors.red),
-            ),
-            child: const Text('重启APP'),
-          ),
-        ),
-      ].div(20.wGap),
+          child: const Text('重启APP'),
+        )
+      ].div(10.wGap),
     );
   }
 
