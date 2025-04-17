@@ -141,6 +141,11 @@ extension LibMap<K, V> on Map<K, V>? {
     return this == null || this!.isEmpty;
   }
 
+  /// 安全获取map
+  Map<K, V> get safety {
+    return this ?? {};
+  }
+
   Map<K, V> get removeNull {
     if (this == null) {
       return {};
