@@ -100,6 +100,20 @@ extension LibList<T> on List<T>? {
   }
 }
 
+extension LibIterable<E> on Iterable<E>? {
+  /// list  为空
+  ///
+  /// 包含 list=null;  以及  list =[];
+  bool get empty {
+    return this == null || this!.isEmpty;
+  }
+
+  /// list 不为空
+  Iterable<E> get safey {
+    return empty ? [] : this!;
+  }
+}
+
 extension LibListViewExt<E> on List<Widget> {
   /// widget 分割线
   List<Widget> div(
