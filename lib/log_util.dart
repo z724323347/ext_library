@@ -71,7 +71,7 @@ void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
 void _defaultLog(String value, {bool isError = true}) {
   if (isError || kDebugMode) {
     dev.log(value, name: 'LOGS');
-    devlLogU.i('LOGS: $value');
+    // devlLogU.i('LOGS: $value');
   }
 }
 
