@@ -4,7 +4,7 @@ version: 0.0.1
 homepage:
 
 environment:
-  sdk: '>=2.18.0 <4.0.0'
+  sdk: '>=2.19.6 <4.0.0'
   flutter: ">=3.0.0"
 
 dependencies:
@@ -39,7 +39,7 @@ dependencies:
   flutter_spinkit: ^5.2.1
   path_drawing: any
   flutter_svg: any
-  # animated_text_kit: any
+  animated_text_kit: 4.2.2
   # styled_widget: ^0.4.1
 
   # Development 使用插件

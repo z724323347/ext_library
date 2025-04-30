@@ -1,7 +1,7 @@
 class ToStringBuilder {
-  ToStringBuilder({required this.type});
+  ToStringBuilder({this.type});
 
-  final Type type;
+  final Type? type;
   final Map<String, dynamic> properties = <String, dynamic>{};
 
   ToStringBuilder addProperty(String name, dynamic value) {
@@ -11,7 +11,7 @@ class ToStringBuilder {
 
   @override
   String toString() {
-    final StringBuffer buffer = StringBuffer(type)..write('\u0020{');
+    final StringBuffer buffer = StringBuffer(type ?? '')..write('\u0020{');
     if (properties.isNotEmpty) {
       buffer.writeln();
       for (final MapEntry<String, dynamic> property in properties.entries) {

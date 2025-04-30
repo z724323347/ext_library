@@ -6,6 +6,7 @@ import 'package:flutter/services.dart';
 export './extensions/date_ext.dart';
 export './extensions/decimal_ext.dart';
 export './extensions/duration_ext.dart';
+export './extensions/file_ext.dart';
 export './extensions/function_ext.dart';
 export './extensions/iterable_ext.dart';
 export './extensions/num_ext.dart';
@@ -17,6 +18,8 @@ export './extensions/widget_ext.dart';
 export './extensions/object_ext.dart';
 export './extensions/color_ext.dart';
 export './extensions/event_ext.dart';
+export './font/font_dynamic.dart';
+export './font/font_sys_chinese.dart';
 export './image/image_thief.dart';
 export './internet/internet_checker_plus.dart';
 

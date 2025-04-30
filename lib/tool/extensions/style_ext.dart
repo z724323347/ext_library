@@ -348,10 +348,7 @@ extension LibWidgetExt on Widget {
   }
 
   /// 忽略组件（事件穿透）
-  Widget ignore({
-    bool ignoring = true,
-    bool? ignoringSemantics,
-  }) {
+  Widget ignore({bool ignoring = true, bool? ignoringSemantics}) {
     return IgnorePointer(
       ignoring: ignoring,
       ignoringSemantics: ignoringSemantics,

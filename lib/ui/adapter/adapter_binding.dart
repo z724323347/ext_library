@@ -89,11 +89,11 @@ class AutoWidgetsFlutterBinding extends WidgetsFlutterBinding {
     print(
         'AutoWidgetsFlutterBinding ---width:${window.physicalSize.width / (window.physicalSize.width / appSize.width)}  height:${window.physicalSize.height / (window.physicalSize.width / appSize.width)}');
     return ViewConfiguration(
-      size: Size(
-        appSize.width,
-        window.physicalSize.height /
-            (window.physicalSize.width / appSize.width),
-      ),
+      // size: Size(
+      //   appSize.width,
+      //   window.physicalSize.height /
+      //       (window.physicalSize.width / appSize.width),
+      // ),
       devicePixelRatio: window.physicalSize.width / appSize.width,
     );
   }
@@ -101,12 +101,15 @@ class AutoWidgetsFlutterBinding extends WidgetsFlutterBinding {
   void _handlePointerDataPacket(PointerDataPacket packet) {
     // We convert pointer data to logical pixels so that e.g. the touch slop can be
     // defined in a device-independent manner.
-    _pendingPointerEvents.addAll(
-      PointerEventConverter.expand(
-        packet.data,
-        window.physicalSize.width / appSize.width,
-      ),
-    );
+    // _pendingPointerEvents.addAll(
+    //   PointerEventConverter.expand(
+    //     packet.data,
+    //     window.physicalSize.width / appSize.width,
+    //     (_){
+
+    //     },
+    //   ),
+    // );
     if (!locked) {
       _flushPointerEventQueue();
     }
@@ -119,3 +122,4 @@ class AutoWidgetsFlutterBinding extends WidgetsFlutterBinding {
     }
   }
 }
+ 
