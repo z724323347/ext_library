@@ -525,8 +525,17 @@ extension LibStringExt on String {
 
   /// 通过 (uri/url) 获取uri参数
   Map<String, dynamic> get uriParam {
+    // final query = <String, Object?>{...Uri.parse(safety).queryParameters};
+    // return query;
     return Uri.parse(safety).queryParameters;
   }
+
+  /// 通过 (uri/url) 获取uri参数
+  Map<String, dynamic> get uriArgs {
+    final uArgs = <String, Object?>{...Uri.parse(safety).queryParameters};
+    return uArgs;
+  }
+
 
   /// 通过 (uri/url) 获取host uri
   String get uriPath {
