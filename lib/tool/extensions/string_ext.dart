@@ -23,6 +23,14 @@ extension LibStringExtNull on String? {
     return false;
   }
 
+  /// 字符是否为空
+  bool get empty {
+    if (this == null || this!.isEmpty || this?.toLowerCase() == 'null') {
+      return true;
+    }
+    return false;
+  }
+
   /// 字符空安全
   String get safety {
     if (isnull) {
