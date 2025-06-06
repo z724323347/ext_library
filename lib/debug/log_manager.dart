@@ -201,11 +201,11 @@ class LogManager {
     String params = 'GET:\n${request.queryParameters.jsonFormat}';
     if (method.toLowerCase() == 'post') {
       // params = 'POST:\n参数:\n${postParams}\n文件:\n$postFields';
-      params = 'POST:\n参数:\n$postParams';
+      params = 'POST:\n参数:\n${postFields.strToMap.jsonFormat}';
     }
     if (method.toLowerCase() == 'put') {
       // params = 'PUT:\n参数:\n$postParams\n文件:\n$postFields';
-       params = 'PUT:\n参数:\n$postParams';
+       params = 'PUT:\n参数:\n${postFields.strToMap.jsonFormat}';
     }
     if (request.uri.toString().contains('nls-gateway')) {
       params = 'POST:\n参数: aliyun不监控(${request.uri.host})';

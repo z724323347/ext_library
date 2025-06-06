@@ -1,3 +1,4 @@
+import 'dart:convert';
 import 'dart:io';
 
 import 'package:decimal/decimal.dart';
@@ -78,6 +79,17 @@ extension LibStringExtNull on String? {
     } catch (e) {
       return null;
     }
+  }
+  /// String => Map
+  Map get strToMap {
+    if (empty) {
+      return {};
+    }
+   try {
+      return jsonDecode(safety);
+   } catch (e) {
+     return {};
+   }
   }
 }
 
