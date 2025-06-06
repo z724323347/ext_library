@@ -96,7 +96,8 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         const SizedBox(height: 40),
         _buildUriItem(des: '正式', uri: 'https://api.washine.tech'),
         _buildUriItem(des: '灰度', uri: 'https://api-gray.washine.tech'),
-        _buildUriItem(des: '测试', uri: 'https://dev.wapen.app'),
+        _buildUriItem(des: '开发', uri: 'https://dev.zhiwafrog.com'),
+        _buildUriItem(des: '测试', uri: 'https://test.zhiwafrog.com'),
         const SizedBox(height: 40),
         Text(
           '当前Config:\n${widget.appConfig ?? widget.baseUri.toString().fixLines}',

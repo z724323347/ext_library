@@ -198,12 +198,14 @@ class LogManager {
       }).join(',');
     }
     // 请求参数
-    String params = 'GET:${request.queryParameters.jsonFormat}';
+    String params = 'GET:\n${request.queryParameters.jsonFormat}';
     if (method.toLowerCase() == 'post') {
-      params = 'POST:\n参数:\n${postParams}\n文件:\n$postFields';
+      // params = 'POST:\n参数:\n${postParams}\n文件:\n$postFields';
+      params = 'POST:\n参数:\n$postParams';
     }
     if (method.toLowerCase() == 'put') {
-      params = 'PUT:\n参数:\n$postParams\n文件:\n$postFields';
+      // params = 'PUT:\n参数:\n$postParams\n文件:\n$postFields';
+       params = 'PUT:\n参数:\n$postParams';
     }
     if (request.uri.toString().contains('nls-gateway')) {
       params = 'POST:\n参数: aliyun不监控(${request.uri.host})';

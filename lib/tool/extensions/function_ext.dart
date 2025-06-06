@@ -187,6 +187,15 @@ extension FunctionExt<T> on Function(T) {
     return target;
   }
 
+  /// 函数节流
+  ///
+  /// [delay]:设置节流时间默认 2 秒
+  Function(T) throttle([Duration delay = const Duration(milliseconds: 2000)]) {
+    Throttle throttle = Throttle(delay);
+    return (T) => throttle.start(() => this.call(T));
+  }
+
+
   Function isMobile() {
     if (Platform.isAndroid || Platform.isIOS) {
       return this;

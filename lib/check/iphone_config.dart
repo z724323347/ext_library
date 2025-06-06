@@ -5,8 +5,13 @@ class IPhoneConfig {
     return iphoneList[model] ?? model;
   }
 
+  static Map<String, String> iphoneList =<String, String>{
+    ...iphone,
+    ...ipad,
+  };
+
   /// iphone 型号类别
-  static Map<String, String> iphoneList = <String, String>{
+  static Map<String, String> iphone = <String, String>{
     'iPhone3,1': 'iPhone 4',
     'iPhone3,2': 'iPhone 4',
     'iPhone3,3': 'iPhone 4',
@@ -64,5 +69,10 @@ class IPhoneConfig {
     'iPhone17,3': 'iPhone 16 Pro',
     'iPhone17,4': 'iPhone 16 Pro Max',
     'iPhone17,5': 'iPhone 16E',
+  };
+
+  ///  iPad 型号类别
+  static Map<String, String> ipad = <String, String>{
+
   };
 }
