@@ -99,57 +99,92 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         _buildUriItem(des: '开发', uri: 'https://dev.zhiwafrog.com'),
         _buildUriItem(des: '测试', uri: 'https://test.zhiwafrog.com'),
         const SizedBox(height: 40),
-        Text(
+        SelectableText(
           '当前Config:\n${widget.appConfig ?? widget.baseUri.toString().fixLines}',
           style: TextStyle(color: Colors.green),
           maxLines: 99,
-        )
+        ),
+        200.hGap,
       ],
     );
   }
 
   Widget _buildInputUrl() {
     return SizedBox(
-      height: 45,
+      height: MediaQuery.of(context).size.height  * 0.1,
       child: Row(
         children: [
           Expanded(
+            // child: TextField(
+            //   controller: _webController,
+            //   keyboardType: TextInputType.url,
+            //   style: TextStyle(),
+            //   decoration: InputDecoration(
+            //     hintText: '输入web地址',
+            //     hintStyle: TextStyle(
+            //         color: Colors.grey.withOpacity(0.5), fontSize: 12),
+            //     suffixIcon: InkWell(
+            //       onTap: () {
+            //         _webController.input('');
+            //         setState(() {});
+            //       },
+            //       child: const Icon(Icons.close, size: 18),
+            //     ),
+            //   ),
+            // ),
             child: TextField(
+              // maxLength: 3000
               controller: _webController,
-              keyboardType: TextInputType.url,
-              style: TextStyle(),
-              decoration: InputDecoration(
-                hintText: '输入web地址',
-                hintStyle: TextStyle(
-                    color: Colors.grey.withOpacity(0.5), fontSize: 12),
-                suffixIcon: InkWell(
-                  onTap: () {
-                    _webController.input('');
-                    setState(() {});
-                  },
-                  child: const Icon(Icons.close, size: 18),
+              enabled: true,
+              decoration:  InputDecoration(
+                  contentPadding: 6.all,
+                  border: InputBorder.none,
+                  hintStyle: TextStyle(color: Color(0x663c3c43)),
+                  hintText: '输入web地址',
+                  suffixIcon: InkWell(
+                    onTap: () {
+                      _webController.input('');
+                      setState(() {});
+                    },
+                    child: const Icon(Icons.close, size: 18),
+                  ),
                 ),
-              ),
-            ),
+              onChanged:(_){
+                _webController.input(_);
+                setState(() {});
+              } ,
+              keyboardType: TextInputType.url,
+              maxLines: 999999,
+              style: TextStyle(fontSize: 11, color: Colors.black, height: 1.6),
+            ).backgroundColor(Color(0xFFf6f6f6)).clipRRect(all: 8),
           ),
-          TextButton(
-            onPressed: () {
-              print('msg====  ${_webController.text}');
-              final isHttpUrl = !_webController.text.isnull &&
-                  _webController.text.startsWith(RegExp('^[https|http]'));
-              if (isHttpUrl) {
-                if (widget.toWebView != null) {
-                  widget.toWebView!(_webController.text);
-                }
-              } else {
-                AppToast.showText(' Web Url格式错误');
-              }
-            }.keyBoard(),
-            style: ButtonStyle(
-              foregroundColor: MaterialStateProperty.all(Colors.white),
-              backgroundColor: MaterialStateProperty.all(Colors.orange),
-            ),
-            child: Text('进入Web', style: TextStyle()),
+          Column(
+            children: [
+              TextButton(
+                onPressed: () {
+                  print('msg====  ${_webController.text}');
+                  final isHttpUrl = !_webController.text.isnull &&
+                      _webController.text.startsWith(RegExp('^[https|http]'));
+                  if (isHttpUrl) {
+                    if (widget.toWebView != null) {
+                      widget.toWebView!(_webController.text);
+                    }
+                  } else {
+                    AppToast.showText(' Web Url格式错误');
+                  }
+                }.keyBoard(),
+                style: ButtonStyle(
+                  foregroundColor: MaterialStateProperty.all(Colors.white),
+                  backgroundColor: MaterialStateProperty.all(Colors.orange),
+                ),
+                child: Text('进入Web', style: TextStyle()),
+              ),
+
+              Text(
+                '${_webController.text.length}/999999',
+                style: TextStyle(fontSize: 11, color: Colors.redAccent, height: 1.6),
+              )
+            ],
           ),
         ],
       ),
