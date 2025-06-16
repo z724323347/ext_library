@@ -100,7 +100,7 @@ extension LibStringExt on String {
 
   /// 字符是否为空
   bool get isnull {
-    if (this == null || length == 0 || isEmpty || toLowerCase() == 'null') {
+    if (length == 0 || isEmpty || toLowerCase() == 'null') {
       return true;
     }
     return false;
@@ -108,11 +108,27 @@ extension LibStringExt on String {
 
   /// 字符是否为空
   bool get none {
-    if (this == null || length == 0 || isEmpty || toLowerCase() == 'null') {
+    if (length == 0 || isEmpty || toLowerCase() == 'null') {
       return true;
     }
     return false;
   }
+  //  /// 字符是否为空
+  // bool get isEmpty {
+  //   if (length == 0 || toLowerCase() == 'null') {
+  //     return true;
+  //   }
+  //   return false;
+  // }
+  
+   /// 字符是否为空 支持 null 、’‘ 、’null‘ 等
+  bool get empty {
+    if (length ==0 || isEmpty || toLowerCase() == 'null') {
+      return true;
+    }
+    return false;
+  }
+
 
   /// 字符空安全
   String get safety {
@@ -211,7 +227,7 @@ extension LibStringExt on String {
 
   /// string 转 int
   int get toInt {
-    if (this == null || length == 0 || isEmpty || toLowerCase() == 'null') {
+    if (length == 0 || isEmpty || toLowerCase() == 'null') {
       return 0;
     }
     try {
@@ -424,7 +440,7 @@ extension LibStringExt on String {
   /// 格式化 自定义整数千分位
   String thousandsCustom({String format = '#,###'}) {
     final _format = NumberFormat(format, 'en_US');
-    if (this == null) {
+    if (empty) {
       return '0';
     }
 
@@ -438,7 +454,7 @@ extension LibStringExt on String {
   /// 格式化 千分位
   String get _thousands {
     final format = NumberFormat('#,##0.00####', 'en_US');
-    if (this == null) {
+    if (empty) {
       return '0.00';
     }
 
@@ -490,7 +506,7 @@ extension LibStringExt on String {
 
   /// string 移除对应的字段
   String remove(String text) {
-    if (this == null) {
+    if (empty) {
       return '';
     }
     if (contains(text)) {
@@ -525,7 +541,7 @@ extension LibStringExt on String {
 
   // substring截取多少位 【默认 7
   String subStr([int digit = 7]) {
-    if (this == null || isEmpty) {
+    if (empty) {
       return '';
     }
     if (length < digit) {
