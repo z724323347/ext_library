@@ -38,7 +38,7 @@ class _NetworkLogMainPageState extends State<NetworkLogMainPage> {
     return Stack(
       children: [
         buildBody().fill(),
-        buildAction().positioned(top: 4, right: 24)
+        buildAction().positioned(top: 22, right: 12)
       ],
     );
   }
@@ -71,8 +71,8 @@ class _NetworkLogMainPageState extends State<NetworkLogMainPage> {
 
   Widget buildAction() {
     return Container(
-      height: 20,
-      width: 20,
+      height: 32,
+      width: 32,
       alignment: Alignment.center,
       decoration: const BoxDecoration(
         color: Colors.orange,
@@ -81,7 +81,7 @@ class _NetworkLogMainPageState extends State<NetworkLogMainPage> {
       child: const Icon(
         Icons.cleaning_services_outlined,
         color: Colors.white,
-        size: 12,
+        size: 14,
       ),
     ).onClick(onTap: () => store.clearLog());
   }

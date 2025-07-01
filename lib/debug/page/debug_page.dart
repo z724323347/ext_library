@@ -1,8 +1,6 @@
 import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/services.dart';
 
-import '../logs_ctrl.dart';
 import 'log_debug_page.dart';
 import 'network_log_host.dart';
 import 'network_log_main.dart';
@@ -16,7 +14,7 @@ class DebugPage extends StatefulWidget {
 }
 
 class _DebugPageState extends State<DebugPage> {
-  Map<String, StatefulWidget> tabBarInfos = {
+  Map<String, Widget> tabBarInfos = {
     '通用设置': NetworkLogHostPage(),
     '域名设置': NetworkLogHostPage(),
     '输出日志': const LogDebugPage(),
