@@ -1,4 +1,3 @@
-import 'package:ext_library/log_util.dart';
 
 /// 时间 datetime 扩展函数
 extension LibDurationExt on Duration {

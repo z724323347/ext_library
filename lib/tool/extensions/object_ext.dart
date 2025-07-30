@@ -1,5 +1,7 @@
 import 'dart:convert';
 
+import 'package:ext_library/lib_ext.dart';
+
 ///
 extension LibDynamic on dynamic {
   ///  return   String 格式
@@ -33,7 +35,7 @@ extension LibDynamic on dynamic {
 
   /// string 转 jsonEncode
   String? get jsEncode {
-    if (this == null) {
+    if (toString().none) {
       return null;
     }
     return json.encode(this);
@@ -41,7 +43,7 @@ extension LibDynamic on dynamic {
 
   /// string 转 jsonDecode
   dynamic get jsDecode {
-    if (this == null) {
+    if (toString().none) {
       return null;
     }
     return json.decode('$this');
@@ -69,7 +71,7 @@ extension LibDynamic on dynamic {
 extension LibObject on Object {
   /// string 转 jsonEncode
   String? get jsEncode {
-    if (this == null) {
+    if (toString().none) {
       return null;
     }
     return json.encode(this);
@@ -77,7 +79,7 @@ extension LibObject on Object {
 
   /// string 转 jsonDecode
   dynamic get jsDecode {
-    if (this == null) {
+    if (toString().none) {
       return null;
     }
     return json.decode('$this');
@@ -86,7 +88,7 @@ extension LibObject on Object {
   /// object 转 map , 主要使用在路由传参
   Map<String, dynamic> get toMap {
     Map<String, dynamic> data = {};
-    if (this == null) {
+    if (toString().none) {
       return {};
     }
     if (this is Map) {

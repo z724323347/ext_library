@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 extension LibTextEditingControllerExt on TextEditingController {
   void input(String data) {
-    if (this == null) {
+    if (data.isEmpty) {
       return;
     }
     if (text.isNotEmpty) {
