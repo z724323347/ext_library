@@ -9,18 +9,22 @@ class ToastText extends StatelessWidget {
     this.icon,
     this.text,
     this.textColor,
+    this.customView,
   }) : super(key: key);
 
   final IconData? icon;
   final String? text;
   final Color? textColor;
 
+ final Widget? customView;
+
   @override
   Widget build(BuildContext context) {
-    return ToastContainer(
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        children: <Widget>[
+    List<Widget> children = [];
+    if (customView!=null) {
+      children = [customView??const SizedBox.shrink()];
+    }else {
+      children =[
           if (icon != null)
             Icon(
               icon,
@@ -37,7 +41,12 @@ class ToastText extends StatelessWidget {
                 ),
               ),
             ),
-        ].divide(const SizedBox(height: 4)),
+        ];
+    }
+    return ToastContainer(
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        children: children.divide(const SizedBox(height: 4)),
       ),
     );
   }
