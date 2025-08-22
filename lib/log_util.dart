@@ -4,6 +4,7 @@ import 'dart:async';
 import 'dart:developer' as dev;
 import 'dart:io';
 
+import 'package:chalkdart/chalkstrings.dart';
 import 'package:flutter/foundation.dart';
 import './tool/extensions/date_ext.dart';
 import 'package:logger/logger.dart';
@@ -40,16 +41,17 @@ void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
   final String path = frame.uri.toString().split('/').last;
 
   // log 长度切分
-  while (str.isNotEmpty) {
-    if (str.length > 512) {
-      _defaultLog(
-          '💙 $d $path(Line:${frame.line}) =>  ${str.substring(0, 512)}');
-      str = str.substring(512, str.length);
-    } else {
-      _defaultLog('💙 $d $path(Line:${frame.line}) =>  $str');
-      str = '';
-    }
-  }
+  // while (str.isNotEmpty) {
+  //   if (str.length > 512) {
+  //     _defaultLog(
+  //         '💙 $d $path(Line:${frame.line}) =>  ${str.substring(0, 512)}');
+  //     str = str.substring(512, str.length);
+  //   } else {
+  //     _defaultLog('💙 $d $path(Line:${frame.line}) =>  $str');
+  //     str = '';
+  //   }
+  // }
+  _defaultLog('💙 ${d.yellow} ${path.darkOrange} ${'(Line:${frame.line})'.yellowBright} =>  ${str.green}');
 
   final Completer<AppLogsEvent> completer = Completer<AppLogsEvent>()
     ..complete(
@@ -72,6 +74,8 @@ void _defaultLog(String value, {bool isError = true}) {
   if (isError || kDebugMode) {
     dev.log(value, name: 'LOGS');
     // devlLogU.i('LOGS: $value');
+  }else{
+    // print(value.green);
   }
 }
 
