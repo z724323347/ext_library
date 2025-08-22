@@ -51,7 +51,7 @@ void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
   //     str = '';
   //   }
   // }
-  _defaultLog('💙 ${d.yellow} ${path.darkOrange} ${'(Line:${frame.line})'.yellowBright} =>  ${str.green}');
+  _defaultLog('[🖨‼️] ${d.yellow} ${path.darkOrange.bold} ${'(Line:${frame.line})'.yellowBright.italic} =>  ${str.greenBright}'.orangeRed);
 
   final Completer<AppLogsEvent> completer = Completer<AppLogsEvent>()
     ..complete(
