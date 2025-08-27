@@ -9,9 +9,10 @@ import 'package:flutter/foundation.dart';
 import './tool/extensions/date_ext.dart';
 import 'package:logger/logger.dart';
 import 'package:stack_trace/stack_trace.dart';
-
 import 'debug/logs_ctrl.dart';
+
 export 'debug/logs_ctrl.dart';
+export 'package:chalkdart/chalkstrings.dart';
 
 ///logs 日志
 void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
@@ -72,10 +73,10 @@ void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
 
 void _defaultLog(String value, {bool isError = true}) {
   if (isError || kDebugMode) {
-    dev.log(value, name: 'LOGS');
+    dev.log(value, name: 'LOGS'.orangeRed);
     // devlLogU.i('LOGS: $value');
   }else{
-    // print(value.green);
+    print(value);
   }
 }
 
