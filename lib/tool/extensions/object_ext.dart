@@ -38,7 +38,11 @@ extension LibDynamic on dynamic {
     if (toString().none) {
       return null;
     }
-    return json.encode(this);
+   try {
+      return json.encode(this);
+   } catch (e) {
+      return toString();
+   }
   }
 
   /// string 转 jsonDecode
@@ -74,7 +78,11 @@ extension LibObject on Object {
     if (toString().none) {
       return null;
     }
-    return json.encode(this);
+   try {
+      return json.encode(this);
+   } catch (e) {
+      return toString();
+   }
   }
 
   /// string 转 jsonDecode
@@ -108,8 +116,12 @@ extension LibNullObject on Object? {
     if (this == null) {
       return '$this';
     }
-    const JsonEncoder encoder = JsonEncoder.withIndent('  ');
+    try {
+      const JsonEncoder encoder = JsonEncoder.withIndent('  ');
     return encoder.convert(this);
+    } catch (e) {
+      return '$this';
+    }
   }
 
   /// string 转 jsonEncode
@@ -117,7 +129,11 @@ extension LibNullObject on Object? {
     if (this == null) {
       return null;
     }
-    return json.encode(this);
+    try {
+      return json.encode(this);
+    } catch (e) {
+      return '$this';
+    }
   }
 
   /// object 转 map , 主要使用在路由传参
