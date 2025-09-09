@@ -41,6 +41,7 @@ dependencies:
   path_drawing: any
   flutter_svg: any
   animated_text_kit: 4.2.2
+  simple_animations: any
   # styled_widget: ^0.4.1
 
   # Development 使用插件
