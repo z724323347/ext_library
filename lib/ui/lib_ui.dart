@@ -10,6 +10,7 @@ export 'text/animated_hint_textfield.dart';
 export 'text/typewriter/typewritertext.dart';
 export 'widget/widget_blur.dart';
 export 'widget/imagindry_line.dart';
+export 'widget/effect_view.dart';
 export 'line/dashed_border.dart';
 export 'svg/animated_svg.dart';
 export 'svg/svg_icon.dart';
