@@ -185,7 +185,12 @@ class LogManager {
     final String method = request.method;
     // 请求参数
     String postParams = request.data.toString();
-    String postFields = jsonEncode(request.data);
+    String postFields = '';
+    try {
+    postFields=  jsonEncode(request.data);
+    } catch (e) {
+      //
+    }
     if (request.data is FormData) {
       postParams = (request.data as FormData)
           .fields
