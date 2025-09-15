@@ -1,4 +1,3 @@
-import 'dart:convert';
 
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
@@ -65,6 +64,28 @@ extension LibListExt<T> on List<T> {
       return this;
     } else {
       return sublist(0, max);
+    }
+  }
+
+  /// 截取列表 指定索引
+  List<T> subIndex(int start, [int? end]) {
+    if (empty) {
+      return [];
+    }
+
+    if (end != null) {
+      if (end >= length) {
+        end = length;
+      }
+      if (length < start) {
+        return sublist(length, end);
+      }
+      return sublist(start, end);
+    } else {
+      if (length < start) {
+        return sublist(length);
+      }
+      return sublist(start);
     }
   }
 }
