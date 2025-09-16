@@ -39,13 +39,13 @@ class ImageThief {
   }
 
   _validate(int colorCount, int quality) {
-    if (colorCount == null || colorCount.runtimeType != int) {
+    if (colorCount.runtimeType != int) {
       colorCount = 10;
     } else {
       colorCount = max(colorCount, 2);
       colorCount = min(colorCount, 20);
     }
-    if (quality == null || quality.runtimeType != int) {
+    if (quality.runtimeType != int) {
       quality = 10;
     } else if (quality < 1) {
       quality = 10;

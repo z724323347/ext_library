@@ -9,7 +9,7 @@ class FadingText extends StatefulWidget {
   final TextStyle? style;
 
   /// [text] must not be null.
-  const FadingText(this.text, {super.key, this.style}) : assert(text != null);
+  const FadingText(this.text, {super.key, this.style});
 
   @override
   _FadingTextState createState() => _FadingTextState();
@@ -167,7 +167,7 @@ class _CollectionSlideTransition extends StatefulWidget {
   const _CollectionSlideTransition({
     required this.children,
     this.end = const Offset(0.0, -1.0),
-  }) : assert(children != null);
+  });
 
   @override
   _CollectionSlideTransitionState createState() =>
@@ -260,7 +260,7 @@ class _CollectionScaleTransition extends StatefulWidget {
     required this.children,
     this.end = 2.0,
     this.repeat = true,
-  }) : assert(children != null);
+  });
 
   @override
   _CollectionScaleTransitionState createState() =>
