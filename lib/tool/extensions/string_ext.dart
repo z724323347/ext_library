@@ -566,6 +566,7 @@ extension LibStringExt on String {
 
 
   /// 通过 (uri/url) 获取host uri
+  /// - (https://www.xx/xxx?args=1) => https://www.xx/xxx
   String get uriPath {
     String nUrl = '';
     final int paramsIndex = indexOf('?');

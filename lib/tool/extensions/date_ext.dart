@@ -1,3 +1,5 @@
+// ignore_for_file: unnecessary_null_comparison
+
 import 'dart:ui';
 import 'duration_ext.dart';
 import 'package:intl/intl.dart';

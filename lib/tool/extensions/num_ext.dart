@@ -1,4 +1,4 @@
-// ignore_for_file: constant_identifier_names
+// ignore_for_file: constant_identifier_names, unnecessary_null_comparison
 
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
