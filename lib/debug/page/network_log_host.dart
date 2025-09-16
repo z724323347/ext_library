@@ -1,5 +1,4 @@
 import 'dart:io';
-import 'dart:math';
 
 import 'package:ext_library/tool/tool_lib.dart';
 import 'package:ext_library/ui/toast/toast.dart';
@@ -8,15 +7,13 @@ import 'package:flutter/material.dart';
 import '../entity/host_page_entity.dart';
 
 /// 网络设置相关
+
 class NetworkLogHostPage extends StatefulWidget {
-  Uri? baseUri;
-  String? appConfig;
-  Function(Uri uri)? onChange;
-  Function(String url)? toWebView;
-  // VoidCallback? doRelease;
-  // VoidCallback? doDevelop;
-  // VoidCallback? doGray;
-  List<HostPageEntity> envList;
+final  Uri? baseUri;
+final  String? appConfig;
+final  Function(Uri uri)? onChange;
+final  Function(String url)? toWebView;
+final  List<HostPageEntity> envList;
 
   NetworkLogHostPage({
     Key? key,

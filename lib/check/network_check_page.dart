@@ -125,7 +125,7 @@ class _DevNetworkCheckPageState extends State<DevNetworkCheckPage> {
       if (byteData == null) {
         return;
       }
-      final pngBytes = byteData.buffer.asUint8List();
+      // final pngBytes = byteData.buffer.asUint8List();
       // await ShareUtils.file(
       //     'Network Check', 'app_check.png', pngBytes, 'image/png');
     } catch (error, stackTrace) {

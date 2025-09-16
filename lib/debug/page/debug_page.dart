@@ -6,7 +6,7 @@ import 'network_log_host.dart';
 import 'network_log_main.dart';
 
 class DebugPage extends StatefulWidget {
-  Map<String, StatefulWidget>? debugView;
+  final  Map<String, StatefulWidget>? debugView;
   DebugPage({Key? key, this.debugView}) : super(key: key);
 
   @override

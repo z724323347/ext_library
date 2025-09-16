@@ -19,8 +19,7 @@ class CacheNetImage extends ImageProvider<CacheNetImage> implements CacheKey {
     this.url, {
     this.scale = 1.0,
     this.headers,
-  })  : assert(url != null),
-        assert(scale != null);
+  });
 
   static final HttpClient _httpClient = HttpClient();
 
@@ -186,7 +185,7 @@ abstract class Cache<T> {
 }
 
 class FileCacheProvider {
-  const FileCacheProvider(this.directory) : assert(directory != null);
+  const FileCacheProvider(this.directory);
 
   final Directory directory;
 

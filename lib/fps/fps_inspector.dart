@@ -15,8 +15,7 @@ class FpsWidgetInspector extends StatefulWidget {
   ///
   /// The [child] argument must not be null.
   const FpsWidgetInspector({Key? key, required this.child})
-      : assert(child != null),
-        super(key: key);
+      : super(key: key);
 
   /// The widget that is being inspected.
   final Widget child;

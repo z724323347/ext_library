@@ -50,9 +50,6 @@ extension LibFutureFunctionExt on Future Function() {
   ///
   /// (func): 要执行的方法
   Future Function() throttleF(Future Function() func) {
-    if (func == null) {
-      return func;
-    }
     bool enable = true;
     Future Function() target = () async {
       if (enable == true) {
@@ -161,12 +158,8 @@ extension FunctionExt<T> on Function(T) {
   ///
   ///
   bool get isnull {
-    if (this == null) {
-      return true;
-    } else {
-      return false;
+    return false;
     }
-  }
 
   /// 函数防抖
   ///

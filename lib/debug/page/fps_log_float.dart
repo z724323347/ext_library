@@ -94,7 +94,7 @@ class _FpsLogFloatState extends State<FpsLogFloat> {
     String fps = '--';
     String avgFps = '--';
     Color color = Colors.white;
-    if (fpsList.isNotEmpty && fpsList.last != null) {
+    if (fpsList.isNotEmpty) {
       final FpsInfo info = fpsList.last;
       fps = info.fps!.toStringAsFixed(2);
       final int value = info.getValue()!.toInt();
