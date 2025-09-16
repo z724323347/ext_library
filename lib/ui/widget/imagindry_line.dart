@@ -1,4 +1,3 @@
-import 'dart:ui';
 
 import 'package:flutter/material.dart';
 
@@ -47,10 +46,8 @@ class ImaginaryLine extends StatefulWidget {
     this.space = 3.0,
     this.strokeWidth = 1.0,
     this.corner,
-    required this.child,
-  }) {
-    assert(child != null);
-  }
+    this.child,
+  });
 
   /// 虚线颜色
   ///
@@ -96,7 +93,7 @@ class ImaginaryLine extends StatefulWidget {
   ///
   /// If [child] is set, [ImaginaryLine] will serve as the dotted border of [child].
   /// At this time, [width] and [height] will no longer be valid.
-  final Widget child;
+  final Widget? child;
 
   @override
   _ImaginaryLineState createState() => _ImaginaryLineState();
@@ -135,9 +132,7 @@ class _ImaginaryLineState extends State<ImaginaryLine> {
       if (childWidth != null && childHeight != null) {
         children.add(dashPath(width: childWidth!, height: childHeight!));
       }
-      return Stack(
-        children: children,
-      );
+      return Stack(children: children);
     } else {
       return dashPath(width: widget.width, height: widget.height);
     }
@@ -157,7 +152,9 @@ class _ImaginaryLineState extends State<ImaginaryLine> {
             childHeight = tempHeight;
           });
         }
-      } catch (e, stack) {}
+      } catch (e) {
+        debugPrint('$e');
+      }
     });
   }
 
@@ -170,7 +167,7 @@ class _ImaginaryLineState extends State<ImaginaryLine> {
         ..dottedLength = widget.dottedLength
         ..space = widget.space
         ..strokeWidth = widget.strokeWidth
-        ..corner = widget.corner!
+        ..corner = widget.corner
         ..isShape = !_isEmpty(height) && !_isEmpty(width),
     );
   }

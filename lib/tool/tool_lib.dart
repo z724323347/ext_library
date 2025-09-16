@@ -22,8 +22,12 @@ export './font/font_dynamic.dart';
 export './font/font_sys_chinese.dart';
 export './image/image_thief.dart';
 export './internet/internet_checker_plus.dart';
+export './utils/executor_tool.dart' hide Executor;
+export './utils/pool.dart';
 
 export './mixins/api_mixins.dart';
+export 'text/mask_input_formatter.dart';
+export 'text/input_formatters.dart';
 
 LibTools libTools = LibTools._internal();
 

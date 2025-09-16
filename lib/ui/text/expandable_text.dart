@@ -19,8 +19,8 @@ class ExpandableText extends StatefulWidget {
   final TextStyle? textStyle;
   final TextStyle? buttonTextStyle;
   final int initLength;
-  Function(bool)? expanded;
-  TextAlign? textAlign;
+  final Function(bool)? expanded;
+  final TextAlign? textAlign;
 
   ///
   final String lightText; // 要高亮显示的文字（默认为空字符串，即不高亮显示文本）

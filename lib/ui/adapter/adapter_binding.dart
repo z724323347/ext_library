@@ -84,7 +84,6 @@ class AutoWidgetsFlutterBinding extends WidgetsFlutterBinding {
     window.onPointerDataPacket = _handlePointerDataPacket;
   }
 
-  @override
   ViewConfiguration createViewConfiguration() {
     print(
         'AutoWidgetsFlutterBinding ---width:${window.physicalSize.width / (window.physicalSize.width / appSize.width)}  height:${window.physicalSize.height / (window.physicalSize.width / appSize.width)}');
