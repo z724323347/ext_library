@@ -7,7 +7,11 @@ import 'extension/response_extension.dart';
 import 'model/dio_base_response.dart';
 import 'extension/request_extension.dart';
 
+export 'package:http_cache_core/http_cache_core.dart';
+
 part 'dio_cache_interceptor_cache_utils.dart';
+
+
 
 /// Cache interceptor
 class DioCacheInterceptor extends Interceptor {
