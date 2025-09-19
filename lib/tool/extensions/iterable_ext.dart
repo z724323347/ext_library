@@ -60,7 +60,7 @@ extension LibListExt<T> on List<T> {
 
   /// 截取列表 最大长度
   List<T> max([int max = 3]) {
-    if (length <= max) {
+    if (length <= max ) {
       return this;
     } else {
       return sublist(0, max);
@@ -69,7 +69,7 @@ extension LibListExt<T> on List<T> {
 
   /// 截取列表 指定索引
   List<T> subIndex(int start, [int? end]) {
-    if (empty) {
+    if (empty || start <0) {
       return [];
     }
 
