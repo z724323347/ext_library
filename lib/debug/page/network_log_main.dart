@@ -146,7 +146,16 @@ class _ListItemState extends State<ListItem> {
                     .headlineSmall
                     ?.copyWith(fontSize: 12, color: statusColor),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 5),
+              Container(
+                padding: 2.all,
+                color: Colors.greenAccent,
+                child: Text(
+                 data.method.toUpper,
+                  style: TextStyle(fontSize: 7, color: Colors.black,fontWeight: FontWeight.bold),
+                ),
+              ).clipRRect(all: 4),  
+              const SizedBox(width: 5),
               Expanded(
                 child: AutoSizeText(
                   data.path.fixLines,
@@ -190,21 +199,34 @@ class _ListItemState extends State<ListItem> {
                     .headlineSmall
                     ?.copyWith(fontSize: 10, color: statusColor),
               ),
+              5.wGap,
               Container(
+                margin: 5.left,
+                padding: 2.all,
                 decoration: BoxDecoration(
-                  color: Colors.grey,
                   borderRadius: 4.borderAll,
+                  border: Border.all(color: Colors.grey.shade300,width: .5)
                 ),
-                margin: 10.left,
-                padding: 2.vertical,
                 child: Text(
-                  ' 灰度: {beta:${data.header['beta']}} ',
-                  style: Theme.of(context)
-                      .textTheme
-                      .headlineSmall
-                      ?.copyWith(fontSize: 10, color: Colors.white),
+                 'Byte: ${data.respText.safety.length.bytes}',
+                  style: TextStyle(fontSize: 8, color: Colors.grey,fontWeight: FontWeight.bold),
                 ),
-              ).visible(data.header.containsKey('beta')),
+              ),
+              // Container(
+              //   decoration: BoxDecoration(
+              //     color: Colors.grey,
+              //     borderRadius: 4.borderAll,
+              //   ),
+              //   margin: 10.left,
+              //   padding: 2.vertical,
+              //   child: Text(
+              //     ' 灰度: {beta:${data.header['beta']}} ',
+              //     style: Theme.of(context)
+              //         .textTheme
+              //         .headlineSmall
+              //         ?.copyWith(fontSize: 10, color: Colors.white),
+              //   ),
+              // ).visible(data.header.containsKey('beta')),
               const Spacer(),
               Text(
                 'start: ${data.time?.hmsDotSS}',

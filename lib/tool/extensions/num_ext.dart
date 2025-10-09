@@ -84,6 +84,33 @@ extension LibNumExt on num {
   /// num 转 string
   String get ts => this == null ? '' : '$this';
 
+    /// Convert bytes 格式bytes数据
+  /// - 10240 B ==>> 10 KB
+  ///
+  String get bytes {
+    if (this < 0) {
+      return '0B';
+    }
+
+    final units = ['B', 'KB', 'MB', 'GB'];
+    double value = toDouble();
+    int unitIndex = 0;
+
+    while (value >= 1024 && unitIndex < units.length - 1) {
+      value /= 1024;
+      unitIndex++;
+    }
+
+    String result = value.toStringAsFixed(2);
+    if (result.endsWith('.00')) {
+      result = result.substring(0, result.length - 3);
+    } else if (result.endsWith('0')) {
+      result = result.substring(0, result.length - 1);
+    }
+
+    return '$result ${units[unitIndex]}';
+  }
+
   Decimal get decimal {
     if (this == null) {
       return Decimal.zero;
