@@ -5,9 +5,9 @@ import 'dart:developer' as dev;
 import 'dart:io';
 
 import 'package:chalkdart/chalkstrings.dart';
+import 'package:ext_library/tool/tool_lib.dart';
 import 'package:flutter/foundation.dart';
 import 'package:logarte/logarte.dart';
-import './tool/extensions/date_ext.dart';
 import 'package:logger/logger.dart';
 import 'package:stack_trace/stack_trace.dart';
 import 'debug/logs_ctrl.dart';
@@ -61,7 +61,7 @@ void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
   //   }
   // }
   _defaultLog('[🖨‼️] ${d.yellow} ${path.darkOrange.bold} ${'(Line:${frame.line})'.yellowBright.italic} =>  ${str.greenBright}'.orangeRed);
-  logarte.log('[🖨] $d $path ${'(Line:${frame.line})'} =>  $str');
+  logarte.log('[文件:${frame.uri.toString().fixLines}] \n[🖨] $d $path ${'(Line:${frame.line})'} =>  $str');
   final Completer<AppLogsEvent> completer = Completer<AppLogsEvent>()
     ..complete(
       AppLogsEvent(
