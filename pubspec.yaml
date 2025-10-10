@@ -24,6 +24,7 @@ dependencies:
   logger: ^2.1.0
   stack_trace: ^1.11.0
   chalkdart: any
+  logarte: any
 
   # getx
   get: ^4.6.5

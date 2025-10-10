@@ -6,6 +6,7 @@ import 'dart:io';
 
 import 'package:chalkdart/chalkstrings.dart';
 import 'package:flutter/foundation.dart';
+import 'package:logarte/logarte.dart';
 import './tool/extensions/date_ext.dart';
 import 'package:logger/logger.dart';
 import 'package:stack_trace/stack_trace.dart';
@@ -13,6 +14,13 @@ import 'debug/logs_ctrl.dart';
 
 export 'debug/logs_ctrl.dart';
 export 'package:chalkdart/chalkstrings.dart';
+export 'package:logarte/logarte.dart' hide NavigationAction;
+
+final Logarte logarte = Logarte(
+  password: 'dev',
+  ignorePassword: true,
+  disableDebugConsoleLogs: true,
+);
 
 ///logs 日志
 void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
@@ -53,7 +61,7 @@ void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
   //   }
   // }
   _defaultLog('[🖨‼️] ${d.yellow} ${path.darkOrange.bold} ${'(Line:${frame.line})'.yellowBright.italic} =>  ${str.greenBright}'.orangeRed);
-
+  logarte.log('[🖨] $d $path ${'(Line:${frame.line})'} =>  $str');
   final Completer<AppLogsEvent> completer = Completer<AppLogsEvent>()
     ..complete(
       AppLogsEvent(
