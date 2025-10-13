@@ -24,6 +24,7 @@ export './image/image_thief.dart';
 export './internet/internet_checker_plus.dart';
 export './utils/executor_tool.dart' hide Executor;
 export './utils/pool.dart';
+export './utils/version.dart';
 
 export './mixins/api_mixins.dart';
 export 'text/mask_input_formatter.dart';
