@@ -75,7 +75,7 @@ extension LibStringExtNull on String? {
       }
     }
     try {
-      return DateTime.parse(this!);
+      return DateTime.parse(this!).toLocal();
     } catch (e) {
       return null;
     }
@@ -151,6 +151,11 @@ extension LibStringExt on String {
     );
     return reg.hasMatch(this);
   }
+    /// 是否是 asset 资源
+  bool get isAssetR {
+    return safety.startsWith('assets/');
+  }
+
 
   /// 移除标点符号
   String get rmPunctuation {
