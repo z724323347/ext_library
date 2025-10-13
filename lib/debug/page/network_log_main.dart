@@ -149,7 +149,7 @@ class _ListItemState extends State<ListItem> {
               const SizedBox(width: 5),
               Container(
                 padding: 2.all,
-                color: Colors.greenAccent,
+                color: data.isSuccess? Colors.greenAccent: Colors.redAccent,
                 child: Text(
                  data.method.toUpper,
                   style: TextStyle(fontSize: 7, color: Colors.black,fontWeight: FontWeight.bold),
@@ -169,6 +169,7 @@ class _ListItemState extends State<ListItem> {
               ),
             ],
           ),
+          4.hGap,
           Row(
             mainAxisSize: MainAxisSize.min,
             children: [
@@ -179,7 +180,7 @@ class _ListItemState extends State<ListItem> {
                       color: statusColor,
                     ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 3),
               SizedBox(
                 width: 10,
                 height: 10,
@@ -188,10 +189,10 @@ class _ListItemState extends State<ListItem> {
                       ? Icons.check_circle_outline
                       : Icons.close_outlined,
                   color: statusColor,
-                  size: 12,
+                  size: 10,
                 ),
               ),
-              const SizedBox(width: 10),
+              const SizedBox(width: 3),
               Text(
                 'time: ${data.duration?.msec}',
                 style: Theme.of(context)
@@ -199,16 +200,16 @@ class _ListItemState extends State<ListItem> {
                     .headlineSmall
                     ?.copyWith(fontSize: 10, color: statusColor),
               ),
-              5.wGap,
+              3.wGap,
               Container(
-                margin: 5.left,
+                margin: 3.left,
                 padding: 2.all,
                 decoration: BoxDecoration(
                   borderRadius: 4.borderAll,
                   border: Border.all(color: Colors.grey.shade300,width: .5)
                 ),
                 child: Text(
-                 'Byte: ${data.respText.safety.length.bytes}',
+                 data.respText.safety.length.bytes,
                   style: TextStyle(fontSize: 8, color: Colors.grey,fontWeight: FontWeight.bold),
                 ),
               ),
@@ -227,15 +228,16 @@ class _ListItemState extends State<ListItem> {
               //         ?.copyWith(fontSize: 10, color: Colors.white),
               //   ),
               // ).visible(data.header.containsKey('beta')),
-              const Spacer(),
+              
               Text(
                 'start: ${data.time?.hmsDotSS}',
                 style: Theme.of(context)
                     .textTheme
                     .headlineSmall
-                    ?.copyWith(fontSize: 10, color: statusColor),
-                textAlign: TextAlign.center,
-              ),
+                    ?.copyWith(fontSize: 9, color: statusColor),
+                textAlign: TextAlign.end,
+                maxLines: 1,
+              ).expanded(),
             ],
           ),
         ],
