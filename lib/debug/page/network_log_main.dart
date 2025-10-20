@@ -131,7 +131,11 @@ class _ListItemState extends State<ListItem> {
   Widget _buildTitle() {
     final MaterialColor statusColor =
         data.isSuccess ? Colors.green : Colors.red;
-
+    final methodColor = data.method == 'get'
+        ? Colors.black
+        : data.method == 'post'
+            ? Colors.orange
+            : Colors.white;
     final Padding title = Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -152,7 +156,7 @@ class _ListItemState extends State<ListItem> {
                 color: data.isSuccess? Colors.greenAccent: Colors.redAccent,
                 child: Text(
                  data.method.toUpper,
-                  style: TextStyle(fontSize: 7, color: Colors.black,fontWeight: FontWeight.bold),
+                  style: TextStyle(fontSize: 7, color: methodColor,fontWeight: FontWeight.bold),
                 ),
               ).clipRRect(all: 4),  
               const SizedBox(width: 5),

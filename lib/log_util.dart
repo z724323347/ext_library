@@ -15,12 +15,32 @@ import 'debug/logs_ctrl.dart';
 export 'debug/logs_ctrl.dart';
 export 'package:chalkdart/chalkstrings.dart';
 export 'package:logarte/logarte.dart' hide NavigationAction;
+extension LibLogarte on Logarte{
+  Logarte copy({
+    String? password,
+    bool ignorePassword = true,
+  }){
+    return Logarte(
+      password: password ?? this.password,
+      ignorePassword: ignorePassword,
+      onShare: onShare,
+      onExport: onExport,
+      logBufferLength: logBufferLength,
+      onRocketLongPressed: onRocketLongPressed,
+      onRocketDoubleTapped: onRocketDoubleTapped,
+      disableDebugConsoleLogs: disableDebugConsoleLogs,
+      customTab: customTab,
+    );
+  }
+}
+
 
 final Logarte logarte = Logarte(
   password: 'dev',
   ignorePassword: true,
   disableDebugConsoleLogs: true,
 );
+
 
 ///logs 日志
 void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
