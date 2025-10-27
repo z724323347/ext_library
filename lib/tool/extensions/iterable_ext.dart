@@ -119,6 +119,14 @@ extension LibList<T> on List<T>? {
   int of(bool Function(T) test) {
     return safey.indexWhere(test);
   }
+
+  /// 安全获取 List指定index data (防止数组越界)
+  T? index(index) {
+    if (empty) {
+      return null;
+    }
+  return this![index.abs() % safey.length];
+  }
 }
 
 extension LibIterable<E> on Iterable<E>? {
