@@ -121,7 +121,7 @@ extension LibList<T> on List<T>? {
   }
 
   /// 安全获取 List指定index data (防止数组越界)
-  T? index(index) {
+  T? item(int index) {
     if (empty) {
       return null;
     }
