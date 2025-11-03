@@ -1,6 +1,6 @@
 import 'dart:async';
 
-import 'package:event_bus/event_bus.dart';
+import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/foundation.dart';
 import 'package:flutter/widgets.dart';
 export 'package:event_bus/event_bus.dart';
@@ -64,17 +64,27 @@ class EventBusTools {
 ///
 final kTestBus = EventBus();
 
-class EventBusData {
-  ///  类型
-  int type;
 
-  /// 数据
+///---------------------------------------------------------------------------------------------------------------------
+
+/// 封装后的事件数据
+class EventBusData {
+  ///-  定义 [Event] 类型
+  String type;
+
+  ///- 数据
   dynamic data;
 
-  /// 额外msg
+  ///- 额外msg
   Map<String, dynamic>? ext;
 
   EventBusData({required this.type, this.data, this.ext});
+
+  @override
+  String toString() {
+    final result = {'type': type, 'data': '$data', 'ext':'$ext'};
+    return '$result\n${result.jsonFormat}';
+  }
 }
 
 
@@ -92,7 +102,7 @@ class AppEventBus {
   /// 发送事件
   static void sendEvent<T>(T event) {
     if (kDebugMode) {
-      print('[EventBus] Firing event: ${event.runtimeType}');
+      print('[EventBus] Firing event: ${event.runtimeType} data: $event');
     }
     instance.fire(event);
   }
@@ -104,7 +114,7 @@ class AppEventBus {
   }) {
     final subscription = instance.on<T>().listen((event) {
       if (kDebugMode) {
-        print('[EventBus] Received event: ${event.runtimeType}');
+        print('[EventBus] Received event: ${event.runtimeType} data: $event');
       }
       _safeRun(() => handler(event), onError: onError);
     }, onError: handleError ? (error, stack) {
