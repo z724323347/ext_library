@@ -88,6 +88,11 @@ extension LibListExt<T> on List<T> {
       return sublist(start);
     }
   }
+
+   /// 列表元素去重
+  List<T> get distinct {
+    return toSet().toList();
+  }
 }
 
 extension LibList<T> on List<T>? {
