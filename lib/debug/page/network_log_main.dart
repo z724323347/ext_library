@@ -213,7 +213,7 @@ class _ListItemState extends State<ListItem> {
                   border: Border.all(color: Colors.grey.shade300,width: .5)
                 ),
                 child: Text(
-                 data.respText.safety.length.bytes,
+                 data.respText.safety.length.bytesFormat,
                   style: TextStyle(fontSize: 8, color: Colors.grey,fontWeight: FontWeight.bold),
                 ),
               ),

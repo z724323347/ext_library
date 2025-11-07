@@ -1,31 +1,10 @@
 // ignore_for_file: constant_identifier_names, unnecessary_null_comparison
 
+import 'dart:math';
+
 import 'package:decimal/decimal.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
-
-const int _KValue = 1000;
-const int _MValue = 1000 * 1000;
-const int _GValue = 1000 * 1000 * 1000;
-
-const String _KSymbol = 'K';
-const String _MSymbol = 'M';
-const String _GSymbol = 'B';
-
-/// 计量单位
-enum Metering { K, M, B }
-
-const Map<Metering, int> MeteringValueMap = <Metering, int>{
-  Metering.K: _KValue,
-  Metering.M: _MValue,
-  Metering.B: _GValue,
-};
-
-const Map<Metering, String> MeteringSymbolMap = <Metering, String>{
-  Metering.K: _KSymbol,
-  Metering.M: _MSymbol,
-  Metering.B: _GSymbol,
-};
 
 extension LibNumExtNull on num? {
   /// num 转 int  (空安全)
@@ -84,10 +63,35 @@ extension LibNumExt on num {
   /// num 转 string
   String get ts => this == null ? '' : '$this';
 
-    /// Convert bytes 格式bytes数据
+/// 毫秒 转换为 Duration
+  Duration get duration {
+    return Duration(milliseconds: toInt());
+  }
+
+  /// 获取 随机数
+  int get random {
+    Random random = Random();
+    return random.nextInt(toInt());
+  }
+
+  /// 秒 转换为 毫秒
+  int get toMs => toInt() * 1000;
+
+  int get B => toInt();
+
+  /// KB  1024B
+  int get KB => B * 1024;
+
+  /// MB 1024 x 1024B
+  int get MB => KB * 1024;
+
+  /// GB 1024 x 1024 x 1024B
+  int get GB => MB * 1024;
+
+  /// Convert bytes 格式bytes数据
   /// - 10240 B ==>> 10 KB
   ///
-  String get bytes {
+  String get bytesFormat {
     if (this < 0) {
       return '0B';
     }
