@@ -66,6 +66,7 @@ class SvgIcon extends SvgPicture {
           color: color,
           colorFilter: colorFilter,
           fit: fit,
+          package: package,
         );
         break;
       default:
@@ -90,6 +91,7 @@ class SvgIcon extends SvgPicture {
     ColorFilter? colorFilter,
     BoxFit? fit,
     Color? color,
+    String? package,
   }) {
     if (svgPath.isHttp) {
       return SvgIcon.network(
@@ -110,6 +112,7 @@ class SvgIcon extends SvgPicture {
         color: color,
         colorFilter: colorFilter,
         fit: fit,
+        package:package,
       );
     }
     return SvgPicture.string(
