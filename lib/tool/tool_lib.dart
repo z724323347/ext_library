@@ -22,7 +22,7 @@ export './font/font_dynamic.dart';
 export './font/font_sys_chinese.dart';
 export './image/image_thief.dart';
 export './internet/internet_checker_plus.dart';
-export './utils/executor_tool.dart' hide Executor;
+export './utils/executor_tool.dart';
 export './utils/pool.dart';
 export './utils/version.dart';
 

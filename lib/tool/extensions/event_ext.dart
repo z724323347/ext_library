@@ -80,6 +80,18 @@ class EventBusData {
 
   EventBusData({required this.type, this.data, this.ext});
 
+  factory EventBusData.fromJson(Map<String, dynamic> json) {
+    return EventBusData(
+      type: json['type'] as String,
+      data: json['data'],
+      ext: json['ext'] as Map<String, dynamic>?,
+    );
+  }
+
+  Map<String, dynamic> toJson() {
+    return {'type': type, 'data': data, 'ext': ext};
+  }
+
   @override
   String toString() {
     final result = {'type': type, 'data': '$data', 'ext':'$ext'};
