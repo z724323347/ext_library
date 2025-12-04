@@ -151,9 +151,11 @@ extension LibStringExt on String {
     );
     return reg.hasMatch(this);
   }
-    /// 是否是 asset 资源
+  /// 是否是 asset 资源
+  ///- [packages] 优化 module 形式引入的资源
   bool get isAssetR {
-    return safety.startsWith('assets/');
+    return safety.toLower.startsWith('assets/') ||
+        safety.toLower.startsWith('packages/');
   }
 
 
