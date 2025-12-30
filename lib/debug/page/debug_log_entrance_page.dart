@@ -3,7 +3,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 
-import '../logs_ctrl.dart';
+import '../store/logs_ctrl.dart';
 import '../store/debug_log_ctrl.dart';
 
 ///

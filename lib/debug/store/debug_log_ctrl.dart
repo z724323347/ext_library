@@ -4,7 +4,7 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 
-import '../log_manager.dart';
+import '../tool/log_manager.dart';
 import '../page/fps_log_float.dart';
 import '../page/network_log_float.dart';
 import '../page/timer_log_float.dart';

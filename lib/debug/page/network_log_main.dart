@@ -4,7 +4,7 @@ import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
 
-import '../log_manager.dart';
+import '../tool/log_manager.dart';
 
 class NetworkLogMainPage extends StatefulWidget {
   const NetworkLogMainPage({Key? key}) : super(key: key);

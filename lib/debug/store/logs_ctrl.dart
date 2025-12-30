@@ -1,9 +1,9 @@
 import 'package:get/get.dart';
-import '../tool/extensions/date_ext.dart';
-import '../tool/extensions/string_ext.dart';
-import 'store/debug_log_ctrl.dart';
+import '../../tool/extensions/date_ext.dart';
+import '../../tool/extensions/string_ext.dart';
+import 'debug_log_ctrl.dart';
 
-export 'debug_config.dart';
+export '../tool/debug_config.dart';
 
 /// log日志 ctrl控制器
 class DevLogsEventSer extends GetxService {
