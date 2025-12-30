@@ -10,9 +10,8 @@ import 'package:flutter/foundation.dart';
 import 'package:logarte/logarte.dart';
 import 'package:logger/logger.dart';
 import 'package:stack_trace/stack_trace.dart';
-import 'debug/logs_ctrl.dart';
+import 'debug/store/logs_ctrl.dart';
 
-export 'debug/logs_ctrl.dart';
 export 'package:chalkdart/chalkstrings.dart';
 export 'package:logarte/logarte.dart' hide NavigationAction;
 extension LibLogarte on Logarte{

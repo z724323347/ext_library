@@ -65,11 +65,6 @@ class SysChineseFont {
     ];
   }
 
-  /// Text style with updated fontFamilyFallback & fontVariations
-  static TextStyle get textStyle {
-    return const TextStyle().useSystemChineseFont();
-  }
-
   /// Text theme with updated fontFamilyFallback & fontVariations
   static TextTheme textTheme(Brightness brightness) {
     print('brightness1 $brightness');
