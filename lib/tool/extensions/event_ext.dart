@@ -64,16 +64,15 @@ class EventBusTools {
 ///
 final kTestBus = EventBus();
 
-
 ///---------------------------------------------------------------------------------------------------------------------
 
 /// 封装后的事件数据
-class EventBusData {
+class EventBusData<T> {
   ///-  定义 [Event] 类型
   String type;
 
   ///- 数据
-  dynamic data;
+  T? data;
 
   ///- 额外msg
   Map<String, dynamic>? ext;
@@ -92,14 +91,24 @@ class EventBusData {
     return {'type': type, 'data': data, 'ext': ext};
   }
 
+  /// 获取Map 类型 的 [data]
+  Map get withMap {
+    if (data == null) {
+      return {};
+    }
+    if (data is Map) {
+      return data as Map;
+    } else {
+      return {};
+    }
+  }
+
   @override
   String toString() {
-    final result = {'type': type, 'data': '$data', 'ext':'$ext'};
-    return '$result\n${result.jsonFormat}';
+    final result = {'type': type, 'data': '$data', 'ext': '$ext'};
+    return '$result';
   }
 }
-
-
 
 /// 封装后的高级事件总线
 class AppEventBus {
@@ -120,7 +129,8 @@ class AppEventBus {
   }
 
   /// 订阅事件，返回可取消的订阅对象
-  static StreamSubscription<T> on<T>(void Function(T event) handler, {
+  static StreamSubscription<T> on<T>(
+    void Function(T event) handler, {
     bool handleError = true,
     ErrorCallback? onError,
   }) {
@@ -129,9 +139,12 @@ class AppEventBus {
         print('[EventBus] Received event: ${event.runtimeType} data: $event');
       }
       _safeRun(() => handler(event), onError: onError);
-    }, onError: handleError ? (error, stack) {
-      _safeRun(() => onError?.call(error, stack));
-    } : null);
+    },
+        onError: handleError
+            ? (error, stack) {
+                _safeRun(() => onError?.call(error, stack));
+              }
+            : null);
 
     return subscription;
   }
@@ -153,13 +166,13 @@ mixin EventBusMixin<T extends StatefulWidget> on State<T> {
   final List<StreamSubscription> _eventSubscriptions = [];
 
   /// 安全订阅事件，自动管理生命周期
-  void subscribe<Event>(void Function(Event event) handler, {
+  void subscribe<Event>(
+    void Function(Event event) handler, {
     bool handleError = true,
     ErrorCallback? onError,
   }) {
-    _eventSubscriptions.add(
-        AppEventBus.on<Event>(handler, handleError: handleError, onError: onError)
-    );
+    _eventSubscriptions.add(AppEventBus.on<Event>(handler,
+        handleError: handleError, onError: onError));
   }
 
   @override
