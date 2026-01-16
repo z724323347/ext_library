@@ -329,6 +329,7 @@ class Pool {
 /// When the associated resource is released, the user should call [release].
 class PoolResource {
   final Pool _pool;
+
   /// Whether `this` has been released yet.
   bool _released = false;
   PoolResource._(this._pool);

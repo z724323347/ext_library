@@ -80,16 +80,17 @@ extension LibStringExtNull on String? {
       return null;
     }
   }
+
   /// String => Map
   Map get strToMap {
     if (empty) {
       return {};
     }
-   try {
+    try {
       return jsonDecode(safety);
-   } catch (e) {
-     return {};
-   }
+    } catch (e) {
+      return {};
+    }
   }
 }
 
@@ -120,15 +121,14 @@ extension LibStringExt on String {
   //   }
   //   return false;
   // }
-  
-   /// 字符是否为空 支持 null 、’‘ 、’null‘ 等
+
+  /// 字符是否为空 支持 null 、’‘ 、’null‘ 等
   bool get empty {
-    if (length ==0 || isEmpty || toLowerCase() == 'null') {
+    if (length == 0 || isEmpty || toLowerCase() == 'null') {
       return true;
     }
     return false;
   }
-
 
   /// 字符空安全
   String get safety {
@@ -151,13 +151,13 @@ extension LibStringExt on String {
     );
     return reg.hasMatch(this);
   }
+
   /// 是否是 asset 资源
   ///- [packages] 优化 module 形式引入的资源
   bool get isAssetR {
     return safety.toLower.startsWith('assets/') ||
         safety.toLower.startsWith('packages/');
   }
-
 
   /// 移除标点符号
   String get rmPunctuation {
@@ -570,7 +570,6 @@ extension LibStringExt on String {
     final uArgs = <String, Object?>{...Uri.parse(safety).queryParameters};
     return uArgs;
   }
-
 
   /// 通过 (uri/url) 获取host uri
   /// - (https://www.xx/xxx?args=1) => https://www.xx/xxx

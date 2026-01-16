@@ -1,6 +1,6 @@
 // This is a generated file; do not edit or check into version control.
-FLUTTER_ROOT=/Users/summer/fvm/versions/3.7.6
-FLUTTER_APPLICATION_PATH=/Users/summer/work/HCM/lib_ext
+FLUTTER_ROOT=/Users/summer/fvm/versions/3.22.3
+FLUTTER_APPLICATION_PATH=/Users/summer/work/TSAF/ext_library
 COCOAPODS_PARALLEL_CODE_SIGN=true
 FLUTTER_TARGET=lib/main.dart
 FLUTTER_BUILD_DIR=build

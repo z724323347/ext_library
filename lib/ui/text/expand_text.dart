@@ -1,143 +1,671 @@
-// import 'package:flutter/material.dart';
+import 'dart:ui' as ui show TextHeightBehavior;
 
-// class ExpandText extends StatefulWidget {
-//   const ExpandText({
-//     Key? key,
-//     required this.text,
-//     this.canPackUp = true,
-//     this.maxLines = 6,
-//     this.contentTextStyle,
-//     this.expandedTextStyle,
-//     this.expandText = '展开>',
-//     this.collapseText = ' <收起',
-//   }) : super(key: key);
+import 'package:flutter/gestures.dart';
+import 'package:flutter/material.dart';
 
-//   // 文本内容
-//   final String text;
+enum TrimMode { length, line }
 
-//   // 最大行数
-//   final int maxLines;
+/// Defines a customizable pattern within text, such as hashtags, URLs, or mentions.
+///
+/// Enables applying custom styles and interactions to matched patterns,
+/// enhancing text interactivity. Utilize this class to highlight specific text
+/// segments or to add clickable functionality, facilitating navigation or other actions.
+@immutable
+class Annotation {
+  const Annotation({
+    required this.regExp,
+    required this.spanBuilder,
+  });
 
-//   // 是否支持收起
-//   final bool canPackUp;
+  final RegExp regExp;
+  final TextSpan Function({required String text, required TextStyle textStyle})
+      spanBuilder;
+}
 
-//   // 文本样式
-//   final TextStyle? contentTextStyle;
+class ExpandMoreText extends StatefulWidget {
+  const ExpandMoreText(
+    String this.data, {
+    super.key,
+    this.isCollapsed,
+    this.preDataText,
+    this.postDataText,
+    this.preDataTextStyle,
+    this.postDataTextStyle,
+    this.trimExpandedText = 'Expand',
+    this.trimCollapsedText = 'More',
+    this.colorClickableText,
+    this.trimLength = 240,
+    this.trimLines = 2,
+    this.trimMode = TrimMode.length,
+    this.moreStyle,
+    this.lessStyle,
+    this.delimiter = '$_kEllipsis ',
+    this.delimiterStyle,
+    this.annotations,
+    this.isExpandable = true,
+    this.style,
+    this.strutStyle,
+    this.textAlign,
+    this.textDirection,
+    this.locale,
+    this.softWrap,
+    this.overflow,
+    this.textScaler,
+    this.semanticsLabel,
+    this.textWidthBasis,
+    this.textHeightBehavior,
+    this.selectionColor,
+  })  : richData = null,
+        richPreData = null,
+        richPostData = null;
 
-//   // 展开/收起按钮文本样式
-//   final TextStyle? expandedTextStyle;
+  const ExpandMoreText.rich(
+    TextSpan this.richData, {
+    super.key,
+    this.richPreData,
+    this.richPostData,
+    this.isCollapsed,
+    this.trimExpandedText = 'Expand',
+    this.trimCollapsedText = 'More',
+    this.colorClickableText,
+    this.trimLength = 240,
+    this.trimLines = 2,
+    this.trimMode = TrimMode.length,
+    this.moreStyle,
+    this.lessStyle,
+    this.delimiter = '$_kEllipsis ',
+    this.delimiterStyle,
+    this.isExpandable = true,
+    this.style,
+    this.strutStyle,
+    this.textAlign,
+    this.textDirection,
+    this.locale,
+    this.softWrap,
+    this.overflow,
+    this.textScaler,
+    this.semanticsLabel,
+    this.textWidthBasis,
+    this.textHeightBehavior,
+    this.selectionColor,
+  })  : data = null,
+        annotations = null,
+        preDataText = null,
+        postDataText = null,
+        preDataTextStyle = null,
+        postDataTextStyle = null;
 
-//   // 展开按钮文本
-//   final String expandText;
+  final ValueNotifier<bool>? isCollapsed;
 
-//   // 收起按钮文本
-//   final String collapseText;
+  /// Used on TrimMode.Length
+  final int trimLength;
 
-//   @override
-//   State<ExpandText> createState() => _ExpandTextState();
-// }
+  /// Used on TrimMode.Lines
+  final int trimLines;
 
-// class _ExpandTextState extends State<ExpandText> {
-//   late String _expandText;
-//   bool expandFlag = true; // 是否展开标志
-//   late TextStyle contextTextStyle = widget.contentTextStyle ??
-//       const TextStyle(color: Color(0xff2A2F3C), fontSize: 14, height: 1.2);
-//   late TextStyle expandedTextStyle = widget.expandedTextStyle ??
-//       const TextStyle(color: Color(0xff5590F6), fontSize: 14, height: 1.2);
+  /// Determines the type of trim. TrimMode.Length takes into account
+  /// the number of letters, while TrimMode.Lines takes into account
+  /// the number of lines
+  final TrimMode trimMode;
 
-//   @override
-//   void initState() {
-//     super.initState();
-//     _expandText = "... ${widget.expandText}";
-//   }
+  /// TextStyle for expanded text
+  final TextStyle? moreStyle;
 
-//   @override
-//   Widget build(BuildContext context) {
-//     return LayoutBuilder(builder: (context, size) {
-//       if (getContentTextPainter(widget.text, size.maxWidth).didExceedMaxLines) {
-//         return Column(
-//           crossAxisAlignment: CrossAxisAlignment.start,
-//           children: [
-//             // 富文本组件
-//             Text.rich(
-//               TextSpan(
-//                 text: expandFlag
-//                     ? "${widget.text.substring(0, getSubIndex(size))}... "
-//                     : widget.text,
-//                 style: contextTextStyle,
-//                 children: [
-//                   WidgetSpan(
-//                     child: Visibility(
-//                       visible: expandFlag,
-//                       child: buildExpandedWidget(),
-//                     ),
-//                   ),
-//                   // 展开/收起按钮
-//                   WidgetSpan(
-//                     child: Visibility(
-//                       visible: !expandFlag && widget.canPackUp,
-//                       child: buildExpandedWidget(),
-//                     ),
-//                   ),
-//                 ],
-//               ),
-//             ),
-//             // // 展开/收起按钮
-//             // Visibility(
-//             //   visible: !expandFlag && widget.canPackUp,
-//             //   child: Row(
-//             //     mainAxisAlignment: MainAxisAlignment.end,
-//             //     children: [buildExpandedWidget(), const SizedBox(width: 5)],
-//             //   ),
-//             // ),
-//           ],
-//         );
-//       }
-//       // 直接显示文本
-//       return Text(widget.text, style: contextTextStyle);
-//     });
-//   }
+  /// TextStyle for compressed text
+  final TextStyle? lessStyle;
 
-//   // 构建展开/收起按钮
-//   Widget buildExpandedWidget() {
-//     return GestureDetector(
-//       onTap: () {
-//         expandFlag = !expandFlag;
-//         setState(() {});
-//       },
-//       child: Text(
-//         expandFlag ? widget.expandText : widget.collapseText,
-//         textAlign: expandFlag ? TextAlign.end : TextAlign.start,
-//         style: expandedTextStyle,
-//       ),
-//     );
-//   }
+  /// Textspan used before the data any heading or somthing
+  final String? preDataText;
 
-//   // 获取截取文本的索引
-//   int getSubIndex(BoxConstraints size) {
-//     int subIndex = widget.text.length;
-//     List<int> runes = widget.text.runes.toList().reversed.toList();
-//     for (var rune in runes) {
-//       var character = String.fromCharCode(rune);
-//       String text = widget.text.substring(0, subIndex);
-//       final tp = getContentTextPainter("$text$_expandText", size.maxWidth);
-//       if (tp.didExceedMaxLines) {
-//         // 适配emoji
-//         subIndex = subIndex - character.length;
-//       } else {
-//         return subIndex;
-//       }
-//     }
-//     return subIndex;
-//   }
+  /// Textspan used after the data end or before the more/less
+  final String? postDataText;
 
-//   // 获取文本绘制对象
-//   TextPainter getContentTextPainter(String text, double maxWidth) {
-//     return TextPainter(
-//         text: TextSpan(text: text, style: contextTextStyle),
-//         maxLines: widget.maxLines,
-//         textDirection: TextDirection.ltr,
-//         textScaleFactor: MediaQuery.of(context).textScaleFactor)
-//       ..layout(maxWidth: maxWidth);
-//   }
-// }
+  /// Textspan used before the data any heading or somthing
+  final TextStyle? preDataTextStyle;
+
+  /// Textspan used after the data end or before the more/less
+  final TextStyle? postDataTextStyle;
+
+  /// Rich version of [preDataText]
+  final TextSpan? richPreData;
+
+  /// Rich version of [postDataText]
+  final TextSpan? richPostData;
+
+  final List<Annotation>? annotations;
+
+  /// Expand text on readMore press
+  final bool isExpandable;
+
+  final String delimiter;
+  final String? data;
+  final TextSpan? richData;
+  final String trimExpandedText;
+  final String trimCollapsedText;
+  final Color? colorClickableText;
+  final TextStyle? delimiterStyle;
+
+  // DefaultTextStyle start
+
+  final TextStyle? style;
+  final StrutStyle? strutStyle;
+  final TextAlign? textAlign;
+  final TextDirection? textDirection;
+  final Locale? locale;
+  final bool? softWrap;
+  final TextOverflow? overflow;
+  final TextScaler? textScaler;
+  final String? semanticsLabel;
+  final TextWidthBasis? textWidthBasis;
+  final ui.TextHeightBehavior? textHeightBehavior;
+  final Color? selectionColor;
+
+  // DefaultTextStyle end
+
+  @override
+  ExpandMoreTextState createState() => ExpandMoreTextState();
+}
+
+const String _kEllipsis = '\u2026';
+
+const String _kLineSeparator = '\u2028';
+
+class ExpandMoreTextState extends State<ExpandMoreText> {
+  static final _nonCapturingGroupPattern = RegExp(r'\((?!\?:)');
+
+  final TapGestureRecognizer _recognizer = TapGestureRecognizer();
+
+  ValueNotifier<bool>? _isCollapsed;
+  ValueNotifier<bool> get _effectiveIsCollapsed =>
+      widget.isCollapsed ?? (_isCollapsed ??= ValueNotifier(true));
+
+  void _onTap() {
+    if (widget.isExpandable) {
+      _effectiveIsCollapsed.value = !_effectiveIsCollapsed.value;
+    }
+  }
+
+  RegExp? _mergeRegexPatterns(List<Annotation>? annotations) {
+    if (annotations == null || annotations.isEmpty) {
+      return null;
+    } else if (annotations.length == 1) {
+      return annotations[0].regExp;
+    }
+
+    // replacing groups '(' => to non capturing groups '(?:'
+    return RegExp(
+      annotations
+          .map(
+            (a) =>
+                '(${a.regExp.pattern.replaceAll(_nonCapturingGroupPattern, '(?:')})',
+          )
+          .join('|'),
+    );
+  }
+
+  @override
+  void initState() {
+    super.initState();
+
+    _recognizer.onTap = _onTap;
+  }
+
+  @override
+  void didUpdateWidget(ExpandMoreText oldWidget) {
+    super.didUpdateWidget(oldWidget);
+
+    if (widget.isCollapsed == null && oldWidget.isCollapsed != null) {
+      final oldValue = oldWidget.isCollapsed!.value;
+      (_isCollapsed ??= ValueNotifier(oldValue)).value = oldValue;
+    }
+  }
+
+  @override
+  void dispose() {
+    _recognizer.dispose();
+    _isCollapsed?.dispose();
+
+    super.dispose();
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return ValueListenableBuilder(
+      valueListenable: _effectiveIsCollapsed,
+      builder: _builder,
+    );
+  }
+
+  Widget _builder(BuildContext context, bool isCollapsed, Widget? child) {
+    final defaultTextStyle = DefaultTextStyle.of(context);
+    TextStyle effectiveTextStyle;
+    if (widget.style == null || widget.style!.inherit) {
+      effectiveTextStyle = defaultTextStyle.style.merge(widget.style);
+    } else {
+      effectiveTextStyle = widget.style!;
+    }
+    if (MediaQuery.boldTextOf(context)) {
+      effectiveTextStyle = effectiveTextStyle
+          .merge(const TextStyle(fontWeight: FontWeight.bold));
+    }
+    final registrar = SelectionContainer.maybeOf(context);
+    final textScaler = widget.textScaler ?? MediaQuery.textScalerOf(context);
+
+    final textAlign =
+        widget.textAlign ?? defaultTextStyle.textAlign ?? TextAlign.start;
+    final textDirection = widget.textDirection ?? Directionality.of(context);
+    final locale = widget.locale ?? Localizations.maybeLocaleOf(context);
+    final softWrap = widget.softWrap ?? defaultTextStyle.softWrap;
+    final overflow = widget.overflow ?? defaultTextStyle.overflow;
+    final textWidthBasis =
+        widget.textWidthBasis ?? defaultTextStyle.textWidthBasis;
+    final textHeightBehavior = widget.textHeightBehavior ??
+        defaultTextStyle.textHeightBehavior ??
+        DefaultTextHeightBehavior.maybeOf(context);
+    final selectionColor = widget.selectionColor ??
+        DefaultSelectionStyle.of(context).selectionColor ??
+        DefaultSelectionStyle.defaultColor;
+
+    final colorClickableText =
+        widget.colorClickableText ?? Theme.of(context).colorScheme.secondary;
+    final defaultLessStyle = widget.lessStyle ??
+        effectiveTextStyle.copyWith(color: colorClickableText);
+    final defaultMoreStyle = widget.moreStyle ??
+        effectiveTextStyle.copyWith(color: colorClickableText);
+    final defaultDelimiterStyle = widget.delimiterStyle ?? effectiveTextStyle;
+
+    final link = TextSpan(
+      text: isCollapsed ? widget.trimCollapsedText : widget.trimExpandedText,
+      style: isCollapsed ? defaultMoreStyle : defaultLessStyle,
+      recognizer: _recognizer,
+    );
+
+    final delimiter = TextSpan(
+      text: isCollapsed
+          ? widget.trimCollapsedText.isNotEmpty
+              ? widget.delimiter
+              : ''
+          : '',
+      style: defaultDelimiterStyle,
+      recognizer: _recognizer,
+    );
+
+    Widget result = LayoutBuilder(
+      builder: (BuildContext context, BoxConstraints constraints) {
+        assert(constraints.hasBoundedWidth);
+        final maxWidth = constraints.maxWidth;
+
+        TextSpan? preTextSpan;
+        TextSpan? postTextSpan;
+
+        if (widget.richPreData != null) {
+          preTextSpan = widget.richPreData;
+        } else if (widget.preDataText != null) {
+          preTextSpan = TextSpan(
+            text: '${widget.preDataText!} ',
+            style: widget.preDataTextStyle ?? effectiveTextStyle,
+          );
+        }
+
+        if (widget.richPostData != null) {
+          postTextSpan = widget.richPostData;
+        } else if (widget.postDataText != null) {
+          postTextSpan = TextSpan(
+            text: ' ${widget.postDataText!}',
+            style: widget.postDataTextStyle ?? effectiveTextStyle,
+          );
+        }
+
+        final TextSpan dataTextSpan;
+        // Constructed by ExpandMoreText.rich(...)
+        if (widget.richData != null) {
+          assert(_isTextSpan(widget.richData!));
+          dataTextSpan = TextSpan(
+            style: effectiveTextStyle,
+            children: [widget.richData!],
+          );
+          // Constructed by ExpandMoreText(...)
+        } else {
+          dataTextSpan = _buildAnnotatedTextSpan(
+            data: widget.data!,
+            textStyle: effectiveTextStyle,
+            regExp: _mergeRegexPatterns(widget.annotations),
+            annotations: widget.annotations,
+          );
+        }
+
+        // Create a TextSpan with data
+        final text = TextSpan(
+          children: [
+            if (preTextSpan != null) preTextSpan,
+            dataTextSpan,
+            if (postTextSpan != null) postTextSpan,
+          ],
+        );
+
+        // Layout and measure link
+        final textPainter = TextPainter(
+          text: link,
+          textAlign: textAlign,
+          textDirection: textDirection,
+          locale: locale,
+          textScaler: textScaler,
+          maxLines: widget.trimLines,
+          strutStyle: widget.strutStyle,
+          textWidthBasis: textWidthBasis,
+          textHeightBehavior: textHeightBehavior,
+          ellipsis: overflow == TextOverflow.ellipsis ? widget.delimiter : null,
+        );
+        textPainter.layout(maxWidth: maxWidth);
+        final linkSize = textPainter.size;
+
+        // Layout and measure delimiter
+        textPainter.text = delimiter;
+        textPainter.layout(maxWidth: maxWidth);
+        final delimiterSize = textPainter.size;
+
+        // Layout and measure text
+        textPainter.text = text;
+        textPainter.layout(minWidth: constraints.minWidth, maxWidth: maxWidth);
+        final textSize = textPainter.size;
+
+        // Get the endIndex of data
+        var linkLongerThanLine = false;
+        int endIndex;
+
+        if (linkSize.width < maxWidth) {
+          final readMoreSize = linkSize.width + delimiterSize.width;
+          final pos = textPainter.getPositionForOffset(
+            Offset(
+              textDirection == TextDirection.rtl
+                  ? readMoreSize
+                  : textSize.width - readMoreSize,
+              textSize.height,
+            ),
+          );
+          endIndex = textPainter.getOffsetBefore(pos.offset) ?? 0;
+        } else {
+          final pos = textPainter.getPositionForOffset(
+            textSize.bottomLeft(Offset.zero),
+          );
+          endIndex = pos.offset;
+          linkLongerThanLine = true;
+        }
+
+        late final TextSpan textSpan;
+        switch (widget.trimMode) {
+          case TrimMode.length:
+            // Constructed by ExpandMoreText.rich(...)
+            if (widget.richData != null) {
+              final trimResult = _trimTextSpan(
+                textSpan: dataTextSpan,
+                spanStartIndex: 0,
+                endIndex: widget.trimLength,
+                splitByRunes: true,
+              );
+
+              if (trimResult.didTrim) {
+                textSpan = TextSpan(
+                  children: [
+                    if (isCollapsed) trimResult.textSpan else dataTextSpan,
+                    delimiter,
+                    link,
+                  ],
+                );
+              } else {
+                textSpan = dataTextSpan;
+              }
+            }
+            // Constructed by ExpandMoreText(...)
+            else {
+              if (widget.trimLength < widget.data!.runes.length) {
+                final effectiveDataTextSpan = isCollapsed
+                    ? _trimTextSpan(
+                        textSpan: dataTextSpan,
+                        spanStartIndex: 0,
+                        endIndex: widget.trimLength,
+                        splitByRunes: true,
+                      ).textSpan
+                    : dataTextSpan;
+
+                textSpan = TextSpan(
+                  children: <TextSpan>[
+                    effectiveDataTextSpan,
+                    delimiter,
+                    link,
+                  ],
+                );
+              } else {
+                textSpan = dataTextSpan;
+              }
+            }
+            break;
+          case TrimMode.line:
+            if (textPainter.didExceedMaxLines) {
+              final effectiveDataTextSpan = isCollapsed
+                  ? _trimTextSpan(
+                      textSpan: dataTextSpan,
+                      spanStartIndex: 0,
+                      endIndex: endIndex,
+                      splitByRunes: false,
+                    ).textSpan
+                  : dataTextSpan;
+
+              textSpan = TextSpan(
+                children: <TextSpan>[
+                  effectiveDataTextSpan,
+                  if (linkLongerThanLine) const TextSpan(text: _kLineSeparator),
+                  delimiter,
+                  link,
+                ],
+              );
+            } else {
+              textSpan = dataTextSpan;
+            }
+            break;
+        }
+
+        return RichText(
+          text: TextSpan(
+            children: [
+              if (preTextSpan != null) preTextSpan,
+              textSpan,
+              if (postTextSpan != null) postTextSpan,
+            ],
+          ),
+          textAlign: textAlign,
+          textDirection: textDirection,
+          locale: locale,
+          softWrap: softWrap,
+          overflow: overflow,
+          textScaler: textScaler,
+          strutStyle: widget.strutStyle,
+          textWidthBasis: textWidthBasis,
+          textHeightBehavior: textHeightBehavior,
+          selectionRegistrar: registrar,
+          selectionColor: selectionColor,
+        );
+      },
+    );
+    if (registrar != null) {
+      result = MouseRegion(
+        cursor: DefaultSelectionStyle.of(context).mouseCursor ??
+            SystemMouseCursors.text,
+        child: result,
+      );
+    }
+    if (widget.semanticsLabel != null) {
+      result = Semantics(
+        textDirection: widget.textDirection,
+        label: widget.semanticsLabel,
+        child: ExcludeSemantics(
+          child: result,
+        ),
+      );
+    }
+    return result;
+  }
+
+  TextSpan _buildAnnotatedTextSpan({
+    required String data,
+    required TextStyle textStyle,
+    required RegExp? regExp,
+    required List<Annotation>? annotations,
+  }) {
+    if (regExp == null || data.isEmpty) {
+      return TextSpan(text: data, style: textStyle);
+    }
+
+    final contents = <TextSpan>[];
+
+    data.splitMapJoin(
+      regExp,
+      onMatch: (Match regexMatch) {
+        final matchedText = regexMatch.group(0)!;
+        late final Annotation matchedAnnotation;
+
+        if (annotations!.length == 1) {
+          matchedAnnotation = annotations[0];
+        } else {
+          for (var i = 0; i < regexMatch.groupCount; i++) {
+            if (matchedText == regexMatch.group(i + 1)) {
+              matchedAnnotation = annotations[i];
+              break;
+            }
+          }
+        }
+
+        final content = matchedAnnotation.spanBuilder(
+          text: matchedText,
+          textStyle: textStyle,
+        );
+
+        assert(_isTextSpan(content));
+        contents.add(content);
+
+        return '';
+      },
+      onNonMatch: (String unmatchedText) {
+        contents.add(TextSpan(text: unmatchedText));
+        return '';
+      },
+    );
+
+    return TextSpan(style: textStyle, children: contents);
+  }
+
+  _TextSpanTrimResult _trimTextSpan({
+    required TextSpan textSpan,
+    required int spanStartIndex,
+    required int endIndex,
+    required bool splitByRunes,
+  }) {
+    var spanEndIndex = spanStartIndex;
+
+    final text = textSpan.text;
+    if (text != null) {
+      final textLen = splitByRunes ? text.runes.length : text.length;
+      spanEndIndex += textLen;
+
+      if (spanEndIndex >= endIndex) {
+        final newText = splitByRunes
+            ? String.fromCharCodes(text.runes, 0, endIndex - spanStartIndex)
+            : text.substring(0, endIndex - spanStartIndex);
+
+        final nextSpan = TextSpan(
+          text: newText,
+          children: null, // remove potential children
+          style: textSpan.style,
+          recognizer: textSpan.recognizer,
+          mouseCursor: textSpan.mouseCursor,
+          onEnter: textSpan.onEnter,
+          onExit: textSpan.onExit,
+          semanticsLabel: textSpan.semanticsLabel,
+          locale: textSpan.locale,
+          spellOut: textSpan.spellOut,
+        );
+
+        return _TextSpanTrimResult(
+          textSpan: nextSpan,
+          spanEndIndex: spanEndIndex,
+          didTrim: true,
+        );
+      }
+    }
+
+    var didTrim = false;
+    final newChildren = <InlineSpan>[];
+
+    final children = textSpan.children;
+    if (children != null) {
+      for (final child in children) {
+        if (child is TextSpan) {
+          final result = _trimTextSpan(
+            textSpan: child,
+            spanStartIndex: spanEndIndex,
+            endIndex: endIndex,
+            splitByRunes: splitByRunes,
+          );
+
+          spanEndIndex = result.spanEndIndex;
+          newChildren.add(result.textSpan);
+
+          if (result.didTrim) {
+            didTrim = true;
+            break;
+          }
+        } else {
+          // WidgetSpan shouldn't occur
+          newChildren.add(child);
+        }
+      }
+    }
+
+    final resultTextSpan = didTrim
+        ? TextSpan(
+            text: textSpan.text,
+            children: newChildren, // update children
+            style: textSpan.style,
+            recognizer: textSpan.recognizer,
+            mouseCursor: textSpan.mouseCursor,
+            onEnter: textSpan.onEnter,
+            onExit: textSpan.onExit,
+            semanticsLabel: textSpan.semanticsLabel,
+            locale: textSpan.locale,
+            spellOut: textSpan.spellOut,
+          )
+        : textSpan;
+
+    return _TextSpanTrimResult(
+      textSpan: resultTextSpan,
+      spanEndIndex: spanEndIndex,
+      didTrim: didTrim,
+    );
+  }
+
+  bool _isTextSpan(InlineSpan span) {
+    if (span is! TextSpan) {
+      return false;
+    }
+
+    final children = span.children;
+    if (children == null || children.isEmpty) {
+      return true;
+    }
+
+    return children.every(_isTextSpan);
+  }
+}
+
+@immutable
+class _TextSpanTrimResult {
+  const _TextSpanTrimResult({
+    required this.textSpan,
+    required this.spanEndIndex,
+    required this.didTrim,
+  });
+
+  final TextSpan textSpan;
+  final int spanEndIndex;
+  final bool didTrim;
+}

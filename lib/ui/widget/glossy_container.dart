@@ -97,13 +97,13 @@ class GlossyContainer extends StatelessWidget {
                         end: Alignment.bottomRight,
                         colors: [
                             color == null
-                                ?  const Color.fromARGB(255, 138, 137, 137)
+                                ? const Color.fromARGB(255, 138, 137, 137)
                                     .withOpacity(opacity ?? 0.15)
-                                : color!.withOpacity( opacity ?? 0.15),
+                                : color!.withOpacity(opacity ?? 0.15),
                             color == null
                                 ? const Color.fromARGB(255, 121, 120, 120)
-                                    .withOpacity( opacity ?? 0.15)
-                                : color!.withOpacity( opacity ?? 0.15),
+                                    .withOpacity(opacity ?? 0.15)
+                                : color!.withOpacity(opacity ?? 0.15),
                           ])
                     : gradientToApply,
               ),
@@ -153,7 +153,7 @@ class GlossyLinearGradient extends GlossyGradient {
   // Get linear gradient
   LinearGradient getLinearGradient() {
     return LinearGradient(
-        colors: colors.map((e) => e.withOpacity( opacity)).toList(),
+        colors: colors.map((e) => e.withOpacity(opacity)).toList(),
         begin: begin,
         end: end,
         tileMode: tileMode);
@@ -181,7 +181,7 @@ class GlossyRadialGradient extends GlossyGradient {
   // Get radial gradient
   RadialGradient getRadialGradient() {
     return RadialGradient(
-      colors: colors.map((e) => e.withOpacity( opacity)).toList(),
+      colors: colors.map((e) => e.withOpacity(opacity)).toList(),
       center: center,
       focal: focal,
       focalRadius: focalRadius,

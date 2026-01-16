@@ -153,12 +153,15 @@ class _ListItemState extends State<ListItem> {
               const SizedBox(width: 5),
               Container(
                 padding: 2.all,
-                color: data.isSuccess? Colors.greenAccent: Colors.redAccent,
+                color: data.isSuccess ? Colors.greenAccent : Colors.redAccent,
                 child: Text(
-                 data.method.toUpper,
-                  style: TextStyle(fontSize: 7, color: methodColor,fontWeight: FontWeight.bold),
+                  data.method.toUpper,
+                  style: TextStyle(
+                      fontSize: 7,
+                      color: methodColor,
+                      fontWeight: FontWeight.bold),
                 ),
-              ).clipRRect(all: 4),  
+              ).clipRRect(all: 4),
               const SizedBox(width: 5),
               Expanded(
                 child: AutoSizeText(
@@ -209,12 +212,14 @@ class _ListItemState extends State<ListItem> {
                 margin: 3.left,
                 padding: 2.all,
                 decoration: BoxDecoration(
-                  borderRadius: 4.borderAll,
-                  border: Border.all(color: Colors.grey.shade300,width: .5)
-                ),
+                    borderRadius: 4.borderAll,
+                    border: Border.all(color: Colors.grey.shade300, width: .5)),
                 child: Text(
-                 data.respText.safety.length.bytesFormat,
-                  style: TextStyle(fontSize: 8, color: Colors.grey,fontWeight: FontWeight.bold),
+                  data.respText.safety.length.bytesFormat,
+                  style: TextStyle(
+                      fontSize: 8,
+                      color: Colors.grey,
+                      fontWeight: FontWeight.bold),
                 ),
               ),
               // Container(
@@ -232,7 +237,7 @@ class _ListItemState extends State<ListItem> {
               //         ?.copyWith(fontSize: 10, color: Colors.white),
               //   ),
               // ).visible(data.header.containsKey('beta')),
-              
+
               Text(
                 'start: ${data.time?.hmsDotSS}',
                 style: Theme.of(context)

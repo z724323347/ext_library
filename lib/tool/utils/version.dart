@@ -1,5 +1,3 @@
-
-
 // ignore_for_file: non_nullable_equals_parameter
 
 /// Provides immutable storage and comparison of semantic version numbers.
@@ -128,11 +126,10 @@ class Version implements Comparable<Version> {
       newPreRelease.add("1");
     }
 
-    return Version(major, minor, patch,
-        preRelease: newPreRelease);
+    return Version(major, minor, patch, preRelease: newPreRelease);
   }
 
-    @override
+  @override
   String toString() {
     final StringBuffer output = StringBuffer("$major.$minor.$patch");
     if (_preRelease.isNotEmpty) {

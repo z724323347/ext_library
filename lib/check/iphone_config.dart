@@ -5,7 +5,7 @@ class IPhoneConfig {
     return iphoneList[model] ?? model;
   }
 
-  static Map<String, String> iphoneList =<String, String>{
+  static Map<String, String> iphoneList = <String, String>{
     ...iphone,
     ...ipad,
   };
@@ -199,6 +199,5 @@ class IPhoneConfig {
     'iPad16,4': 'iPad Pro 11" (M4, 2024) Cellular',
     'iPad16,5': 'iPad Pro 13" (M4, 2024) Wi-Fi',
     'iPad16,6': 'iPad Pro 13" (M4, 2024) Cellular',
-
   };
 }

@@ -38,11 +38,11 @@ extension LibDynamic on dynamic {
     if (toString().none) {
       return null;
     }
-   try {
+    try {
       return json.encode(this);
-   } catch (e) {
+    } catch (e) {
       return toString();
-   }
+    }
   }
 
   /// string 转 jsonDecode
@@ -78,11 +78,11 @@ extension LibObject on Object {
     if (toString().none) {
       return null;
     }
-   try {
+    try {
       return json.encode(this);
-   } catch (e) {
+    } catch (e) {
       return toString();
-   }
+    }
   }
 
   /// string 转 jsonDecode
@@ -118,7 +118,7 @@ extension LibNullObject on Object? {
     }
     try {
       const JsonEncoder encoder = JsonEncoder.withIndent('  ');
-    return encoder.convert(this);
+      return encoder.convert(this);
     } catch (e) {
       return '$this';
     }

@@ -1,7 +1,6 @@
 import 'dart:async';
 import 'dart:convert';
 
-
 import 'package:dio/dio.dart';
 
 Future<List<int>?> serializeContent(ResponseType type, dynamic content) async {

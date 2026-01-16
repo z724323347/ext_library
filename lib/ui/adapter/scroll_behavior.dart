@@ -2,7 +2,7 @@ import 'package:flutter/widgets.dart';
 
 class BouncingScrollBehavior extends ScrollBehavior {
   // Disable overscroll glow.
-  @override
+
   Widget buildViewportChrome(
       BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;
@@ -36,7 +36,6 @@ class BouncingScrollWrapper extends StatelessWidget {
 
 class ClampingScrollBehavior extends ScrollBehavior {
   // Disable overscroll glow.
-  @override
   Widget buildViewportChrome(
       BuildContext context, Widget child, AxisDirection axisDirection) {
     return child;

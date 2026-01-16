@@ -9,11 +9,11 @@ import '../entity/host_page_entity.dart';
 /// 网络设置相关
 
 class NetworkLogHostPage extends StatefulWidget {
-final  Uri? baseUri;
-final  String? appConfig;
-final  Function(Uri uri)? onChange;
-final  Function(String url)? toWebView;
-final  List<HostPageEntity> envList;
+  final Uri? baseUri;
+  final String? appConfig;
+  final Function(Uri uri)? onChange;
+  final Function(String url)? toWebView;
+  final List<HostPageEntity> envList;
 
   NetworkLogHostPage({
     Key? key,
@@ -108,7 +108,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
 
   Widget _buildInputUrl() {
     return SizedBox(
-      height: MediaQuery.of(context).size.height  * 0.1,
+      height: MediaQuery.of(context).size.height * 0.1,
       child: Row(
         children: [
           Expanded(
@@ -133,23 +133,23 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
               // maxLength: 3000
               controller: _webController,
               enabled: true,
-              decoration:  InputDecoration(
-                  contentPadding: 6.all,
-                  border: InputBorder.none,
-                  hintStyle: TextStyle(color: Color(0x663c3c43)),
-                  hintText: '输入web地址',
-                  suffixIcon: InkWell(
-                    onTap: () {
-                      _webController.input('');
-                      setState(() {});
-                    },
-                    child: const Icon(Icons.close, size: 18),
-                  ),
+              decoration: InputDecoration(
+                contentPadding: 6.all,
+                border: InputBorder.none,
+                hintStyle: TextStyle(color: Color(0x663c3c43)),
+                hintText: '输入web地址',
+                suffixIcon: InkWell(
+                  onTap: () {
+                    _webController.input('');
+                    setState(() {});
+                  },
+                  child: const Icon(Icons.close, size: 18),
                 ),
-              onChanged:(_){
+              ),
+              onChanged: (_) {
                 _webController.input(_);
                 setState(() {});
-              } ,
+              },
               keyboardType: TextInputType.url,
               maxLines: 999999,
               style: TextStyle(fontSize: 11, color: Colors.black, height: 1.6),
@@ -176,10 +176,10 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
                 ),
                 child: Text('进入Web', style: TextStyle()),
               ),
-
               Text(
                 '${_webController.text.length}/999999',
-                style: TextStyle(fontSize: 11, color: Colors.redAccent, height: 1.6),
+                style: TextStyle(
+                    fontSize: 11, color: Colors.redAccent, height: 1.6),
               )
             ],
           ),

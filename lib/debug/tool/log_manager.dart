@@ -5,7 +5,6 @@ import 'package:dio/dio.dart';
 import 'package:ext_library/lib_ext.dart';
 import 'package:rxdart/rxdart.dart';
 
-
 class LogData {
   LogData({
     required this.url,
@@ -186,7 +185,7 @@ class LogManager {
     String postParams = request.data.toString();
     String postFields = '';
     try {
-    postFields=  jsonEncode(request.data);
+      postFields = jsonEncode(request.data);
     } catch (e) {
       //
     }
@@ -209,7 +208,7 @@ class LogManager {
     }
     if (method.toLowerCase() == 'put') {
       // params = 'PUT:\n参数:\n$postParams\n文件:\n$postFields';
-       params = 'PUT:\n参数:\n${postFields.strToMap.jsonFormat}';
+      params = 'PUT:\n参数:\n${postFields.strToMap.jsonFormat}';
     }
     if (request.uri.toString().contains('nls-gateway')) {
       params = 'POST:\n参数: aliyun不监控(${request.uri.host})';

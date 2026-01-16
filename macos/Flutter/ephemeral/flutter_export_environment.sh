@@ -1,7 +1,7 @@
 #!/bin/sh
 # This is a generated file; do not edit or check into version control.
-export "FLUTTER_ROOT=/Users/summer/fvm/versions/3.7.6"
-export "FLUTTER_APPLICATION_PATH=/Users/summer/work/HCM/lib_ext"
+export "FLUTTER_ROOT=/Users/summer/fvm/versions/3.22.3"
+export "FLUTTER_APPLICATION_PATH=/Users/summer/work/TSAF/ext_library"
 export "COCOAPODS_PARALLEL_CODE_SIGN=true"
 export "FLUTTER_BUILD_DIR=build"
 export "FLUTTER_BUILD_NAME=0.0.1"

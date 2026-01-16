@@ -63,7 +63,7 @@ extension LibNumExt on num {
   /// num 转 string
   String get ts => this == null ? '' : '$this';
 
-/// 毫秒 转换为 Duration
+  /// 毫秒 转换为 Duration
   Duration get duration {
     return Duration(milliseconds: toInt());
   }

@@ -1,3 +1,20 @@
 {
-  "dart.flutterSdkPath": ".fvm/versions/3.22.3"
+  "dart.flutterSdkPath": ".fvm/versions/3.22.3",
+  "dart.showTodos": true,
+  "dart.completeFunctionCalls": true,
+  "dart.format.lineLength": 120,
+  "dart.previewLsp": true,
+  "dart.enableSdkFormatter": true,
+  "editor.formatOnSave": true,
+  "editor.gotoLocation.alternativeDeclarationCommand": "editor.action.revealDefinition",
+  "editor.gotoLocation.alternativeDefinitionCommand": "editor.action.revealDefinition",
+  "editor.gotoLocation.alternativeTypeDefinitionCommand": "editor.action.revealDefinition",
+  "editor.selectionHighlight": false,
+  "files.autoSave": "onFocusChange",
+  "editor.suggest.snippetsPreventQuickSuggestions": false,
+  "editor.quickSuggestions": {
+    "other": "on",
+    "comments": "off",
+    "strings": "on"
+  },
 }

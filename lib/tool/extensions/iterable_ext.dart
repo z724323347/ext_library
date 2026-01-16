@@ -1,4 +1,3 @@
-
 import 'package:collection/collection.dart';
 import 'package:flutter/material.dart';
 
@@ -60,7 +59,7 @@ extension LibListExt<T> on List<T> {
 
   /// 截取列表 最大长度
   List<T> max([int max = 3]) {
-    if (length <= max ) {
+    if (length <= max) {
       return this;
     } else {
       return sublist(0, max);
@@ -69,7 +68,7 @@ extension LibListExt<T> on List<T> {
 
   /// 截取列表 指定索引
   List<T> subIndex(int start, [int? end]) {
-    if (empty || start <0) {
+    if (empty || start < 0) {
       return [];
     }
 
@@ -89,7 +88,7 @@ extension LibListExt<T> on List<T> {
     }
   }
 
-   /// 列表元素去重
+  /// 列表元素去重
   List<T> get distinct {
     return toSet().toList();
   }
@@ -130,7 +129,7 @@ extension LibList<T> on List<T>? {
     if (empty) {
       return null;
     }
-  return this![index.abs() % safey.length];
+    return this![index.abs() % safey.length];
   }
 }
 

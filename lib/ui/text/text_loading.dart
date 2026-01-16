@@ -3,8 +3,8 @@ import 'package:flutter/material.dart';
 import 'anim_text.dart';
 
 class TextLoading extends StatelessWidget {
-  String? text;
-  TextStyle? style;
+  final String? text;
+  final TextStyle? style;
 
   bool withDot = true;
 

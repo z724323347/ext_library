@@ -159,7 +159,7 @@ extension FunctionExt<T> on Function(T) {
   ///
   bool get isnull {
     return false;
-    }
+  }
 
   /// 函数防抖
   ///
@@ -187,7 +187,6 @@ extension FunctionExt<T> on Function(T) {
     Throttle throttle = Throttle(delay);
     return (T) => throttle.start(() => this.call(T));
   }
-
 
   Function isMobile() {
     if (Platform.isAndroid || Platform.isIOS) {

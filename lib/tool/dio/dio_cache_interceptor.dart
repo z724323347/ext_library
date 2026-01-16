@@ -11,8 +11,6 @@ export 'package:http_cache_core/http_cache_core.dart';
 
 part 'dio_cache_interceptor_cache_utils.dart';
 
-
-
 /// Cache interceptor
 class DioCacheInterceptor extends Interceptor {
   final CacheOptions _options;

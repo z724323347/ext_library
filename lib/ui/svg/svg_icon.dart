@@ -112,7 +112,7 @@ class SvgIcon extends SvgPicture {
         color: color,
         colorFilter: colorFilter,
         fit: fit,
-        package:package,
+        package: package,
       );
     }
     return SvgPicture.string(

@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 
 bool _isEmpty(double? d) {
