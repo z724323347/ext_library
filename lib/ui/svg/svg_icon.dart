@@ -144,8 +144,8 @@ class SvgIcon extends SvgPicture {
         fit: fit,
         errorBuilder: (_, err, st) =>
             _errSvgIcon(width: width, height: height, fit: fit),
-        cacheWidth: width.toInt,
-        cacheHeight: height.toInt,
+        // cacheWidth: width.toInt,
+        // cacheHeight: height.toInt,
       );
     }
     if (svgPath.isAssetR) {
@@ -159,8 +159,8 @@ class SvgIcon extends SvgPicture {
         package: package,
         errorBuilder: (_, err, st) =>
             _errSvgIcon(width: width, height: height, fit: fit),
-        cacheWidth: width.toInt,
-        cacheHeight: height.toInt,
+        // cacheWidth: width.toInt,
+        // cacheHeight: height.toInt,
       );
     }
     if (svgPath.isFilePath) {
@@ -173,8 +173,8 @@ class SvgIcon extends SvgPicture {
         fit: fit,
         errorBuilder: (_, err, st) =>
             _errSvgIcon(width: width, height: height, fit: fit),
-        cacheWidth: width.toInt,
-        cacheHeight: height.toInt,
+        // cacheWidth: width.toInt,
+        // cacheHeight: height.toInt,
       );
     }
     return Container();
