@@ -92,6 +92,14 @@ extension LibDate on DateTime {
     return LibDateFormat.hh.format(this);
   }
 
+  /// 'HH:mm'
+  String get hm {
+    if (this == null || microsecondsSinceEpoch == 0) {
+      return '';
+    }
+    return LibDateFormat.hrMin.format(this);
+  }
+
   /// 'HH:mm:ss'
   String get hms {
     if (this == null || microsecondsSinceEpoch == 0) {
