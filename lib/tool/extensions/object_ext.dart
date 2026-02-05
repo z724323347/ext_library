@@ -214,11 +214,12 @@ extension LibMapExt on Map<String, dynamic> {
     if (empty) {
       return {};
     }
+    Map<String, dynamic> map = {};
     for (final key in keys) {
       if (!key.empty) {
-        this[key.toPascalName] = this[key];
+        map[key.toPascalName] = this[key];
       }
     }
-    return this;
+    return map;
   }
 }
