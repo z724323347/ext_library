@@ -208,4 +208,17 @@ extension LibMapExt on Map<String, dynamic> {
     }
     return this;
   }
+
+  /// key 转 PascalName
+  Map<String, dynamic> get keyPascalName {
+    if (empty) {
+      return {};
+    }
+    for (final key in keys) {
+      if (!key.empty) {
+        this[key.toPascalName] = this[key];
+      }
+    }
+    return this;
+  }
 }
