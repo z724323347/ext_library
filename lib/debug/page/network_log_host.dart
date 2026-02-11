@@ -4,8 +4,9 @@ import 'package:ext_library/tool/tool_lib.dart';
 import 'package:ext_library/ui/toast/toast.dart';
 import 'package:flutter/material.dart';
 
-import '../entity/host_config_entity.dart';
 import '../entity/host_page_entity.dart';
+
+export '../entity/host_page_entity.dart';
 
 /// 网络设置相关
 
