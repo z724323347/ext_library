@@ -4,6 +4,7 @@ import 'package:ext_library/tool/tool_lib.dart';
 import 'package:ext_library/ui/toast/toast.dart';
 import 'package:flutter/material.dart';
 
+import '../entity/host_config_entity.dart';
 import '../entity/host_page_entity.dart';
 
 /// 网络设置相关
@@ -14,6 +15,7 @@ class NetworkLogHostPage extends StatefulWidget {
   final Function(Uri uri)? onChange;
   final Function(String url)? toWebView;
   final List<HostPageEntity> envList;
+  final List<HostConfigEntity> hostConfig;
 
   NetworkLogHostPage({
     Key? key,
@@ -22,6 +24,7 @@ class NetworkLogHostPage extends StatefulWidget {
     this.onChange,
     this.toWebView,
     this.envList = const [],
+    this.hostConfig = const [],
   }) : super(key: key);
 
   @override
@@ -33,16 +36,32 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
   late final TextEditingController _webController;
 
   Uri? currUri;
+  List<HostConfigEntity> hostList = [];
 
   @override
   void initState() {
     super.initState();
+    initData();
+    setState(() {});
+  }
+
+  void initData() {
     if (widget.baseUri != null) {
       currUri = widget.baseUri;
     }
     _domainController = TextEditingController(text: 'http://');
     _webController = TextEditingController(text: 'https://www.baidu.com');
-    setState(() {});
+
+    if (!widget.hostConfig.empty) {
+      hostList = widget.hostConfig;
+    } else {
+      hostList = [
+        HostConfigEntity(name: '正式', host: 'https://api.washine.tech'),
+        HostConfigEntity(name: '灰度', host: 'https://api-gray.washine.tech'),
+        HostConfigEntity(name: '开发', host: 'https://dev.zhiwafrog.com'),
+        HostConfigEntity(name: '测试', host: 'https://test.zhiwafrog.com'),
+      ];
+    }
   }
 
   @override
@@ -91,10 +110,13 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         const SizedBox(height: 10),
         _buildInputUrl(),
         const SizedBox(height: 40),
-        _buildUriItem(des: '正式', uri: 'https://api.washine.tech'),
-        _buildUriItem(des: '灰度', uri: 'https://api-gray.washine.tech'),
-        _buildUriItem(des: '开发', uri: 'https://dev.zhiwafrog.com'),
-        _buildUriItem(des: '测试', uri: 'https://test.zhiwafrog.com'),
+        // _buildUriItem(des: '正式', uri: 'https://api.washine.tech'),
+        // _buildUriItem(des: '灰度', uri: 'https://api-gray.washine.tech'),
+        // _buildUriItem(des: '开发', uri: 'https://dev.zhiwafrog.com'),
+        // _buildUriItem(des: '测试', uri: 'https://test.zhiwafrog.com'),
+        ...hostList
+            .map((e) => _buildUriItem(des: e.name, uri: e.host))
+            .toList(),
         const SizedBox(height: 40),
         SelectableText(
           '当前Config:\n${widget.appConfig ?? widget.baseUri.toString().fixLines}',
