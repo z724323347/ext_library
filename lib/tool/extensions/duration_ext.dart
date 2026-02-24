@@ -1,7 +1,13 @@
 // ignore_for_file: unnecessary_null_comparison
 
+import 'dart:async';
+
 /// 时间 datetime 扩展函数
 extension LibDurationExt on Duration {
+  /// 延迟执行
+  Future delay([FutureOr Function()? callback]) async =>
+      Future.delayed(this, callback);
+
   /// 是否已经过期
   ///
   /// 已过期：true

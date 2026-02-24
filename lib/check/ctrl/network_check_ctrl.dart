@@ -1,8 +1,6 @@
 import 'dart:convert';
 
-import 'package:dio/dio.dart';
 import 'package:ext_library/lib_ext.dart';
-import 'package:get/get.dart';
 import 'package:http/http.dart' as http;
 
 dynamic _decodeData(List<int>? data) {
