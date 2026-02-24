@@ -342,4 +342,24 @@ extension LibStyledWidget on Widget {
         opaque: opaque,
         child: this,
       );
+
+  /// 扩展Widget，设置宽高占比
+  Widget fracSize({double? widthFactor, double? heightFactor, Key? key}) {
+    if (widthFactor != null) {
+      widthFactor >= 1 ? widthFactor = 1 : widthFactor;
+    }
+    if (heightFactor != null) {
+      heightFactor >= 1 ? heightFactor = 1 : heightFactor;
+    }
+    return FractionallySizedBox(
+      key: key,
+      widthFactor: widthFactor,
+      heightFactor: heightFactor,
+      child: this,
+    );
+  }
+
+  /// 宽高比例
+  Widget aspectRatio({Key? key, required double aspectRatio}) =>
+      AspectRatio(key: key, aspectRatio: aspectRatio, child: this);
 }

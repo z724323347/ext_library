@@ -16,32 +16,32 @@ class ToastText extends StatelessWidget {
   final String? text;
   final Color? textColor;
 
- final Widget? customView;
+  final Widget? customView;
 
   @override
   Widget build(BuildContext context) {
     List<Widget> children = [];
-    if (customView!=null) {
-      children = [customView??const SizedBox.shrink()];
-    }else {
-      children =[
-          if (icon != null)
-            Icon(
-              icon,
-              size: 30,
-              color: textColor ?? Colors.white,
-            ),
-          if (text != null)
-            Flexible(
-              child: Text(
-                text!,
-                style: TextStyle(
-                  color: textColor ?? Colors.white,
-                  fontSize: 14,
-                ),
+    if (customView != null) {
+      children = [customView ?? const SizedBox.shrink()];
+    } else {
+      children = [
+        if (icon != null)
+          Icon(
+            icon,
+            size: 30,
+            color: textColor ?? Colors.white,
+          ),
+        if (text != null)
+          Flexible(
+            child: Text(
+              text!,
+              style: TextStyle(
+                color: textColor ?? Colors.white,
+                fontSize: 14,
               ),
             ),
-        ];
+          ),
+      ];
     }
     return ToastContainer(
       child: Column(
