@@ -222,4 +222,18 @@ extension LibMapExt on Map<String, dynamic> {
     }
     return map;
   }
+
+  /// key 转 SnakeName
+  Map<String, dynamic> get keySnakeName {
+    if (empty) {
+      return {};
+    }
+    Map<String, dynamic> map = {};
+    for (final key in keys) {
+      if (!key.empty) {
+        map[key.toSnakeName] = this[key];
+      }
+    }
+    return map;
+  }
 }
