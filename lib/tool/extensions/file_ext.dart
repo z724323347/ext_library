@@ -15,4 +15,29 @@ extension LibFileToolExt on File? {
       return Future.value();
     }
   }
+
+  /// 获取文件大小
+  /// - return bytes
+  int get size {
+    if (this == null) {
+      return 0;
+    }
+    if (this!.existsSync()) {
+      final fileStat = this!.statSync();
+      return fileStat.size;
+    }
+    return 0;
+  }
+
+  /// 获取文件长度 (同fileSize)
+  /// - return bytes
+  int get length {
+    if (this == null) {
+      return 0;
+    }
+    if (this!.existsSync()) {
+      return this!.lengthSync();
+    }
+    return 0;
+  }
 }

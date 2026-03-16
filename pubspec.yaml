@@ -36,6 +36,7 @@ dependencies:
 
   #system
   path_provider: any
+  image: 4.3.0
 
   # UI
   auto_size_text: ^3.0.0

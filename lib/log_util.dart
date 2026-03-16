@@ -14,11 +14,12 @@ import 'debug/store/logs_ctrl.dart';
 
 export 'package:chalkdart/chalkstrings.dart';
 export 'package:logarte/logarte.dart' hide NavigationAction;
-extension LibLogarte on Logarte{
+
+extension LibLogarte on Logarte {
   Logarte copy({
     String? password,
     bool ignorePassword = true,
-  }){
+  }) {
     return Logarte(
       password: password ?? this.password,
       ignorePassword: ignorePassword,
@@ -33,13 +34,11 @@ extension LibLogarte on Logarte{
   }
 }
 
-
 final Logarte logarte = Logarte(
   password: 'dev',
   ignorePassword: true,
   disableDebugConsoleLogs: true,
 );
-
 
 ///logs 日志
 void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
@@ -79,8 +78,11 @@ void devLogs(Object? msg, {Function(AppLogsEvent)? addLog}) {
   //     str = '';
   //   }
   // }
-  _defaultLog('[🖨‼️] ${d.yellow} ${path.darkOrange.bold} ${'(Line:${frame.line})'.yellowBright.italic} =>  ${str.greenBright}'.orangeRed);
-  logarte.log('[文件:${frame.uri.toString().fixLines}] \n[🖨] $d $path ${'(Line:${frame.line})'} =>  $str');
+  _defaultLog(
+      '[🖨‼️] ${d.yellow} ${path.darkOrange.bold} ${'(Line:${frame.line})'.yellowBright.italic} =>  ${str.greenBright}'
+          .orangeRed);
+  logarte.log(
+      '[文件:${frame.uri.toString().fixLines}] \n[🖨] $d $path ${'(Line:${frame.line})'} =>  $str');
   final Completer<AppLogsEvent> completer = Completer<AppLogsEvent>()
     ..complete(
       AppLogsEvent(
@@ -102,7 +104,7 @@ void _defaultLog(String value, {bool isError = true}) {
   if (isError || kDebugMode) {
     dev.log(value, name: 'LOGS'.orangeRed);
     // devlLogU.i('LOGS: $value');
-  }else{
+  } else {
     print(value);
   }
 }
