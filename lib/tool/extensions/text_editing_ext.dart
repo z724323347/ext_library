@@ -1,14 +1,17 @@
 import 'package:flutter/material.dart';
 
 extension LibTextEditingControllerExt on TextEditingController {
+  /// iOS 中文拼音等 IME 组字中，勿改 text/selection，否则无法选词上屏。
+  /// 参考：https://juejin.cn/post/7588084804094459942
+  bool get _isComposing => !value.composing.isCollapsed;
+
   void input(String data) {
-    if (data.isEmpty) {
+    if (data.isEmpty || _isComposing) {
       return;
     }
     if (text.isNotEmpty) {
       clear();
     }
-    selection = selection;
     String newText;
     TextSelection newSelection;
 
@@ -21,14 +24,14 @@ extension LibTextEditingControllerExt on TextEditingController {
       newSelection = TextSelection.collapsed(offset: newText.length);
     }
 
-    value = value.copyWith(
+    value = TextEditingValue(
       text: newText,
       selection: newSelection,
     );
   }
 
   void deleteSelection(TextSelection selection) {
-    if (!selection.isValid) {
+    if (_isComposing || !selection.isValid) {
       return;
     }
 
@@ -50,17 +53,22 @@ extension LibTextEditingControllerExt on TextEditingController {
   }
 
   void deleteRange(int start, int end) {
+    if (_isComposing) {
+      return;
+    }
     final newText = text.replaceRange(start, end, '');
     value = newText.isEmpty
         ? TextEditingValue.empty
         : TextEditingValue(
             text: newText,
-            selection: TextSelection.collapsed(offset: start),
+            selection: TextSelection.collapsed(
+              offset: start.clamp(0, newText.length),
+            ),
           );
   }
 
   void backspace() {
-    if (text.isEmpty) {
+    if (text.isEmpty || _isComposing) {
       return;
     }
 
