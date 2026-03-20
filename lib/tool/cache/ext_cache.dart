@@ -4,7 +4,7 @@ import 'package:ext_library/lib_ext.dart';
 import 'package:get_storage/get_storage.dart';
 
 /// GetStorage 缓存扩展
-extension AppGetStorageExt on GetStorage {
+extension LibGetStorageExt on GetStorage {
   /// 保存  vaule 、、、、
   ///
   ///   expire => 限时保存 days (默认无限期)
