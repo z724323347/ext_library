@@ -3,6 +3,7 @@ library tool_lib;
 import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/services.dart';
 
+export './cache/cache.dart';
 export './extensions/date_ext.dart';
 export './extensions/decimal_ext.dart';
 export './extensions/duration_ext.dart';
