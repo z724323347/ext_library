@@ -131,11 +131,27 @@ class _ListItemState extends State<ListItem> {
   Widget _buildTitle() {
     final MaterialColor statusColor =
         data.isSuccess ? Colors.green : Colors.red;
-    final methodColor = data.method == 'get'
-        ? Colors.black
-        : data.method == 'post'
-            ? Colors.orange
-            : Colors.white;
+    // final methodColor = data.method.toLower == 'get'
+    //     ? Colors.white
+    //     : data.method.toLower == 'post'
+    //         ? Colors.orange
+    //         : Colors.white;
+    Color methodColor = Colors.white;
+    switch (data.method.toLower) {
+      case 'get':
+        methodColor = Colors.white;
+        break;
+      case 'post':
+        methodColor = Colors.black;
+        break;
+      case 'put':
+        methodColor = Colors.purple;
+        break;
+      case 'delete':
+        methodColor = Colors.red;
+        break;
+      default:
+    }
     final Padding title = Padding(
       padding: const EdgeInsets.all(8.0),
       child: Column(
@@ -152,7 +168,7 @@ class _ListItemState extends State<ListItem> {
               ),
               const SizedBox(width: 5),
               Container(
-                padding: 2.all,
+                padding: 2.all.copyWith(left: 4, right: 4),
                 color: data.isSuccess ? Colors.greenAccent : Colors.redAccent,
                 child: Text(
                   data.method.toUpper,
