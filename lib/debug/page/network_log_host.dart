@@ -111,10 +111,6 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         const SizedBox(height: 10),
         _buildInputUrl(),
         const SizedBox(height: 40),
-        // _buildUriItem(des: '正式', uri: 'https://api.washine.tech'),
-        // _buildUriItem(des: '灰度', uri: 'https://api-gray.washine.tech'),
-        // _buildUriItem(des: '开发', uri: 'https://dev.zhiwafrog.com'),
-        // _buildUriItem(des: '测试', uri: 'https://test.zhiwafrog.com'),
         ...hostList
             .map((e) => _buildUriItem(des: e.name, uri: e.host))
             .toList(),
@@ -135,23 +131,6 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
       child: Row(
         children: [
           Expanded(
-            // child: TextField(
-            //   controller: _webController,
-            //   keyboardType: TextInputType.url,
-            //   style: TextStyle(),
-            //   decoration: InputDecoration(
-            //     hintText: '输入web地址',
-            //     hintStyle: TextStyle(
-            //         color: Colors.grey.withOpacity(0.5), fontSize: 12),
-            //     suffixIcon: InkWell(
-            //       onTap: () {
-            //         _webController.input('');
-            //         setState(() {});
-            //       },
-            //       child: const Icon(Icons.close, size: 18),
-            //     ),
-            //   ),
-            // ),
             child: TextField(
               // maxLength: 3000
               controller: _webController,
@@ -163,7 +142,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
                 hintText: '输入web地址',
                 suffixIcon: InkWell(
                   onTap: () {
-                    _webController.input('');
+                    _webController.clear();
                     setState(() {});
                   },
                   child: const Icon(Icons.close, size: 18),
@@ -228,13 +207,14 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         ),
         TextField(
           controller: controller,
+          style: TextStyle(color: Colors.black, fontSize: 16),
           decoration: InputDecoration(
             hintText: hintText,
             hintStyle:
-                TextStyle(color: Colors.grey.withOpacity(0.5), fontSize: 17),
+                TextStyle(color: Colors.grey.withOpacity(0.5), fontSize: 16),
             suffixIcon: InkWell(
               onTap: () {
-                controller.input('');
+                controller.clear();
                 setState(() {});
               },
               child: const Icon(Icons.close, size: 18),
