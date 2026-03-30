@@ -17,7 +17,7 @@ class _DebugPageState extends State<DebugPage> {
   Map<String, Widget> tabBarInfos = {
     '通用设置': NetworkLogHostPage(),
     '域名设置': NetworkLogHostPage(),
-    '输出日志': const LogDebugPage(),
+    '输出日志': LogDebugPage(),
     'Http日志': const NetworkLogMainPage(),
   };
   @override

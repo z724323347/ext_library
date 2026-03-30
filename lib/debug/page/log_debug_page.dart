@@ -1,10 +1,13 @@
 import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
-import 'package:get/get.dart';
 
 class LogDebugPage extends StatefulWidget {
-  const LogDebugPage({Key? key}) : super(key: key);
+  List<Widget>? actions;
+  LogDebugPage({
+    Key? key,
+    this.actions,
+  }) : super(key: key);
 
   static List<String> data = [];
 
@@ -36,16 +39,23 @@ class _LogDebugPageState extends State<LogDebugPage> {
       body: Stack(
         children: [
           Obx(
-            () => ctrl.listLog.isEmpty
+            () => ctrl.listLog.empty
                 ? const Center(
                     child: Text('Empty', style: TextStyle(color: Colors.red)))
                 : buildBody(),
           ),
-          buildTag().positioned(top: 10, right: 10),
-          filterTag().positioned(top: 60, right: 10),
+          actionView().positioned(top: 10, right: 10),
         ],
       ),
     );
+  }
+
+  Widget actionView() {
+    List<Widget> views = [buildTag(), filterTag()];
+    if (!widget.actions.empty) {
+      views.addAll(widget.actions.safey);
+    }
+    return Column(children: views.div(10.hGap));
   }
 
   Widget buildBody() {
@@ -224,8 +234,12 @@ class _LogDebugPageState extends State<LogDebugPage> {
                   alignment: Alignment.centerLeft,
                   child: CupertinoTextField(
                     controller: _textController,
-                    style: TextStyle(fontSize: 12),
-                    padding: 5.all,
+                    style: TextStyle(fontSize: 12, color: Colors.black),
+                    decoration: BoxDecoration(
+                      color: Colors.grey.shade100,
+                      borderRadius: 10.borderAll,
+                    ),
+                    padding: 10.all,
                     onSubmitted: (_) => ctrl.logFilter(text: _),
                     onChanged: (_) => ctrl.logFilter(text: _),
                   ),
@@ -249,8 +263,8 @@ class _LogDebugPageState extends State<LogDebugPage> {
           ),
         ).clipRRect(all: 10).pOnly(left: 20, right: 80),
         Expanded(
-          child: ctrl.filterLog.isEmpty
-              ? Text('Filter Empty ~~~~')
+          child: ctrl.filterLog.empty
+              ? const Text('Filter Empty ~~~~')
               : ListView.builder(
                   physics: const BouncingScrollPhysics(),
                   padding: EdgeInsets.zero,
