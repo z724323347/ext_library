@@ -50,7 +50,7 @@ class CacheNetImage extends ImageProvider<CacheNetImage> implements CacheKey {
           scale == other.scale;
 
   @override
-  int get hashCode => hashValues(id, scale);
+  int get hashCode => Object.hash(id, scale);
 
   @override
   ImageStreamCompleter loadBuffer(

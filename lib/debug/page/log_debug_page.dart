@@ -2,12 +2,10 @@ import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 
+// ignore: must_be_immutable
 class LogDebugPage extends StatefulWidget {
   List<Widget>? actions;
-  LogDebugPage({
-    Key? key,
-    this.actions,
-  }) : super(key: key);
+  LogDebugPage({Key? key, this.actions}) : super(key: key);
 
   static List<String> data = [];
 

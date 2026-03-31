@@ -1,5 +1,6 @@
 import 'dart:io';
 
+import 'package:auto_size_text/auto_size_text.dart';
 import 'package:ext_library/tool/tool_lib.dart';
 import 'package:ext_library/ui/toast/toast.dart';
 import 'package:flutter/material.dart';
@@ -281,7 +282,7 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
         children: [
           SizedBox(
             width: 80,
-            child: Text(
+            child: AutoSizeText(
               '$des : ',
               style: const TextStyle(color: Colors.lightBlue),
             ),

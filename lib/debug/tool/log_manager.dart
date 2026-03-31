@@ -122,6 +122,7 @@ class LogManager {
           .map((MapEntry<String, MultipartFile> e) =>
               '${e.key}:${e.value.filename}-${e.value.contentType}-${e.value.length}')
           .jsonFormat;
+      print('postFields:$postFields');
     }
     // 请求参数
     String params =
@@ -198,6 +199,8 @@ class LogManager {
           .map((MapEntry<String, MultipartFile> e) {
         return '${e.key}:${e.value.filename}-${e.value.contentType}-${e.value.length}';
       }).join(',');
+      print('postFields:$postFields');
+      print('postParams:$postParams');
     }
     // 请求参数
     String params = 'GET:\n${request.queryParameters.jsonFormat}';
