@@ -287,21 +287,17 @@ class _NetworkLogHostPageState extends State<NetworkLogHostPage> {
               style: const TextStyle(color: Colors.lightBlue),
             ),
           ),
-          Text(
+          AutoSizeText(
             uri ?? 'null',
             style: const TextStyle(color: Colors.red),
-          ),
-          const Spacer(),
-          InkWell(
-            onTap: () => libTools.copy(uri),
-            child: Container(
-              padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
-              decoration: const BoxDecoration(
-                  borderRadius: BorderRadius.all(Radius.circular(5)),
-                  color: Colors.blue),
-              child: const Text('copy', style: TextStyle(color: Colors.white)),
-            ),
-          )
+          ).expanded(),
+          Container(
+            padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 5),
+            decoration: const BoxDecoration(
+                borderRadius: BorderRadius.all(Radius.circular(5)),
+                color: Colors.blue),
+            child: const Text('copy', style: TextStyle(color: Colors.white)),
+          ).onClick(onTap: () => libTools.copy(uri))
         ],
       ),
     );
