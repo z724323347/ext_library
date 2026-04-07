@@ -1,16 +1,5 @@
-import 'dart:convert';
-
 import 'package:ext_library/lib_ext.dart';
 import 'package:http/http.dart' as http;
-
-dynamic _decodeData(List<int>? data) {
-  if (data == null) {
-    return null;
-  }
-
-  final jsonString = const Utf8Decoder().convert(data);
-  return jsonDecode(jsonString);
-}
 
 class NetworkCheckCtrl extends GetxController {
   static NetworkCheckCtrl get to => Get.find();
@@ -58,7 +47,7 @@ class NetworkCheckCtrl extends GetxController {
       return _runTest(
         uri: uri,
         rxBenchmark: httpBenchmark,
-        needDecode: true,
+        sampleCount: 3,
       );
     });
   }
@@ -95,45 +84,51 @@ class NetworkCheckCtrl extends GetxController {
     Map<String, dynamic>? headers,
     ValidateStatus? validateStatus,
     required Rx<NetworkBenchmark> rxBenchmark,
-    bool needDecode = false,
+    int sampleCount = 3,
   }) {
     rxBenchmark.value = const NetworkBenchmark(isCompleted: false);
-    final stopWatch = Stopwatch()..start();
     devLogs('uri  $uri');
-    return dio
-        .getUri<ResponseBody>(
-      uri,
-      options: Options(
-        sendTimeout: 5000.ms,
-        receiveTimeout: 5000.ms,
-        responseType: ResponseType.plain,
-        headers: headers,
-        validateStatus: validateStatus,
-      ),
-    )
-        .then((response) {
-      // 计算连接时间，这种方式存在一定误差，但目前来看是够用的
-      rxBenchmark.value = rxBenchmark.value.copyWith(
-        connectionDuration: stopWatch.elapsed,
-      );
+    final int times = sampleCount <= 0 ? 1 : sampleCount;
+    final List<Duration> costs = <Duration>[];
+    int? totalBytes;
 
-      return response.data!.stream.fold<List<int>>(
-        <int>[],
-        (previous, element) => previous..addAll(element),
-      );
-    }).then((codeUnits) {
-      rxBenchmark.value = rxBenchmark.value.copyWith(
-        networkDuration: stopWatch.elapsed,
-        totalBytes: codeUnits.length,
-      );
-
-      if (needDecode) {
-        stopWatch.reset();
-        _decodeData(codeUnits);
-        rxBenchmark.value = rxBenchmark.value.copyWith(
-          decodingDuration: stopWatch.elapsed,
-        );
+    return Future.doWhile(() async {
+      if (costs.length >= times) {
+        return false;
       }
+
+      final stopWatch = Stopwatch()..start();
+      final response = await dio.getUri(
+        uri,
+        options: Options(
+          sendTimeout: 5000.ms,
+          receiveTimeout: 5000.ms,
+          responseType: ResponseType.json,
+          headers: headers,
+          validateStatus: validateStatus,
+        ),
+      );
+      stopWatch.stop();
+      costs.add(stopWatch.elapsed);
+
+      final String? contentLength =
+          response.headers.value(Headers.contentLengthHeader);
+      totalBytes ??= int.tryParse(contentLength ?? '');
+      return true;
+    }).then((_) {
+      final int avgMs = costs.fold<int>(
+            0,
+            (sum, e) => sum + e.inMilliseconds,
+          ) ~/
+          costs.length;
+      final Duration avgDuration = Duration(milliseconds: avgMs);
+
+      rxBenchmark.value = rxBenchmark.value.copyWith(
+        connectionDuration: costs.first,
+        networkDuration: avgDuration,
+        totalBytes: totalBytes,
+        decodingDuration: null,
+      );
     }).catchError((error, stackTrace) {
       devlLogU.e('测试时出错', error, stackTrace);
       rxBenchmark.value = rxBenchmark.value.copyWith(error: error);
