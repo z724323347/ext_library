@@ -22,12 +22,12 @@ class SvgIcon extends SvgPicture {
     String? package,
     @deprecated super.color,
   }) : super.asset(
-          assetName,
-          fit: fit ?? BoxFit.contain,
-          package: package,
-          errorBuilder: (_, err, st) =>
-              _errSvgIcon(width: width, height: height, fit: fit),
-        );
+         assetName,
+         fit: fit ?? BoxFit.contain,
+         package: package,
+         errorBuilder: (_, err, st) =>
+             _errSvgIcon(width: width, height: height, fit: fit),
+       );
 
   /// 网络图片
   SvgIcon.network(
@@ -39,11 +39,27 @@ class SvgIcon extends SvgPicture {
     BoxFit? fit,
     @deprecated super.color,
   }) : super.network(
-          url,
-          fit: fit ?? BoxFit.contain,
-          errorBuilder: (_, err, st) =>
-              _errSvgIcon(width: width, height: height, fit: fit),
-        );
+         url,
+         fit: fit ?? BoxFit.contain,
+         errorBuilder: (_, err, st) =>
+             _errSvgIcon(width: width, height: height, fit: fit),
+       );
+
+  /// 本地图片
+  SvgIcon.file(
+    url, {
+    super.key,
+    super.width,
+    super.height,
+    super.colorFilter,
+    BoxFit? fit,
+    @deprecated super.color,
+  }) : super.file(
+         File(url),
+         fit: fit ?? BoxFit.contain,
+         errorBuilder: (_, err, st) =>
+             _errSvgIcon(width: width, height: height, fit: fit),
+       );
 
   /// return svg/image icon
   static Widget icon(
@@ -113,6 +129,17 @@ class SvgIcon extends SvgPicture {
         colorFilter: colorFilter,
         fit: fit,
         package: package,
+      );
+    }
+    if (svgPath.isFilePath) {
+      return SvgIcon.file(
+        svgPath,
+        key: key,
+        width: width,
+        height: height,
+        color: color,
+        colorFilter: colorFilter,
+        fit: fit,
       );
     }
     return SvgPicture.string(
