@@ -1,6 +1,7 @@
 import 'dart:async';
 
 import 'package:dio/dio.dart';
+import 'package:ext_library/lib_ext.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart' hide Response;
 
@@ -37,6 +38,8 @@ class DebugLogSer extends GetxService implements LogManager {
   final openTimer = false.obs;
 
   final RxList<LogData> listLog = RxList<LogData>([]);
+
+  final RxList<LogData> filterLog = RxList<LogData>([]);
 
   void toFps(BuildContext context) {
     openFps.value = !openFps.value;
@@ -119,4 +122,16 @@ class DebugLogSer extends GetxService implements LogManager {
 
   @override
   set logDataStream(Stream<LogData> _logDataStream) {}
+
+  void logFilter({String? text}) {
+    if (text == null || text.isEmpty) {
+      filterLog.value = listLog;
+      return;
+    }
+    filterLog.value = listLog.where((item) {
+      return item.url.toLower.contains(text.toLower) ||
+          item.params.toLower.contains(text.toLower) ||
+          item.method.toLower.contains(text.toLower);
+    }).toList();
+  }
 }

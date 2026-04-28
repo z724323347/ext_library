@@ -1,5 +1,6 @@
 import 'package:auto_size_text/auto_size_text.dart';
 import 'package:ext_library/lib_ext.dart';
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:get/get.dart';
 import 'package:mobx/mobx.dart';
@@ -17,10 +18,15 @@ class _NetworkLogMainPageState extends State<NetworkLogMainPage> {
   DebugLogSer get store => DebugLogSer.to;
   late final ReactionDisposer _disposer;
 
+  bool hasFilter = false;
+
+  late final TextEditingController _textController;
+
   @override
   void initState() {
     super.initState();
-
+    store.logFilter();
+    _textController = TextEditingController();
     _disposer = autorun((_) {
       store.listLog;
     });
@@ -45,45 +51,115 @@ class _NetworkLogMainPageState extends State<NetworkLogMainPage> {
 
   Widget buildBody() {
     return Obx(() {
-      if (store.listLog.isNotEmpty) {
-        return ListView.separated(
-            physics: const BouncingScrollPhysics(),
-            padding: EdgeInsets.zero,
-            itemBuilder: (_, int index) {
-              return ListItem(
-                index: index,
-                logData: store.listLog[index],
-              );
-            },
-            separatorBuilder: (_, int index) {
-              return Container();
-            },
-            itemCount: store.listLog.length);
-      }
-      return const Center(
-        child: Text(
-          '暂无数据',
-          style: TextStyle(fontSize: 12, color: Colors.green),
-        ),
+      final displayList = store.filterLog;
+      return Column(
+        children: [
+          _buildInput().visible(hasFilter),
+          displayList.empty
+              ? const Center(
+                  child: Text(
+                    '暂无数据',
+                    style: TextStyle(fontSize: 12, color: Colors.green),
+                  ),
+                )
+              : ListView.separated(
+                  physics: const BouncingScrollPhysics(),
+                  padding: EdgeInsets.zero,
+                  itemBuilder: (_, int index) {
+                    return ListItem(
+                      index: index,
+                      logData: displayList[index],
+                    );
+                  },
+                  separatorBuilder: (_, int index) {
+                    return Container();
+                  },
+                  itemCount: displayList.length,
+                ).expanded()
+        ],
       );
     });
   }
 
   Widget buildAction() {
+    return Column(
+      children: [
+        Container(
+          height: 32,
+          width: 32,
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+            color: Colors.orange,
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: const Icon(
+            Icons.cleaning_services_outlined,
+            color: Colors.white,
+            size: 14,
+          ),
+        ).onClick(onTap: () => store.clearLog()),
+        Container(
+          height: 32,
+          width: 32,
+          alignment: Alignment.center,
+          decoration: const BoxDecoration(
+            color: Colors.redAccent,
+            borderRadius: BorderRadius.all(Radius.circular(20)),
+          ),
+          child: const Icon(
+            Icons.search_sharp,
+            color: Colors.white,
+            size: 14,
+          ),
+        ).onClick(onTap: () {
+          hasFilter = !hasFilter;
+          if (!hasFilter) {
+            store.logFilter();
+          }
+          setState(() {});
+        })
+      ].div(10.hGap),
+    );
+  }
+
+  Widget _buildInput() {
     return Container(
-      height: 32,
-      width: 32,
-      alignment: Alignment.center,
-      decoration: const BoxDecoration(
-        color: Colors.orange,
-        borderRadius: BorderRadius.all(Radius.circular(20)),
+      height: 44,
+      width: MediaQuery.of(context).size.width,
+      child: Row(
+        children: [
+          Expanded(
+            child: Container(
+              height: 33,
+              alignment: Alignment.centerLeft,
+              child: CupertinoTextField(
+                controller: _textController,
+                style: TextStyle(fontSize: 12, color: Colors.black),
+                decoration: BoxDecoration(
+                  color: Colors.grey.shade100,
+                  borderRadius: 10.borderAll,
+                ),
+                padding: 10.all,
+                onSubmitted: (_) => store.logFilter(text: _),
+              ),
+            ),
+          ),
+          10.wGap,
+          SizedBox(
+            width: 58,
+            height: 33,
+            child: TextButton(
+              onPressed: () => store.logFilter(text: _textController.text),
+              style: ButtonStyle(
+                foregroundColor: MaterialStateProperty.all(Colors.white),
+                backgroundColor: MaterialStateProperty.all(Colors.orangeAccent),
+              ),
+              child: const Text('Search', style: TextStyle(fontSize: 12)),
+            ),
+          ),
+        ],
       ),
-      child: const Icon(
-        Icons.cleaning_services_outlined,
-        color: Colors.white,
-        size: 14,
-      ),
-    ).onClick(onTap: () => store.clearLog());
+    ).clipRRect(all: 10).pOnly(left: 20, right: 80);
   }
 }
 
