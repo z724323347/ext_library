@@ -21,6 +21,7 @@ class LogData {
     this.error,
     this.isExpand = false,
     this.duration,
+    this.bCode,
     this.time,
   });
 
@@ -57,11 +58,14 @@ class LogData {
   // 请求时间时间
   DateTime? time;
 
+  /// Business code 业务码
+  String? bCode;
+
   bool get isSuccess => errorType == null;
 
   @override
   String toString() {
-    return 'LogData{url: $url, method: $method, params: $params, paramsType: $paramsType, header: ${jsonEncode(header)}, respText: $respText, respType: $respType, respCode: $respCode, respMsg: $respMsg, errorMessage: $errorMessage, errorType: $errorType, error: $error, duration:$duration, time:$time}';
+    return 'LogData{url: $url, method: $method, params: $params, paramsType: $paramsType, header: ${jsonEncode(header)}, respText: $respText, respType: $respType, respCode: $respCode, Business_Code: $bCode respMsg: $respMsg, errorMessage: $errorMessage, errorType: $errorType, error: $error, duration:$duration, time:$time}';
   }
 }
 
@@ -101,9 +105,11 @@ class LogManager {
     final String? respCode = error.response?.statusCode.toString();
     final String? respMsg = error.response?.statusMessage.toString();
     String? respText = error.response?.data.toString();
+    dynamic businessCode;
     if (error.response?.data is Map) {
       // respText = jsonEncode(error.response?.data ?? {});
       respText = (error.response?.data as Map).jsonFormat;
+      businessCode = (error.response?.data as Map)['code'];
     }
     // 请求地址
     final String url = request.uri.toString();
@@ -148,6 +154,7 @@ class LogManager {
       header: header,
       respType: respType,
       respCode: respCode,
+      bCode: businessCode,
       respText: respText,
       respMsg: respMsg,
       errorType: errorType,
@@ -169,11 +176,13 @@ class LogManager {
     final String respType = request.responseType.toString();
     final String respCode = response.statusCode.toString();
     final String respMsg = response.statusMessage.toString();
+    dynamic businessCode;
 
     String respText = response.data.toString();
     if (response.data is Map) {
       // respText = jsonEncode(response.data);
       respText = (response.data as Map).jsonFormat;
+      businessCode = (response.data as Map)['code'];
     }
     // 请求地址
     final String url = request.uri.toString();
@@ -227,6 +236,7 @@ class LogManager {
       header: header,
       respType: respType,
       respCode: respCode,
+      bCode: '$businessCode',
       respMsg: respMsg,
       respText: respText,
       duration: duration,

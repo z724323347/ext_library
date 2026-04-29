@@ -212,6 +212,9 @@ class _ListItemState extends State<ListItem> {
     //     : data.method.toLower == 'post'
     //         ? Colors.orange
     //         : Colors.white;
+    bool httpOk =
+        data.respCode == '200' || data.bCode == '200' || data.bCode == '0';
+
     Color methodColor = Colors.white;
     switch (data.method.toLower) {
       case 'get':
@@ -280,16 +283,12 @@ class _ListItemState extends State<ListItem> {
                     ),
               ),
               const SizedBox(width: 3),
-              SizedBox(
-                width: 10,
-                height: 10,
-                child: Icon(
-                  data.isSuccess
-                      ? Icons.check_circle_outline
-                      : Icons.close_outlined,
-                  color: statusColor,
-                  size: 10,
-                ),
+              Container(
+                height: 8,
+                width: 8,
+                decoration: BoxDecoration(
+                    borderRadius: 8.borderAll,
+                    color: httpOk ? Colors.transparent : Colors.red),
               ),
               const SizedBox(width: 3),
               Text(
@@ -314,22 +313,26 @@ class _ListItemState extends State<ListItem> {
                       fontWeight: FontWeight.bold),
                 ),
               ),
-              // Container(
-              //   decoration: BoxDecoration(
-              //     color: Colors.grey,
-              //     borderRadius: 4.borderAll,
-              //   ),
-              //   margin: 10.left,
-              //   padding: 2.vertical,
-              //   child: Text(
-              //     ' 灰度: {beta:${data.header['beta']}} ',
-              //     style: Theme.of(context)
-              //         .textTheme
-              //         .headlineSmall
-              //         ?.copyWith(fontSize: 10, color: Colors.white),
-              //   ),
-              // ).visible(data.header.containsKey('beta')),
-
+              Container(
+                decoration: BoxDecoration(
+                  // color: httpOk ? Colors.green.shade300 : Colors.redAccent,
+                  borderRadius: 4.borderAll,
+                  border: Border.all(
+                      color: httpOk ? Colors.green.shade300 : Colors.redAccent,
+                      width: .5),
+                ),
+                margin: 8.left,
+                padding: 2.all,
+                child: Text(
+                  data.bCode.empty
+                      ? 'HTTP: ${data.respCode}'
+                      : '${data.bCode} ',
+                  style: TextStyle(
+                      fontSize: 8,
+                      color: httpOk ? Colors.green : Colors.red,
+                      fontWeight: FontWeight.normal),
+                ),
+              ),
               Text(
                 'start: ${data.time?.hmsDotSS}',
                 style: Theme.of(context)
