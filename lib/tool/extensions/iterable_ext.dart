@@ -131,6 +131,18 @@ extension LibList<T> on List<T>? {
     }
     return this![index.abs() % safey.length];
   }
+
+  /// 安全获取 List<T> 转为基本数据结构 List<dynamic>
+  List list(Function(T) test) {
+    if (empty) {
+      return [];
+    }
+    try {
+      return safey.map((e) => test(e)).toList();
+    } catch (e) {
+      return [];
+    }
+  }
 }
 
 extension LibIterable<E> on Iterable<E>? {
